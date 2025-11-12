@@ -1,64 +1,88 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Home, User, ClipboardList, Calendar, Settings, Menu } from "lucide-react";
+import React from "react";
+import {
+  Box,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Avatar,
+  Typography,
+  Divider,
+} from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import DescriptionIcon from "@mui/icons-material/Description";
+import SettingsIcon from "@mui/icons-material/Settings";
 
-export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true);
-
+const Sidebar = () => {
   const menuItems = [
-    { icon: <Home size={22} />, label: "Trang chủ" },
-    { icon: <User size={22} />, label: "Quản lý buổi tư vấn" },
-    { icon: <ClipboardList size={22} />, label: "Quản lý tutor/ sinh viên" },
-    { icon: <Calendar size={22} />, label: "Lịch" },
-    { icon: <Settings size={22} />, label: "Cài đặt" },
+    { text: "Trang chủ", icon: <HomeIcon /> },
+    { text: "Đăng ký buổi tư vấn", icon: <EventAvailableIcon /> },
+    { text: "Buổi tư vấn của tôi", icon: <EventNoteIcon /> },
+    { text: "Lịch", icon: <CalendarMonthIcon /> },
+    { text: "Tài liệu", icon: <DescriptionIcon /> },
+    { text: "Cài đặt", icon: <SettingsIcon /> },
   ];
 
   return (
-    <div className="flex">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="absolute top-5 left-5 z-20 bg-blue-600 text-white p-2 rounded-full shadow-lg hover:bg-blue-700 transition"
+    <Drawer
+      variant="permanent"
+      sx={{
+        width: 260,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          width: 260,
+          boxSizing: "border-box",
+          backgroundColor: "#001F3F",
+          color: "#fff",
+          borderRight: "none",
+        },
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          p: 2,
+        }}
       >
-        <Menu size={20} />
-      </button>
+        <Avatar
+          src="/avatar.png"
+          sx={{ width: 64, height: 64, mb: 1, bgcolor: "#1976d2" }}
+        />
+        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+          Minh Thu
+        </Typography>
+        <Typography variant="body2" sx={{ color: "rgba(255,255,255,0.7)" }}>
+          tutor
+        </Typography>
+      </Box>
+      <Divider sx={{ borderColor: "rgba(255,255,255,0.2)", my: 1 }} />
 
-      <motion.div
-        animate={{ width: isOpen ? 250 : 80 }}
-        className="bg-[#001b3a] text-white h-screen p-4 flex flex-col items-center rounded-r-3xl shadow-lg"
-      >
-        <motion.div
-          animate={{ opacity: isOpen ? 1 : 0 }}
-          className="mb-6 mt-10 text-center"
-        >
-          {isOpen && (
-            <div className="p-3 rounded-xl bg-blue-900 inline-block">
-              <img
-                src="https://i.pravatar.cc/50"
-                alt="avatar"
-                className="rounded-full mx-auto mb-2"
-              />
-              <p className="font-semibold">Anh Minh</p>
-              <p className="text-sm text-gray-300">A0001</p>
-            </div>
-          )}
-        </motion.div>
-
-        <ul className="flex flex-col gap-3 w-full mt-4">
-          {menuItems.map((item, i) => (
-            <li
-              key={i}
-              className="flex items-center gap-3 px-4 py-3 bg-blue-800 hover:bg-blue-700 rounded-xl cursor-pointer transition"
+      <List>
+        {menuItems.map((item, index) => (
+          <ListItem key={index} disablePadding>
+            <ListItemButton
+              sx={{
+                color: "white",
+                "&:hover": { backgroundColor: "#87CEEB", color: "#001F3F" },
+                m: "6px 12px",
+                borderRadius: "8px",
+              }}
             >
-              {item.icon}
-              {isOpen && <span className="text-sm font-medium">{item.label}</span>}
-            </li>
-          ))}
-        </ul>
-      </motion.div>
-
-      <div className="flex-1 p-10 text-gray-700">
-        <h1 className="text-2xl font-bold">Nội dung chính ở đây</h1>
-      </div>
-    </div>
+              <ListItemIcon sx={{ color: "inherit" }}>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Drawer>
   );
-}
+};
+
+export default Sidebar;
