@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { Box, Paper, Typography, Grid } from "@mui/material";
 
 // 💡 CHỈNH LẠI PATH CHO ĐÚNG VỚI PROJECT CỦA BẠN
-import Button from "../../component/Button.jsx";
-import Textfill from "../../component/Textfill.jsx";
-import Calendar from "../../component/Calendar.jsx";
+import Button from "../../components/Button.jsx";
+import Textfill from "../../components/Textfill.jsx";
+import Calendar from "../../components/Calendar.jsx";
 
 const formatDate = (date) => {
   if (!(date instanceof Date)) return "";
@@ -19,7 +19,7 @@ const RegisterConsultation = () => {
   const [form, setForm] = useState({
     title: "",
     location: "",
-    date: new Date(), // 
+    date: new Date(), //
     timeSlot: "",
     duration: "",
     quantity: "",
@@ -126,10 +126,7 @@ const RegisterConsultation = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Calendar
-                    value={form.date}
-                    onChange={handleDateChange}
-                  />
+                  <Calendar value={form.date} onChange={handleDateChange} />
                 </Box>
               )}
             </Grid>
