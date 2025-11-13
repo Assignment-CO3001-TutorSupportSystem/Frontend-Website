@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Layout from "./components/Layout.jsx";
 // import TutorPage from "./pages/TutorPage.jsx"; // Tạm thời không dùng
 import HomePage from "./pages/HomePage.jsx"; // 1. Import trang chủ
-import TutorPage from "./pages/TutorPage.jsx"; // 1. Import trang chủ
 
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
