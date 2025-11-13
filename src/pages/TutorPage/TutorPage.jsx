@@ -18,14 +18,24 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 
-import Button from "../../component/Button.jsx";
-import Pagination from "../../component/Pagination.jsx";
-import Searchbar from "../../component/Searchbar.jsx";
+import Button from "../../components/Button.jsx";
+import Pagination from "../../components/Pagination.jsx";
+import Searchbar from "../../components/Searchbar.jsx";
 
 const MOCK_SESSIONS = [
-  { time: "07:00 15/10/2025", tutor: "Kiều Minh", place: "H2-111", quantity: 3 },
+  {
+    time: "07:00 15/10/2025",
+    tutor: "Kiều Minh",
+    place: "H2-111",
+    quantity: 3,
+  },
   { time: "10:00 15/10/2025", tutor: "Minh", place: "H2-310", quantity: 4 },
-  { time: "13:30 15/10/2025", tutor: "Hồ Thị Minh Thu", place: "H1-205", quantity: 2 },
+  {
+    time: "13:30 15/10/2025",
+    tutor: "Hồ Thị Minh Thu",
+    place: "H1-205",
+    quantity: 2,
+  },
   { time: "15:30 15/10/2025", tutor: "Frieren", place: "Online", quantity: 2 },
   { time: "09:30 16/10/2025", tutor: "Frieren", place: "Online", quantity: 2 },
   { time: "13:30 16/10/2025", tutor: "Frieren", place: "Online", quantity: 2 },
@@ -69,7 +79,6 @@ const TutorSessionContent = ({ sessions = MOCK_SESSIONS }) => {
         p: 3,
       }}
     >
-
       {/* card lớn: search + bảng */}
       <Box
         sx={{
@@ -196,7 +205,7 @@ const TutorSessionContent = ({ sessions = MOCK_SESSIONS }) => {
 
             {/* Nếu Pagination của bạn là dạng nút Previous / Next */}
             <Box sx={{ display: "flex", gap: 1 }}>
-                <Pagination/>
+              <Pagination />
             </Box>
 
             {/* Hoặc nếu Pagination.jsx của bạn là dạng số trang:
