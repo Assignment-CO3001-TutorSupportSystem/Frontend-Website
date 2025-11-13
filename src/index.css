@@ -4,7 +4,7 @@ html, body, #root {
   width: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Ngăn scroll không mong muốn */
+  overflow-y: auto; /* Ngăn scroll không mong muốn */
 }
 
 #root {

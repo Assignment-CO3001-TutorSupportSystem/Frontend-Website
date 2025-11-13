@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Layout from "./components/Layout.jsx";
 // import TutorPage from "./pages/TutorPage.jsx"; // Tạm thời không dùng
 import HomePage from "./pages/HomePage.jsx"; // 1. Import trang chủ
+import TutorPage from "./pages/TutorPage/TutorPage.jsx";
+import StudentList from "./pages/TutorPage/StudentList.jsx";
+import RegisterConsultation from "./pages/TutorPage/RegisterConsultation.jsx";
 
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
@@ -44,8 +47,10 @@ function App() {
 
   return (
     <Layout user={userInfo} menuItems={menuWithActiveState}>
-      <HomePage />
+      {/* <HomePage /> */}
       {/* <TutorPage /> */}
+      {/* <StudentList /> */}
+      <RegisterConsultation />
     </Layout>
   );
 }
