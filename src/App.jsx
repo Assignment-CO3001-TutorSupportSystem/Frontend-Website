@@ -17,8 +17,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 
-// ... (const userInfo = ...)
-
+import "./App.css"
 // Cập nhật lại menu items cho giống hình
 const menuItemsData = [
   { text: "Trang chủ", icon: <HomeIcon />, route: "/" },
@@ -48,8 +47,8 @@ function App() {
   return (
     <Layout user={userInfo} menuItems={menuWithActiveState}>
       {/* <HomePage /> */}
-      {/* <TutorPage /> */}
-      {/* <StudentList /> */}
+      <TutorPage />
+      <StudentList />
       <RegisterConsultation />
     </Layout>
   );

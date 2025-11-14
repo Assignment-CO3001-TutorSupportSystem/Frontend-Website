@@ -1,0 +1,6 @@
+.textfill-input {
+  width: 100%;                      /* chiếm FULL cột grid */
+  font-size: clamp(14px, 1.1vw, 20px);
+  padding: 1vh 1vw;
+  box-sizing: border-box;
+}

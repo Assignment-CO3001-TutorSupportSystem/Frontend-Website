@@ -118,17 +118,6 @@ const TutorSessionContent = ({ sessions = MOCK_SESSIONS }) => {
             <FilterListIcon style={{ marginRight: 4 }} />
             Filter
           </Button>
-
-          <IconButton
-            sx={{ bgcolor: "white", "&:hover": { bgcolor: "#f3f6fb" } }}
-          >
-            <NotificationsNoneOutlinedIcon />
-          </IconButton>
-          <IconButton
-            sx={{ bgcolor: "white", "&:hover": { bgcolor: "#f3f6fb" } }}
-          >
-            <SettingsOutlinedIcon />
-          </IconButton>
         </Box>
 
         {/* card chứa bảng */}
@@ -195,17 +184,17 @@ const TutorSessionContent = ({ sessions = MOCK_SESSIONS }) => {
             </Typography>
 
             {/* Nếu Pagination của bạn là dạng nút Previous / Next */}
-            <Box sx={{ display: "flex", gap: 1 }}>
+            {/* <Box sx={{ display: "flex", gap: 1 }}>
                 <Pagination/>
-            </Box>
+            </Box> */}
 
-            {/* Hoặc nếu Pagination.jsx của bạn là dạng số trang:
+            {/* Hoặc nếu Pagination.jsx của bạn là dạng số trang: */}
                 <Pagination
                   currentPage={page}
                   totalPages={totalPages}
                   onPageChange={setPage}
                 />
-             */}
+            
           </Box>
         </Paper>
       </Box>

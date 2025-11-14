@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Box, Paper, Typography, Grid } from "@mui/material";
 
-// 💡 CHỈNH LẠI PATH CHO ĐÚNG VỚI PROJECT CỦA BẠN
 import Button from "../../component/Button.jsx";
 import Textfill from "../../component/Textfill.jsx";
 import Calendar from "../../component/Calendar.jsx";
@@ -19,7 +18,7 @@ const RegisterConsultation = () => {
   const [form, setForm] = useState({
     title: "",
     location: "",
-    date: new Date(), // 
+    date: new Date(),
     timeSlot: "",
     duration: "",
     quantity: "",
@@ -34,34 +33,74 @@ const RegisterConsultation = () => {
 
   const handleDateChange = (newDate) => {
     setForm((prev) => ({ ...prev, date: newDate }));
-    setCalendarOpen(false); // chọn ngày xong tự đóng lịch
+    setCalendarOpen(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit form: ", form);
-    // TODO: call API nếu cần
   };
 
   return (
-    <Box sx={{ bgcolor: "#e7f0f4", borderRadius: 4, p: 3 }}>
-      <Paper
-        elevation={0}
-        sx={{ bgcolor: "#dfecef", borderRadius: 4, p: 4 }}
-        component="form"
-        onSubmit={handleSubmit}
+    // 🔹 NỀN NGOÀI: xám nhạt, bo tròn, padding 4
+    <Box
+      sx={{
+        bgcolor: "#e7f0f4",
+        borderRadius: 4,
+        p: 4,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 3,
+        }}
       >
-        {/* tiêu đề giữa */}
         <Typography
           variant="h5"
-          sx={{ fontWeight: 700, textAlign: "center", mb: 4 }}
+          sx={{
+            fontWeight: 700,
+            textAlign: { xs: "left", md: "center" },
+            flex: 1,
+          }}
         >
           Đăng ký mở buổi tư vấn
         </Typography>
 
-        {/* Gói form ở giữa, không quá rộng */}
+        {/* pill bên phải tương tự CNPM_123, bạn đổi text tuỳ ý */}
+        <Box
+          sx={{
+            bgcolor: "#002554",
+            color: "white",
+            px: 3,
+            py: 0.7,
+            borderRadius: 999,
+            fontWeight: 600,
+            ml: 2,
+            whiteSpace: "nowrap",
+          }}
+        >
+          Tutor
+        </Box>
+      </Box>
+
+      {/* 🔹 CARD CHÍNH: dùng Paper giống card bảng của StudentList */}
+      <Paper
+        elevation={0}
+        sx={{
+          borderRadius: 2,
+          bgcolor: "#ffffff",
+          p: 3,
+          maxWidth: 1100,
+          mx: "auto",
+        }}
+        component="form"
+        onSubmit={handleSubmit}
+      >
+        {/* Gói form ở giữa, tương tự width bảng */}
         <Box sx={{ maxWidth: 900, mx: "auto" }}>
-          {/* 3 cột × 2 hàng */}
           <Grid container spacing={3}>
             {/* Hàng 1 */}
             <Grid item xs={12} md={4}>
@@ -104,8 +143,6 @@ const RegisterConsultation = () => {
             {/* Ngày mở + calendar toggle */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Ngày mở</Typography>
-
-              {/* Ô hiển thị ngày */}
               <Box
                 onClick={() => setCalendarOpen((open) => !open)}
                 sx={{ cursor: "pointer" }}
@@ -117,7 +154,6 @@ const RegisterConsultation = () => {
                 />
               </Box>
 
-              {/* Calendar nằm trong flow → trang kéo xuống bình thường */}
               {calendarOpen && (
                 <Box
                   sx={{
@@ -126,10 +162,7 @@ const RegisterConsultation = () => {
                     justifyContent: "center",
                   }}
                 >
-                  <Calendar
-                    value={form.date}
-                    onChange={handleDateChange}
-                  />
+                  <Calendar value={form.date} onChange={handleDateChange} />
                 </Box>
               )}
             </Grid>
@@ -145,7 +178,7 @@ const RegisterConsultation = () => {
             </Grid>
           </Grid>
 
-          {/* Nút đăng ký */}
+          {/* Nút đăng ký – style giống nút Filter/Pagination */}
           <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
             <Button
               type="submit"
