@@ -1,7 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Button,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 // Import các icon bạn cần cho Header
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -9,22 +15,8 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
-/**
- * Component Header (AppBar)
- *
- * @param {object} props
- * @param {function} props.onMenuClick - Hàm callback để gọi khi nhấn nút 'burger' menu (để bật/tắt Sidebar)
- */
-const Header = ({ onMenuClick }) => {
+const HeaderBeforeLogin = () => {
   const navigate = useNavigate();
-  const { logout } = useAuth();
-
-  const handleLogout = () => {
-    logout();
-    showToast("Đăng xuất thành công! Tạm biệt.", "success");
-    navigate("/");
-  };
-
   return (
     <AppBar
       position="fixed"
@@ -36,16 +28,6 @@ const Header = ({ onMenuClick }) => {
       }}
     >
       <Toolbar>
-        {/* Nút 'burger' để bật/tắt Sidebar */}
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={onMenuClick} // Gọi hàm từ props
-          sx={{ mr: 2 }} // Hiển thị trên tất cả kích thước màn hình
-        >
-          <MenuIcon />
-        </IconButton>
         {/* Logo Bách Khoa (Ví dụ) */}
         <Box
           component="img"
@@ -53,7 +35,6 @@ const Header = ({ onMenuClick }) => {
           sx={{
             width: 40,
             height: 35,
-            mr: 1.5,
             borderRadius: 1, // Bo góc nhẹ (tùy chọn)
             display: { xs: "none", sm: "block" }, // Ẩn logo trên di động
             objectFit: "contain", // Giữ tỷ lệ hình ảnh
@@ -63,14 +44,14 @@ const Header = ({ onMenuClick }) => {
         <Typography
           variant="h6"
           component="div"
-          sx={{ fontWeight: "bold", fontSize: "1rem" }}
+          sx={{ ml: 3, fontWeight: "bold", fontSize: "1rem" }}
         >
           Tư vấn
         </Typography>
         <Typography
           variant="h6"
           component="div"
-          sx={{ ml: 3, opacity: 0.7, fontSize: "1rem" }}
+          sx={{ ml: 3, fontWeight: "bold", fontSize: "1rem" }}
         >
           Điều khiển
         </Typography>
@@ -82,15 +63,30 @@ const Header = ({ onMenuClick }) => {
         <IconButton color="inherit">
           <ChatBubbleOutlineIcon />
         </IconButton>
-        <IconButton color="inherit">
-          <PersonOutlineIcon />
-        </IconButton>
-        <IconButton color="inherit" onClick={handleLogout}>
-          <ExitToAppIcon />
-        </IconButton>
+        <Button
+          variant="h6"
+          component="div"
+          onClick={() => navigate("/login")}
+          sx={{
+            ml: 3,
+            bgcolor: "#ffffffff",
+            color: "black",
+            fontWeight: "bold",
+            borderRadius: 3,
+            py: 0.7,
+            textTransform: "none",
+            fontSize: "1rem",
+            "&:hover": {
+              color: "white",
+              bgcolor: "#120f25ff",
+            },
+          }}
+        >
+          Đăng nhập
+        </Button>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Header;
+export default HeaderBeforeLogin;

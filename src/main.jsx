@@ -14,7 +14,7 @@ const theme = createTheme({
   palette: {
     // Bạn có thể định nghĩa màu sắc chung ở đây
     primary: {
-      main: "#001F3F", // Màu xanh navy chính
+      main: "#001F3F",
     },
   },
 });

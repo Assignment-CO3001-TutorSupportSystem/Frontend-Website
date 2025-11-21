@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
+import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Paper,
@@ -7,9 +10,56 @@ import {
   Button,
   Container,
   Stack,
+  Alert,
 } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const LoginPage = () => {
+  const { login } = useAuth();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
+
+  // Tạo State để lưu input
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // Thêm state hiện/ẩn mật khẩu cho UX tốt hơn
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Validate email cơ bản
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  // Hàm xử lý Đăng nhập
+  const handleLogin = async () => {
+    if (!email || !password) {
+      showToast("Vui lòng nhập đầy đủ thông tin!", "warning");
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      showToast("Email không hợp lệ!", "warning");
+      return;
+    }
+
+    const res = await login(email, password);
+
+    if (!res.success) {
+      showToast(res.message, "error");
+      return;
+    }
+
+    showToast("Đăng nhập thành công! Chào mừng bạn trở lại.", "success");
+    navigate("/home");
+  };
+
+  // Xử lý khi nhấn Enter
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
     <Container
       maxWidth={false}
@@ -17,12 +67,12 @@ const LoginPage = () => {
       sx={{
         minHeight: "100vh",
         display: "flex",
-        justifyContent: "flex-end", // đẩy sang phải
-        alignItems: "center", // căn giữa dọc
-        pr: "15%", // padding-right = 5%
+        justifyContent: "flex-end",
+        alignItems: "center",
+        pr: "15%",
         background: "url('/images/loginhcmut.jpg')",
-        backgroundSize: "cover", // hình phủ toàn bộ container
-        backgroundPosition: "center", // căn giữa hình
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         p: 2,
       }}
     >
@@ -36,9 +86,9 @@ const LoginPage = () => {
           mr: "5%",
           overflow: "hidden",
           backgroundImage: "rgba(255, 255, 255, 0.95)",
-          bgcolor: "rgba(255, 255, 255, 0.3)", // nền bán trong suốt
-          backdropFilter: "blur(10px)", // blur nền phía sau
-          WebkitBackdropFilter: "blur(10px)", // cho Safari
+          bgcolor: "rgba(255, 255, 255, 0.3)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
           height: "80vh",
@@ -70,19 +120,23 @@ const LoginPage = () => {
               placeholder="Email"
               type="email"
               variant="outlined"
+              // Gắn state vào
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={handleKeyDown}
               sx={{
                 "& .MuiOutlinedInput-root": {
-                  borderRadius: 4, // bo góc như Paper
-                  bgcolor: "rgba(255, 255, 255, 0.3)", // nền bán trong suốt
-                  backdropFilter: "blur(10px)", // blur nền phía sau
-                  WebkitBackdropFilter: "blur(10px)", // hỗ trợ Safari
-                  border: "1px solid rgba(255, 255, 255, 0.5)", // optional: viền nhẹ
+                  borderRadius: 4,
+                  bgcolor: "rgba(255, 255, 255, 0.3)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.5)",
                   "& fieldset": {
-                    border: "none", // bỏ viền mặc định nếu muốn
+                    border: "none",
                   },
                 },
                 "& .MuiInputLabel-root": {
-                  color: "white", // label nổi bật trên nền
+                  color: "white",
                 },
               }}
             />
@@ -91,25 +145,30 @@ const LoginPage = () => {
               placeholder="Password"
               type="password"
               variant="outlined"
+              // Gắn state vào
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={handleKeyDown}
               sx={{
                 "& .MuiOutlinedInput-root": {
-                  borderRadius: 4, // bo góc như Paper
-                  bgcolor: "rgba(255, 255, 255, 0.3)", // nền bán trong suốt
-                  backdropFilter: "blur(10px)", // blur nền phía sau
-                  WebkitBackdropFilter: "blur(10px)", // hỗ trợ Safari
-                  border: "1px solid rgba(255, 255, 255, 0.5)", // optional: viền nhẹ
+                  borderRadius: 4,
+                  bgcolor: "rgba(255, 255, 255, 0.3)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255, 255, 255, 0.5)",
                   "& fieldset": {
-                    border: "none", // bỏ viền mặc định nếu muốn
+                    border: "none",
                   },
                 },
                 "& .MuiInputLabel-root": {
-                  color: "white", // label nổi bật trên nền
+                  color: "white",
                 },
               }}
             />
             <Button
               variant="contained"
               size="large"
+              onClick={handleLogin}
               sx={{
                 bgcolor: "#001F3F",
                 color: "white",
