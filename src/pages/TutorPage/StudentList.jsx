@@ -13,15 +13,38 @@ import {
   Stack,
 } from "@mui/material";
 
-import Searchbar from "../../component/Searchbar.jsx";
-import Pagination from "../../component/Pagination.jsx";
+import FilterListIcon from "@mui/icons-material/FilterList";
+
+import Button from "../../components/Button.jsx";
+import Searchbar from "../../components/Searchbar.jsx";
+import Pagination from "../../components/Pagination.jsx";
 
 const MOCK_STUDENTS = [
-  { name: "John",  mssv: "1234561", email: "john@gmail.com",  country: "Việt Nam" },
-  { name: "Doe",   mssv: "1234562", email: "doe@gmail.com",   country: "Singapore" },
-  { name: "Sam",   mssv: "1234563", email: "sam@gmail.com",   country: "Việt Nam" },
-  { name: "Kumar", mssv: "1234564", email: "kumar@gmail.com", country: "Việt Nam" },
-  { name: "Sanjay",mssv: "1234565", email: "sanjay@gmail.com",country: "Australia" },
+  {
+    name: "John",
+    mssv: "1234561",
+    email: "john@gmail.com",
+    country: "Việt Nam",
+  },
+  {
+    name: "Doe",
+    mssv: "1234562",
+    email: "doe@gmail.com",
+    country: "Singapore",
+  },
+  { name: "Sam", mssv: "1234563", email: "sam@gmail.com", country: "Việt Nam" },
+  {
+    name: "Kumar",
+    mssv: "1234564",
+    email: "kumar@gmail.com",
+    country: "Việt Nam",
+  },
+  {
+    name: "Sanjay",
+    mssv: "1234565",
+    email: "sanjay@gmail.com",
+    country: "Australia",
+  },
 ];
 
 const ITEMS_PER_PAGE = 5;

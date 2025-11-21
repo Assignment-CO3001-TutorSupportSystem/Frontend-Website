@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { Box, Paper, Typography, Grid } from "@mui/material";
 import dayjs from "dayjs";
 
-import Button from "../../component/Button.jsx";
-import Textfill from "../../component/Textfill.jsx";
-import Calendar from "../../component/Calendar.jsx";
+// 💡 CHỈNH LẠI PATH CHO ĐÚNG VỚI PROJECT CỦA BẠN
+import Button from "../../components/Button.jsx";
+import Textfill from "../../components/Textfill.jsx";
+import Calendar from "../../components/Calendar.jsx";
 
 const formatDate = (date) => {
   if (!date) return "";
@@ -139,7 +140,13 @@ const RegisterConsultation = () => {
               </Box>
 
               {calendarOpen && (
-                <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
+                <Box
+                  sx={{
+                    mt: 2,
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
                   <Calendar value={form.date} onChange={handleDateChange} />
                 </Box>
               )}

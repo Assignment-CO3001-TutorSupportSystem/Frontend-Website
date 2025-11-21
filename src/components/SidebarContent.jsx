@@ -34,7 +34,7 @@ const SidebarContent = ({ user, menuItems }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        height: "100%", // Đảm bảo chiếm toàn bộ chiều cao
+        height: "100vh", // Đảm bảo chiếm toàn bộ chiều cao
         backgroundColor: "#001F3F", // Màu nền từ file gốc
         color: "#fff",
       }}
@@ -45,13 +45,20 @@ const SidebarContent = ({ user, menuItems }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          p: 2,
-          paddingTop: 4, // Thêm chút đệm
+          p: "2vh",
+          paddingTop: "4vh", // Thêm chút đệm
         }}
       >
         <Avatar
-          src={user.avatarUrl} // Lấy từ prop
-          sx={{ width: 64, height: 64, mb: 1, bgcolor: "#1976d2" }}
+          src={user.avatarUrl}
+          sx={{
+            width: "5vw", // 15% chiều rộng viewport
+            height: "5vw", // giữ tỉ lệ vuông
+            maxWidth: 80, // không vượt quá 80px
+            maxHeight: 80,
+            mb: 1,
+            bgcolor: "#1976d2",
+          }}
         />
         <Typography variant="h6" sx={{ fontWeight: "bold" }}>
           {user.name} {/* Lấy từ prop */}
