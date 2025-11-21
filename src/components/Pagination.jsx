@@ -25,10 +25,11 @@ export default function PaginationControls({
       justifyContent="space-between"
       alignItems="center"
       sx={{ width: '100%', mt: 3 }}
+      gap={2}
     >
       <FixedButton
         variant="secondary"
-        width={140}
+        width={100}
         height={44}
         onClick={onPrevious}
         disabled={disablePrevious}
@@ -36,10 +37,10 @@ export default function PaginationControls({
       >
         Previous
       </FixedButton>
-
+      
       <FixedButton
         variant="secondary"
-        width={140}
+        width={100}
         height={44}
         onClick={onNext}
         disabled={disableNext}

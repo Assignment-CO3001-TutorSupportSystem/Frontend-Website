@@ -6,6 +6,8 @@ import TutorPage from "./pages/TutorPage/TutorPage.jsx";
 import StudentList from "./pages/TutorPage/StudentList.jsx";
 import RegisterConsultation from "./pages/TutorPage/RegisterConsultation.jsx";
 import LoginPage from "./pages/Login.jsx";
+import Management from "./pages/DPVPages/Management.jsx";
+import StudentManagement from "./pages/DPVPages/StudentManagement.jsx";
 
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
@@ -47,13 +49,16 @@ function App() {
   };
 
   return (
-    // <Layout user={userInfo} menuItems={menuWithActiveState}>
-    //   {/* <HomePage /> */}
-    //   <TutorPage />
-    //   {/* <StudentList /> */}
-    //   {/* <RegisterConsultation /> */}
-    // </Layout>
-    <LoginPage />
+    <Layout user={userInfo} menuItems={menuWithActiveState}>
+      {/* <HomePage /> */}
+      {/* <TutorPage /> */}
+      {/* <Management /> */}
+      <StudentManagement />
+
+      {/* <StudentList /> */}
+      {/* <RegisterConsultation /> */}
+    </Layout>
+    // <LoginPage />
   );
 }
 
