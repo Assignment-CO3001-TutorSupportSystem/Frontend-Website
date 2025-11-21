@@ -1,24 +1,22 @@
 // src/pages/TutorPage/RegisterConsultationContent.jsx
 import React, { useState } from "react";
 import { Box, Paper, Typography, Grid } from "@mui/material";
+import dayjs from "dayjs";
 
 import Button from "../../component/Button.jsx";
 import Textfill from "../../component/Textfill.jsx";
 import Calendar from "../../component/Calendar.jsx";
 
 const formatDate = (date) => {
-  if (!(date instanceof Date)) return "";
-  const d = date.getDate().toString().padStart(2, "0");
-  const m = (date.getMonth() + 1).toString().padStart(2, "0");
-  const y = date.getFullYear();
-  return `${d}/${m}/${y}`;
+  if (!date) return "";
+  return dayjs(date).format("DD/MM/YYYY"); // dùng dayjs format
 };
 
 const RegisterConsultation = () => {
   const [form, setForm] = useState({
     title: "",
     location: "",
-    date: new Date(),
+    date: dayjs(),
     timeSlot: "",
     duration: "",
     quantity: "",
@@ -26,9 +24,8 @@ const RegisterConsultation = () => {
 
   const [calendarOpen, setCalendarOpen] = useState(false);
 
-  const handleFieldChange = (field) => (eOrValue) => {
-    const value = eOrValue?.target?.value ?? eOrValue ?? "";
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const handleFieldChange = (field) => (e) => {
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
   };
 
   const handleDateChange = (newDate) => {
@@ -42,7 +39,6 @@ const RegisterConsultation = () => {
   };
 
   return (
-    // 🔹 NỀN NGOÀI: xám nhạt, bo tròn, padding 4
     <Box
       sx={{
         bgcolor: "#e7f0f4",
@@ -69,7 +65,6 @@ const RegisterConsultation = () => {
           Đăng ký mở buổi tư vấn
         </Typography>
 
-        {/* pill bên phải tương tự CNPM_123, bạn đổi text tuỳ ý */}
         <Box
           sx={{
             bgcolor: "#002554",
@@ -86,7 +81,6 @@ const RegisterConsultation = () => {
         </Box>
       </Box>
 
-      {/* 🔹 CARD CHÍNH: dùng Paper giống card bảng của StudentList */}
       <Paper
         elevation={0}
         sx={{
@@ -99,10 +93,8 @@ const RegisterConsultation = () => {
         component="form"
         onSubmit={handleSubmit}
       >
-        {/* Gói form ở giữa, tương tự width bảng */}
         <Box sx={{ maxWidth: 900, mx: "auto" }}>
           <Grid container spacing={3}>
-            {/* Hàng 1 */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Tên buổi tư vấn</Typography>
               <Textfill
@@ -130,7 +122,6 @@ const RegisterConsultation = () => {
               />
             </Grid>
 
-            {/* Hàng 2 */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Địa điểm</Typography>
               <Textfill
@@ -140,28 +131,15 @@ const RegisterConsultation = () => {
               />
             </Grid>
 
-            {/* Ngày mở + calendar toggle */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Ngày mở</Typography>
-              <Box
-                onClick={() => setCalendarOpen((open) => !open)}
-                sx={{ cursor: "pointer" }}
-              >
-                <Textfill
-                  value={formatDate(form.date)}
-                  onChange={() => {}}
-                  readOnly
-                />
+
+              <Box onClick={() => setCalendarOpen((o) => !o)} sx={{ cursor: "pointer" }}>
+                <Textfill value={formatDate(form.date)} readOnly />
               </Box>
 
               {calendarOpen && (
-                <Box
-                  sx={{
-                    mt: 2,
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
+                <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
                   <Calendar value={form.date} onChange={handleDateChange} />
                 </Box>
               )}
@@ -178,13 +156,13 @@ const RegisterConsultation = () => {
             </Grid>
           </Grid>
 
-          {/* Nút đăng ký – style giống nút Filter/Pagination */}
           <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
             <Button
               type="submit"
+              width={140}
+              height={45}
               style={{
                 borderRadius: 999,
-                padding: "10px 26px",
                 backgroundColor: "#006571",
                 color: "#ffffff",
                 fontWeight: 600,

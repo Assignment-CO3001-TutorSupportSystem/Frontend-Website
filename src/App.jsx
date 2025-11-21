@@ -5,14 +5,13 @@ import HomePage from "./pages/HomePage.jsx"; // 1. Import trang chủ
 import TutorPage from "./pages/TutorPage/TutorPage.jsx"; 
 import StudentList from "./pages/TutorPage/StudentList.jsx";
 import RegisterConsultation from "./pages/TutorPage/RegisterConsultation.jsx";
-
+import TutorStudentManagementPage from "./pages/Admin/TutorStudentPage.jsx";
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PeopleIcon from "@mui/icons-material/People";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import SettingsIcon from "@mui/icons-material/Settings";
-
 // (Các icon khác nếu bạn muốn thêm vào menu)
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
@@ -47,9 +46,10 @@ function App() {
   return (
     <Layout user={userInfo} menuItems={menuWithActiveState}>
       {/* <HomePage /> */}
-      <TutorPage />
-      <StudentList />
+      {/* <TutorPage />
+      <StudentList /> */}
       <RegisterConsultation />
+      {/* <TutorStudentManagementPage /> */}
     </Layout>
   );
 }
