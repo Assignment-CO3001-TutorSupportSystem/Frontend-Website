@@ -7,7 +7,8 @@ import StudentList from "./pages/TutorPage/StudentList.jsx";
 import RegisterConsultation from "./pages/TutorPage/RegisterConsultation.jsx";
 import TutorStudentManagementPage from "./pages/Admin/TutorStudentPage.jsx";
 import LoginPage from "./pages/Login.jsx";
-
+import AccountSetting from "./pages/AccountSetting/AccSetting.jsx";
+import AccountProfile from "./pages/AccountSetting/AccProfile.jsx";
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -46,23 +47,15 @@ function App() {
   };
 
   return (
-<<<<<<< HEAD
     <Layout user={userInfo} menuItems={menuWithActiveState}>
       {/* <HomePage /> */}
       {/* <TutorPage />
       <StudentList /> */}
-      <RegisterConsultation />
+      {/* <RegisterConsultation /> */}
+      <AccountSetting />
+      {/* <AccountProfile /> */}
       {/* <TutorStudentManagementPage /> */}
     </Layout>
-=======
-    // <Layout user={userInfo} menuItems={menuWithActiveState}>
-    //   {/* <HomePage /> */}
-    //   <TutorPage />
-    //   {/* <StudentList /> */}
-    //   {/* <RegisterConsultation /> */}
-    // </Layout>
-    <LoginPage />
->>>>>>> 3a0d79c4cf662f418e601b5ced8485b92ba8f360
   );
 }
 
