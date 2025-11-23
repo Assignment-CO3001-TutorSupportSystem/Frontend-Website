@@ -1,6 +1,7 @@
 // src/pages/TutorPage/RegisterConsultationContent.jsx
 import React, { useState } from "react";
 import { Box, Paper, Typography, Grid } from "@mui/material";
+import dayjs from "dayjs";
 
 // 💡 CHỈNH LẠI PATH CHO ĐÚNG VỚI PROJECT CỦA BẠN
 import Button from "../../components/Button.jsx";
@@ -8,18 +9,15 @@ import Textfill from "../../components/Textfill.jsx";
 import Calendar from "../../components/Calendar.jsx";
 
 const formatDate = (date) => {
-  if (!(date instanceof Date)) return "";
-  const d = date.getDate().toString().padStart(2, "0");
-  const m = (date.getMonth() + 1).toString().padStart(2, "0");
-  const y = date.getFullYear();
-  return `${d}/${m}/${y}`;
+  if (!date) return "";
+  return dayjs(date).format("DD/MM/YYYY"); // dùng dayjs format
 };
 
 const RegisterConsultation = () => {
   const [form, setForm] = useState({
     title: "",
     location: "",
-    date: new Date(), //
+    date: dayjs(),
     timeSlot: "",
     duration: "",
     quantity: "",
@@ -27,43 +25,77 @@ const RegisterConsultation = () => {
 
   const [calendarOpen, setCalendarOpen] = useState(false);
 
-  const handleFieldChange = (field) => (eOrValue) => {
-    const value = eOrValue?.target?.value ?? eOrValue ?? "";
-    setForm((prev) => ({ ...prev, [field]: value }));
+  const handleFieldChange = (field) => (e) => {
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
   };
 
   const handleDateChange = (newDate) => {
     setForm((prev) => ({ ...prev, date: newDate }));
-    setCalendarOpen(false); // chọn ngày xong tự đóng lịch
+    setCalendarOpen(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("submit form: ", form);
-    // TODO: call API nếu cần
   };
 
   return (
-    <Box sx={{ bgcolor: "#e7f0f4", borderRadius: 4, p: 3 }}>
-      <Paper
-        elevation={0}
-        sx={{ bgcolor: "#dfecef", borderRadius: 4, p: 4 }}
-        component="form"
-        onSubmit={handleSubmit}
+    <Box
+      sx={{
+        bgcolor: "#e7f0f4",
+        borderRadius: 4,
+        p: 4,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mb: 3,
+        }}
       >
-        {/* tiêu đề giữa */}
         <Typography
           variant="h5"
-          sx={{ fontWeight: 700, textAlign: "center", mb: 4 }}
+          sx={{
+            fontWeight: 700,
+            textAlign: { xs: "left", md: "center" },
+            flex: 1,
+          }}
         >
           Đăng ký mở buổi tư vấn
         </Typography>
 
-        {/* Gói form ở giữa, không quá rộng */}
+        <Box
+          sx={{
+            bgcolor: "#002554",
+            color: "white",
+            px: 3,
+            py: 0.7,
+            borderRadius: 999,
+            fontWeight: 600,
+            ml: 2,
+            whiteSpace: "nowrap",
+          }}
+        >
+          Tutor
+        </Box>
+      </Box>
+
+      <Paper
+        elevation={0}
+        sx={{
+          borderRadius: 2,
+          bgcolor: "#ffffff",
+          p: 3,
+          maxWidth: 1100,
+          mx: "auto",
+        }}
+        component="form"
+        onSubmit={handleSubmit}
+      >
         <Box sx={{ maxWidth: 900, mx: "auto" }}>
-          {/* 3 cột × 2 hàng */}
           <Grid container spacing={3}>
-            {/* Hàng 1 */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Tên buổi tư vấn</Typography>
               <Textfill
@@ -91,7 +123,6 @@ const RegisterConsultation = () => {
               />
             </Grid>
 
-            {/* Hàng 2 */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Địa điểm</Typography>
               <Textfill
@@ -101,23 +132,13 @@ const RegisterConsultation = () => {
               />
             </Grid>
 
-            {/* Ngày mở + calendar toggle */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Ngày mở</Typography>
 
-              {/* Ô hiển thị ngày */}
-              <Box
-                onClick={() => setCalendarOpen((open) => !open)}
-                sx={{ cursor: "pointer" }}
-              >
-                <Textfill
-                  value={formatDate(form.date)}
-                  onChange={() => {}}
-                  readOnly
-                />
+              <Box onClick={() => setCalendarOpen((o) => !o)} sx={{ cursor: "pointer" }}>
+                <Textfill value={formatDate(form.date)} readOnly />
               </Box>
 
-              {/* Calendar nằm trong flow → trang kéo xuống bình thường */}
               {calendarOpen && (
                 <Box
                   sx={{
@@ -142,13 +163,13 @@ const RegisterConsultation = () => {
             </Grid>
           </Grid>
 
-          {/* Nút đăng ký */}
           <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
             <Button
               type="submit"
+              width={140}
+              height={45}
               style={{
                 borderRadius: 999,
-                padding: "10px 26px",
                 backgroundColor: "#006571",
                 color: "#ffffff",
                 fontWeight: 600,

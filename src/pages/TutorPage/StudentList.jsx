@@ -1,9 +1,11 @@
+// src/pages/StudentList.jsx
 import React, { useState } from "react";
 import {
   Box,
   Paper,
   Typography,
   Table,
+  TableHead,
   TableRow,
   TableCell,
   TableBody,
@@ -68,119 +70,148 @@ const StudentList = ({ students = MOCK_STUDENTS }) => {
   };
 
   return (
-    // nền xám nhạt bo tròn như hình
     <Box
       sx={{
-        bgcolor: "#f1f1f1",
+        bgcolor: "#e7f0f4",
         borderRadius: 4,
-        p: 4,
+        p: 3,
       }}
     >
-      {/* tiêu đề + mã lớp */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          mb: 3,
-        }}
-      >
-        <Typography
-          variant="h5"
-          sx={{ fontWeight: 700, textAlign: "center", flex: 1 }}
-        >
-          Danh sách sinh viên
-        </Typography>
-
+      <Box sx={{ maxWidth: 1200, mx: "auto" }}>
+        {/* Hàng trên: CNPM_123 bên trái, ô search bên phải */}
         <Box
           sx={{
-            bgcolor: "#c9a46b",
-            color: "white",
-            px: 3,
-            py: 0.7,
-            borderRadius: 999,
-            fontWeight: 600,
-            ml: 2,
-            whiteSpace: "nowrap",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            mb: 3,
+            gap: 2,
+            flexWrap: "wrap",
           }}
         >
-          CNPM_123
-        </Box>
-      </Box>
+          {/* Tag CNPM_123 bên trái */}
+          <Box
+            sx={{
+              bgcolor: "#002554",
+              color: "white",
+              px: 3,
+              py: 1,
+              borderRadius: 999,
+              fontWeight: 600,
+              fontSize: 16,
+              whiteSpace: "nowrap",
+            }}
+          >
+            CNPM_123
+          </Box>
 
-      {/* search + filter */}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 2,
-          mb: 2.5,
-        }}
-      >
-        <Box sx={{ flex: 1 }}>
-          <Searchbar
-            placeholder="Tìm kiếm sinh viên..."
-            value={search}
-            onChange={handleSearchChange}
-          />
-        </Box>
-      </Box>
-
-      {/* card bảng */}
-      <Paper
-        elevation={0}
-        sx={{
-          borderRadius: 2,
-          overflow: "hidden",
-          bgcolor: "#ffffff",
-        }}
-      >
-        {/* header bảng – vàng nhạt */}
-        <Box
-          sx={{
-            bgcolor: "#f4e7cf",
-            px: 3,
-            py: 1.5,
-          }}
-        >
-          <Box sx={{ display: "flex" }}>
-            <Box sx={{ width: "30%", fontWeight: 600 }}>Họ và tên</Box>
-            <Box sx={{ width: "15%", fontWeight: 600 }}>MSSV</Box>
-            <Box sx={{ width: "35%", fontWeight: 600 }}>Email</Box>
-            <Box sx={{ width: "20%", fontWeight: 600 }}>Quốc gia</Box>
+          {/* Searchbar bên phải */}
+          <Box
+            sx={{
+              flex: 1,
+              maxWidth: 420,
+              minWidth: 260,
+              ml: "auto",
+            }}
+          >
+            <Searchbar
+              placeholder="Tìm kiếm sinh viên..."
+              value={search}
+              onChange={handleSearchChange}
+            />
           </Box>
         </Box>
 
-        {/* body bảng */}
-        <Box sx={{ px: 1 }}>
-          <Table size="small">
-            <TableBody>
-              {paginated.map((st, idx) => (
-                <TableRow key={idx}>
-                  <TableCell width="30%">
-                    <Stack direction="row" spacing={1.5} alignItems="center">
-                      <Avatar>{st.name[0]}</Avatar>
-                      <Typography>{st.name}</Typography>
-                    </Stack>
-                  </TableCell>
-                  <TableCell width="15%">{st.mssv}</TableCell>
-                  <TableCell width="35%">{st.email}</TableCell>
-                  <TableCell width="20%">{st.country}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Box>
+        {/* Card bảng sinh viên */}
+        <Paper
+          elevation={0}
+          sx={{
+            borderRadius: 4,
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            bgcolor: "#f5f8fb",
+          }}
+        >
+          {/* Thanh dài màu xanh đậm: tiêu đề danh sách */}
+          <Box
+            sx={{
+              bgcolor: "#002554",
+              color: "white",
+              px: 3,
+              py: 1.5,
+            }}
+          >
+            <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
+              Danh sách sinh viên
+            </Typography>
+          </Box>
 
-        {/* Pagination – dùng component của bạn */}
-        <Box sx={{ px: 3, py: 1.5 }}>
-          <Pagination
-            currentPage={page}
-            totalPages={totalPages}
-            onPageChange={(newPage) => setPage(newPage)}
-          />
-        </Box>
-      </Paper>
+          {/* Bảng dữ liệu */}
+          <Box sx={{ px: 3, py: 1, overflowX: "auto" }}>
+            <Table
+              size="small"
+              sx={{
+                minWidth: 720, // tránh bị bóp quá nhỏ
+              }}
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell sx={{ fontWeight: 600 }}>Họ và tên</TableCell>
+                  <TableCell sx={{ fontWeight: 600 }}>MSSV</TableCell>
+                  <TableCell sx={{ fontWeight: 600 }}>Email</TableCell>
+                  <TableCell sx={{ fontWeight: 600 }}>Quốc gia</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {paginated.map((st, idx) => (
+                  <TableRow key={idx}>
+                    <TableCell>
+                      <Stack direction="row" spacing={1.5} alignItems="center">
+                        <Avatar>{st.name[0]}</Avatar>
+                        <Typography>{st.name}</Typography>
+                      </Stack>
+                    </TableCell>
+                    <TableCell>{st.mssv}</TableCell>
+                    <TableCell>{st.email}</TableCell>
+                    <TableCell>{st.country}</TableCell>
+                  </TableRow>
+                ))}
+                {paginated.length === 0 && (
+                  <TableRow>
+                    <TableCell colSpan={4}>
+                      <Typography align="center">
+                        Không tìm thấy sinh viên nào.
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </Box>
+
+          {/* Pagination */}
+          <Box
+            sx={{
+              px: 3,
+              py: 1.5,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" sx={{ color: "#607189" }}>
+              Trang {page}/{totalPages}
+            </Typography>
+
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={(newPage) => setPage(newPage)}
+            />
+          </Box>
+        </Paper>
+      </Box>
     </Box>
   );
 };

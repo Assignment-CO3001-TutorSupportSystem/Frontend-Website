@@ -1,24 +1,7 @@
-import React from 'react';
-import { Stack } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import FixedButton from './Button.jsx';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
-/**
- * PaginationControls – Cụm điều khiển Previous / Next cho bảng
- * -----------------------------------------------------------
- * Props:
- * - onPrevious: hàm xử lý khi nhấn Previous
- * - onNext: hàm xử lý khi nhấn Next
- * - disablePrevious: boolean (mặc định false)
- * - disableNext: boolean (mặc định false)
- */
-export default function PaginationControls({
-  onPrevious,
-  onNext,
-  disablePrevious = false,
-  disableNext = false,
-}) {
+export default function BasicPagination() {
   return (
     <Stack
       direction="row"
