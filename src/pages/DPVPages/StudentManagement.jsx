@@ -32,7 +32,7 @@ const sampleStudents = [
     { id: "2311240", name: "Hồ Thị Minh Thu", email: "thu@example.com", tutor: "Tutor 3", department: "Địa chất" },
 ];
 
-export default function StudentManagement() {
+const StudentManagement = () => {
     const [page, setPage] = useState(0);
     const pageSize = 5; // items per page
     const totalPages = Math.max(1, Math.ceil(sampleStudents.length / pageSize));
@@ -150,3 +150,5 @@ export default function StudentManagement() {
         </Box>
     );
 }
+
+export default StudentManagement;

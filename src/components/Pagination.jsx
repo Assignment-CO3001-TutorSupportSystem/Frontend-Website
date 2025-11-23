@@ -1,30 +1,39 @@
-import Pagination from '@mui/material/Pagination';
+import React from 'react';
 import Stack from '@mui/material/Stack';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import FixedButton from './Button.jsx';
 
-export default function BasicPagination() {
+// A small previous/next control used across pages.
+// Props:
+// - onPrevious: () => void
+// - onNext: () => void
+// - disablePrevious: boolean
+// - disableNext: boolean
+export default function Pagination({ onPrevious, onNext, disablePrevious = false, disableNext = false }) {
   return (
     <Stack
       direction="row"
-      justifyContent="space-between"
+      justifyContent="center"
       alignItems="center"
-      sx={{ width: '100%', mt: 3 }}
+      sx={{ width: '100%', mt: 1 }}
       gap={2}
     >
       <FixedButton
         variant="secondary"
-        width={100}
-        height={44}
+        width={110}
+        height={40}
         onClick={onPrevious}
         disabled={disablePrevious}
         icon={<ArrowBackIosNewIcon fontSize="small" />}
       >
         Previous
       </FixedButton>
-      
+
       <FixedButton
         variant="secondary"
-        width={100}
-        height={44}
+        width={110}
+        height={40}
         onClick={onNext}
         disabled={disableNext}
         icon={<ArrowForwardIosIcon fontSize="small" />}

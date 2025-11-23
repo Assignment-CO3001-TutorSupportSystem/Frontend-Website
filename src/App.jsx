@@ -8,6 +8,7 @@ import RegisterConsultation from "./pages/TutorPage/RegisterConsultation.jsx";
 import LoginPage from "./pages/Login.jsx";
 import Management from "./pages/DPVPages/Management.jsx";
 import StudentManagement from "./pages/DPVPages/StudentManagement.jsx";
+import SessionManagement from "./pages/DPVPages/SessionManagement.jsx";
 
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
@@ -53,7 +54,8 @@ function App() {
       {/* <HomePage /> */}
       {/* <TutorPage /> */}
       {/* <Management /> */}
-      <StudentManagement />
+      {/* <StudentManagement /> */}
+      <SessionManagement />
 
       {/* <StudentList /> */}
       {/* <RegisterConsultation /> */}
