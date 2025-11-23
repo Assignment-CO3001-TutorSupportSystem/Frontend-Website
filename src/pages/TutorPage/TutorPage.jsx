@@ -193,17 +193,19 @@ const TutorSessionContent = ({ sessions = MOCK_SESSIONS }) => {
             </Typography>
 
             {/* Nếu Pagination của bạn là dạng nút Previous / Next */}
+            {/* <Box sx={{ display: "flex", gap: 1 }}>
+                <Pagination/>
+            </Box> */}
             <Box sx={{ display: "flex", gap: 1 }}>
               <Pagination />
             </Box>
 
             {/* Hoặc nếu Pagination.jsx của bạn là dạng số trang: */}
-                <Pagination
-                  currentPage={page}
-                  totalPages={totalPages}
-                  onPageChange={setPage}
-                />
-            
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              onPageChange={setPage}
+            />
           </Box>
         </Paper>
       </Box>

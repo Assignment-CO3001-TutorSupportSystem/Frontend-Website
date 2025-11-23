@@ -1,7 +1,13 @@
 // TutorStudentManagementPage.jsx
+<<<<<<< HEAD
+import React from "react";
+import { Box, Typography, Stack } from "@mui/material";
+import FixedButton from "../../components/Button.jsx"; // đường dẫn tùy cấu trúc project của bạn
+=======
 import React from 'react';
 import { Box, Typography, Stack } from '@mui/material';
-import FixedButton from '../../component/Button.jsx'; // đường dẫn tùy cấu trúc project của bạn
+import FixedButton from '../../components/Button.jsx'; // đường dẫn tùy cấu trúc project của bạn
+>>>>>>> feature/huyen
 
 export default function TutorStudentManagementPage({
   onManageTutor,
@@ -11,8 +17,8 @@ export default function TutorStudentManagementPage({
     <Box
       sx={{
         flex: 1,
-        bgcolor: '#E8F1F3',              // nền xanh nhạt giống hình
-        minHeight: '100vh',              // nếu đã có layout khác thì có thể bỏ
+        bgcolor: "#E8F1F3", // nền xanh nhạt giống hình
+        minHeight: "100vh", // nếu đã có layout khác thì có thể bỏ
         p: 4,
       }}
     >
@@ -20,7 +26,7 @@ export default function TutorStudentManagementPage({
       <Box
         sx={{
           maxWidth: 900,
-          mx: 'auto',
+          mx: "auto",
         }}
       >
         {/* Tiêu đề trang */}
@@ -28,7 +34,7 @@ export default function TutorStudentManagementPage({
           variant="h6"
           sx={{
             fontWeight: 600,
-            color: '#0F2437',
+            color: "#0F2437",
             mb: 6,
           }}
         >
@@ -38,25 +44,17 @@ export default function TutorStudentManagementPage({
         {/* Vùng chứa 2 nút, đặt giữa màn hình */}
         <Box
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
+            display: "flex",
+            justifyContent: "center",
             mt: 6,
           }}
         >
           <Stack spacing={4} alignItems="center">
-            <FixedButton
-              width={320}
-              height={64}
-              onClick={onManageTutor}
-            >
+            <FixedButton width={320} height={64} onClick={onManageTutor}>
               Quản lý Tutor
             </FixedButton>
 
-            <FixedButton
-              width={320}
-              height={64}
-              onClick={onManageStudent}
-            >
+            <FixedButton width={320} height={64} onClick={onManageStudent}>
               Quản lý Sinh viên
             </FixedButton>
           </Stack>

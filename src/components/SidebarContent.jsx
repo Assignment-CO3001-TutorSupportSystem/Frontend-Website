@@ -15,7 +15,7 @@ import {
 import HomeIcon from "@mui/icons-material/Home";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 // ... (các icon khác)
-import SettingsIcon from "@mui/icons-material/Settings";
+import SettingsIcon from "@mui/icons-material/Settings"; 
 
 /**
  * Component SidebarContent
@@ -28,6 +28,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
  * @param {Array<object>} props.menuItems - Mảng các mục menu (VD: [{ text: "Trang chủ", icon: <HomeIcon /> }])
  */
 const SidebarContent = ({ user, menuItems }) => {
+  
   return (
     // Box này sẽ được đặt bên trong <Drawer> của Layout
     <Box
