@@ -5,12 +5,10 @@ import HomePage from "./pages/HomePage.jsx"; // 1. Import trang chủ
 import TutorPage from "./pages/TutorPage/TutorPage.jsx";
 import StudentList from "./pages/TutorPage/StudentList.jsx";
 import RegisterConsultation from "./pages/TutorPage/RegisterConsultation.jsx";
-<<<<<<< HEAD
-import TutorStudentManagementPage from "./pages/Admin/TutorStudentPage.jsx";
-=======
 import LoginPage from "./pages/Login.jsx";
-
->>>>>>> 3a0d79c4cf662f418e601b5ced8485b92ba8f360
+import TutorList from "./pages/Admin/TutorList.jsx";
+import TutorPendingList from "./pages/Admin/TutorPendingList.jsx";
+import TutorDetail from "./pages/Admin/TutorDetail.jsx";
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -49,23 +47,12 @@ function App() {
   };
 
   return (
-<<<<<<< HEAD
     <Layout user={userInfo} menuItems={menuWithActiveState}>
       {/* <HomePage /> */}
-      {/* <TutorPage />
-      <StudentList /> */}
-      <RegisterConsultation />
-      {/* <TutorStudentManagementPage /> */}
+      <TutorList/>
+      <TutorPendingList/>
+      <TutorDetail/>
     </Layout>
-=======
-    // <Layout user={userInfo} menuItems={menuWithActiveState}>
-    //   {/* <HomePage /> */}
-    //   <TutorPage />
-    //   {/* <StudentList /> */}
-    //   {/* <RegisterConsultation /> */}
-    // </Layout>
-    <LoginPage />
->>>>>>> 3a0d79c4cf662f418e601b5ced8485b92ba8f360
   );
 }
 
