@@ -6,6 +6,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import SettingsIcon from "@mui/icons-material/Settings";
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 // 1. Định nghĩa các Item dùng chung
 const COMMON_ITEMS = [
@@ -24,16 +25,26 @@ const TUTOR_SPECIFIC = [
 
 const STUDENT_SPECIFIC = [
   // ... các item
+  { text: "Đăng ký buổi tư vấn", icon: <AssignmentIcon />, route: "/register" },
+  { text: "Buổi tư vấn của tôi", icon: <EventNoteIcon />, route: "/sessions" },
+  { text: "Lịch", icon: <CalendarMonthIcon />, route: "/calendar" },
+  { text: "Tài liệu", icon: <LibraryBooksIcon />, route: "/documents" },
+  { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
 
 // 3. Item riêng của ADMIN
 const ADMIN_SPECIFIC = [
   //   { text: "Quản lý User", icon: <PeopleIcon />, route: "/admin/users" },
+  { text: "Quản lý buổi tư vấn", icon: <AssignmentIcon /> },
+  { text: "Quản lý tutor/ sinh viên", icon: <EventNoteIcon /> },
+  { text: "Lịch", icon: <CalendarMonthIcon /> },
   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
 
 const OTHER_SPECIFIC = [
   // ... các item
+  { text: "Thống kê báo cáo", icon: <AnalyticsIcon /> },
+  { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
 
 export const MENUS = {

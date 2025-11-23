@@ -31,8 +31,12 @@ const useMockCrud = (initialData, storageKey) => {
   const addItem = (item) => {
     setLoading(true);
     setTimeout(() => {
-      const newItem = { ...item, id: Date.now() }; // Tạo ID giả
-      const newData = [newItem, ...data];
+      const maxId =
+        data.length > 0
+          ? Math.max(...data.map((student) => Number(student.id)))
+          : 0;
+      const newItem = { ...item, id: maxId + 1 };
+      const newData = [newItem, ...data]; // Hoặc [...data, newItem] nếu muốn thêm xuống dưới
       syncToStorage(newData);
       setLoading(false);
       showToast("Thêm mới thành công!", "success");
