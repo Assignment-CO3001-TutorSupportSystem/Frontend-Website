@@ -1,7 +1,7 @@
-import React from 'react';
-import { TextField, InputAdornment, IconButton, Box } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
+import React from "react";
+import { TextField, InputAdornment, IconButton, Box } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ClearIcon from "@mui/icons-material/Clear";
 
 /**
  * SearchBar – Ô tìm kiếm tái sử dụng
@@ -19,11 +19,11 @@ export default function SearchBar({
   onChange,
   onSearch,
   onClear,
-  placeholder = 'Tìm kiếm...',
+  placeholder = "Tìm kiếm...",
   width = 320,
 }) {
   return (
-    <Box sx={{ width, display: 'flex', alignItems: 'center' }}>
+    <Box sx={{ width, display: "flex", alignItems: "center" }}>
       <TextField
         fullWidth
         size="small"
@@ -31,30 +31,33 @@ export default function SearchBar({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        onKeyDown={(e) => e.key === 'Enter' && onSearch && onSearch()}
+        onKeyDown={(e) => e.key === "Enter" && onSearch && onSearch()}
         sx={{
-          backgroundColor: '#fff',
-          borderRadius: '12px',
-          '& .MuiOutlinedInput-root': {
-            borderRadius: '12px',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
-            '& fieldset': { border: '1px solid #D0D7D9' },
-            '&:hover fieldset': { borderColor: '#0F6B73' },
-            '&.Mui-focused fieldset': { borderColor: '#0F6B73', borderWidth: '2px' },
+          backgroundColor: "#fff",
+          borderRadius: "12px",
+          "& .MuiOutlinedInput-root": {
+            borderRadius: "12px",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+            "& fieldset": { border: "1px solid #D0D7D9" },
+            "&:hover fieldset": { borderColor: "#0F6B73" },
+            "&.Mui-focused fieldset": {
+              borderColor: "#0F6B73",
+              borderWidth: "2px",
+            },
           },
         }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
               <IconButton onClick={onSearch}>
-                <SearchIcon sx={{ color: '#0F6B73' }} />
+                <SearchIcon sx={{ color: "#0F6B73" }} />
               </IconButton>
             </InputAdornment>
           ),
           endAdornment: value && (
             <InputAdornment position="end">
               <IconButton onClick={onClear}>
-                <ClearIcon sx={{ color: '#777' }} />
+                <ClearIcon sx={{ color: "#777" }} />
               </IconButton>
             </InputAdornment>
           ),
