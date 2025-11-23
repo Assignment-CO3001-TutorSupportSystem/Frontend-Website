@@ -5,16 +5,18 @@ import HomePage from "./pages/HomePage.jsx"; // 1. Import trang chủ
 import TutorPage from "./pages/TutorPage/TutorPage.jsx";
 import StudentList from "./pages/TutorPage/StudentList.jsx";
 import RegisterConsultation from "./pages/TutorPage/RegisterConsultation.jsx";
-import TutorStudentManagementPage from "./pages/Admin/TutorStudentPage.jsx";
 import LoginPage from "./pages/Login.jsx";
-import AccountSetting from "./pages/AccountSetting/AccSetting.jsx";
-import AccountProfile from "./pages/AccountSetting/AccProfile.jsx";
+import Management from "./pages/DPVPages/Management.jsx";
+import StudentManagement from "./pages/DPVPages/StudentManagement.jsx";
+import SessionManagement from "./pages/DPVPages/SessionManagement.jsx";
+
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import PeopleIcon from "@mui/icons-material/People";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import SettingsIcon from "@mui/icons-material/Settings";
+
 // (Các icon khác nếu bạn muốn thêm vào menu)
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";

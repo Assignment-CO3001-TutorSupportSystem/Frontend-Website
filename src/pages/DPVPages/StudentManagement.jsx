@@ -74,7 +74,7 @@ const sampleStudents = [
   },
 ];
 
-export default function StudentManagement() {
+const StudentManagement = () => {
   const [page, setPage] = useState(0);
   const pageSize = 5; // items per page
   const totalPages = Math.max(1, Math.ceil(sampleStudents.length / pageSize));
@@ -230,4 +230,6 @@ export default function StudentManagement() {
       </Box>
     </Box>
   );
-}
+};
+
+export default StudentManagement;
