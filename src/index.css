@@ -1,0 +1,13 @@
+/* src/index.css hoặc src/App.css */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto; /* Ngăn scroll không mong muốn */
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
