@@ -7,6 +7,8 @@ import StudentList from "./pages/TutorPage/StudentList.jsx";
 import RegisterConsultation from "./pages/TutorPage/RegisterConsultation.jsx";
 import TutorStudentManagementPage from "./pages/Admin/TutorStudentPage.jsx";
 import LoginPage from "./pages/Login.jsx";
+import Management from "./pages/DPVPages/Management.jsx";
+import StudentManagement from "./pages/DPVPages/StudentManagement.jsx";
 
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
@@ -18,7 +20,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 
-import "./App.css"
+import "./App.css";
 // Cập nhật lại menu items cho giống hình
 const menuItemsData = [
   { text: "Trang chủ", icon: <HomeIcon />, route: "/" },
@@ -46,23 +48,14 @@ function App() {
   };
 
   return (
-<<<<<<< HEAD
     <Layout user={userInfo} menuItems={menuWithActiveState}>
       {/* <HomePage /> */}
-      {/* <TutorPage />
-      <StudentList /> */}
-      <RegisterConsultation />
-      {/* <TutorStudentManagementPage /> */}
+      {/* <TutorPage /> */}
+      {/* <StudentList /> */}
+      {/* <RegisterConsultation /> */}
+      <TutorStudentManagementPage />
     </Layout>
-=======
-    // <Layout user={userInfo} menuItems={menuWithActiveState}>
-    //   {/* <HomePage /> */}
-    //   <TutorPage />
-    //   {/* <StudentList /> */}
-    //   {/* <RegisterConsultation /> */}
-    // </Layout>
-    <LoginPage />
->>>>>>> 3a0d79c4cf662f418e601b5ced8485b92ba8f360
+    // <LoginPage />
   );
 }
 
