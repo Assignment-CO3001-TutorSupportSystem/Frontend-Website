@@ -7,9 +7,8 @@ import StudentList from "./pages/TutorPage/StudentList.jsx";
 import RegisterConsultation from "./pages/TutorPage/RegisterConsultation.jsx";
 import TutorStudentManagementPage from "./pages/Admin/TutorStudentPage.jsx";
 import LoginPage from "./pages/Login.jsx";
-import Management from "./pages/DPVPages/Management.jsx";
-import StudentManagement from "./pages/DPVPages/StudentManagement.jsx";
-
+import AccountSetting from "./pages/AccountSetting/AccSetting.jsx";
+import AccountProfile from "./pages/AccountSetting/AccProfile.jsx";
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
