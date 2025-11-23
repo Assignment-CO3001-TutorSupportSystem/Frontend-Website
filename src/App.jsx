@@ -16,6 +16,7 @@ import Management from "./pages/DPVPages/Management.jsx";
 import StudentManagement from "./pages/DPVPages/StudentManagement.jsx";
 import SessionManagement from "./pages/DPVPages/SessionManagement.jsx";
 import RegisterNewPage from "./pages/Student/RigisterNewPage.jsx";
+import AccProfile from "./pages/AccountSetting/AccProfile.jsx";
 
 // Import các icon bạn cần cho menu
 import HomeIcon from "@mui/icons-material/Home";
@@ -65,7 +66,8 @@ function App() {
       {/* <TutorPage /> */}
       {/* <StudentList /> */}
       {/* <RegisterConsultation /> */}
-      <TutorStudentManagementPage />
+      {/* <TutorStudentManagementPage /> */}
+      <AccProfile />
     </Layout>
     // <LoginPage />
   );
