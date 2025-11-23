@@ -10,7 +10,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 // 1. Định nghĩa các Item dùng chung
 const COMMON_ITEMS = [
   { text: "Trang chủ", icon: <HomeIcon />, route: "/home" },
-  { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
 
 // 2. Item riêng của TUTOR

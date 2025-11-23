@@ -32,19 +32,6 @@
 // import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 
 // import "./App.css";
-// // Cập nhật lại menu items cho giống hình
-// const menuItemsData = [
-//   { text: "Trang chủ", icon: <HomeIcon />, path: "/" },
-//   {
-//     text: "Đăng ký buổi tư vấn",
-//     icon: <AssignmentIcon />,
-//     path: "/dang-ky-moi",
-//   },
-//   { text: "Buổi tư vấn của tôi", icon: <EventNoteIcon />, path: "/sessions" },
-//   { text: "Lịch", icon: <CalendarMonthIcon />, path: "/calendar" },
-//   { text: "Tài liệu", icon: <LibraryBooksIcon />, path: "/documents" },
-//   { text: "Cài đặt", icon: <SettingsIcon />, path: "/settings" },
-// ];
 
 // function App() {
 //   // 2. Đặt trang chủ làm trang active

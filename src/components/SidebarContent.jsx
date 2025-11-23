@@ -17,6 +17,7 @@ import {
 const SidebarContent = () => {
   const { user } = useAuth();
   const location = useLocation(); // Hook để biết đường dẫn hiện tại (URL)
+
   if (!user) return null; // Nếu chưa có user (chưa login)
 
   // 1. Lấy menu dựa trên role của user (admin, tutor, student...)

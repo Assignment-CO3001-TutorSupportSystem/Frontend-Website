@@ -7,6 +7,16 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import Login from "../pages/Login";
 import HomePage from "../pages/HomePage";
 import TutorPage from "../pages/TutorPage/TutorPage";
+import StudentList from "../pages/TutorPage/StudentList.jsx";
+import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
+import Management from "../pages/DPVPages/Management.jsx";
+import StudentManagement from "../pages/DPVPages/StudentManagement.jsx";
+import SessionManagement from "../pages/DPVPages/SessionManagement.jsx";
+import RegisterNewPage from "../pages/Student/RigisterNewPage.jsx";
+import AccProfile from "../pages/AccountSetting/AccProfile.jsx";
+import AccSetting from "../pages/AccountSetting/AccSetting.jsx";
+import TutorDetail from "../pages/Admin/TutorDetail.jsx";
+
 const NotFound = () => <h2>404 - Không tìm thấy trang</h2>;
 
 const router = createBrowserRouter([
@@ -42,6 +52,10 @@ const router = createBrowserRouter([
           // Các trang con dùng chung Layout
           { path: "/home", element: <HomePage /> },
           { path: "/tutorPage", element: <TutorPage /> },
+          { path: "/studentList", element: <StudentList /> },
+          { path: "/studentManagement", element: <StudentManagement /> },
+          { path: "/SessionManagement", element: <SessionManagement /> },
+
           // .... thêm routes cho các trang mới
         ],
       },
