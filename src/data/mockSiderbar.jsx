@@ -19,6 +19,7 @@ const TUTOR_SPECIFIC = [
   { text: "Buổi tư vấn của tôi", icon: <EventNoteIcon />, route: "/sessions" },
   { text: "Lịch", icon: <CalendarMonthIcon />, route: "/calendar" },
   { text: "Tài liệu", icon: <LibraryBooksIcon />, route: "/documents" },
+  { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
   // ... các item khác
 ];
 
@@ -29,6 +30,7 @@ const STUDENT_SPECIFIC = [
 // 3. Item riêng của ADMIN
 const ADMIN_SPECIFIC = [
   //   { text: "Quản lý User", icon: <PeopleIcon />, route: "/admin/users" },
+  { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
 
 const OTHER_SPECIFIC = [

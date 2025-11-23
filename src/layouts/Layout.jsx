@@ -69,9 +69,6 @@ function Layout() {
         >
           {/* VÙNG NỘI DUNG THAY ĐỔI */}
           <Box sx={{ flexGrow: 1, p: 3 }}>
-            {/* Thay thế {children} bằng <Outlet />.
-               context={{ isSidebarOpen }} giúp truyền state xuống các trang con nếu cần.
-            */}
             <Outlet context={{ isSidebarOpen }} />
           </Box>
 

@@ -30,8 +30,8 @@ const Header = ({ onMenuClick }) => {
       position="fixed"
       sx={{
         width: "100%",
-        zIndex: (theme) => theme.zIndex.drawer + 1, // Luôn ở trên Sidebar
-        backgroundColor: "#001F3F", // Màu xanh đậm
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        backgroundColor: "#001F3F",
         color: "#fff",
       }}
     >
@@ -41,40 +41,40 @@ const Header = ({ onMenuClick }) => {
           color="inherit"
           aria-label="open drawer"
           edge="start"
-          onClick={onMenuClick} // Gọi hàm từ props
-          sx={{ mr: 2 }} // Hiển thị trên tất cả kích thước màn hình
+          onClick={onMenuClick}
+          sx={{ mr: 2 }}
         >
           <MenuIcon />
         </IconButton>
         {/* Logo Bách Khoa (Ví dụ) */}
         <Box
           component="img"
-          src="/images/logo.png" // Bạn cần đặt logo vào thư mục /public
+          src="/images/logo.png"
           sx={{
             width: 40,
             height: 35,
             mr: 1.5,
-            borderRadius: 1, // Bo góc nhẹ (tùy chọn)
-            display: { xs: "none", sm: "block" }, // Ẩn logo trên di động
-            objectFit: "contain", // Giữ tỷ lệ hình ảnh
+            borderRadius: 1,
+            display: { xs: "none", sm: "block" },
+            objectFit: "contain",
           }}
         />
         {/* Các mục điều hướng */}
         <Typography
           variant="h6"
           component="div"
-          sx={{ fontWeight: "bold", fontSize: "1rem" }}
+          sx={{ ml: 3, fontWeight: "bold", fontSize: "1rem" }}
         >
           Tư vấn
         </Typography>
         <Typography
           variant="h6"
           component="div"
-          sx={{ ml: 3, opacity: 0.7, fontSize: "1rem" }}
+          sx={{ ml: 3, fontWeight: "bold", fontSize: "1rem" }}
         >
           Điều khiển
         </Typography>
-        <Box sx={{ flexGrow: 1 }} /> {/* Đẩy các icon sang phải */}
+        <Box sx={{ flexGrow: 1 }} />
         {/* Các icon bên phải */}
         <IconButton color="inherit">
           <NotificationsIcon />
