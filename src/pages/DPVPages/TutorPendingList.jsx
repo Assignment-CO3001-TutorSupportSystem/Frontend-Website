@@ -1,4 +1,4 @@
-// src/pages/TutorPendingList.jsx
+// src/pages/Admin/TutorPendingList.jsx
 import React, { useState } from "react";
 import {
   Box,
@@ -15,21 +15,12 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 import Button from "../../components/Button.jsx";
 import Pagination from "../../components/Pagination.jsx";
-
-// >>> HARD CODE DỮ LIỆU Ở ĐÂY <<<
-const REQUESTS = [
-  { time: "07:00 15/10/25", name: "Kiều Minh", subject: "Giải tích" },
-  { time: "10:00 15/10/25", name: "Minh", subject: "Data" },
-  { time: "15:00 15/10/25", name: "Hồ Thị Minh Thu", subject: "Hardware" },
-  { time: "15:30 15/10/25", name: "Frieren", subject: "Online" },
-  { time: "15:30 15/10/25", name: "Frieren", subject: "Online" },
-  { time: "15:30 15/10/25", name: "Frieren", subject: "Online" },
-  { time: "15:30 15/10/25", name: "Frieren", subject: "Online" },
-];
-
+import {
+  TUTOR_PENDING_REQUESTS as REQUESTS,
+} from "../../data/tutorPendingData.js";   // ✅ BẬT LẠI IMPORT
 const ITEMS_PER_PAGE = 7;
 
-export default function TutorPendingList() {
+export default function TutorPendingList({ onBack }) {
   const [page, setPage] = useState(1);
 
   const totalPages = Math.max(1, Math.ceil(REQUESTS.length / ITEMS_PER_PAGE));
@@ -39,12 +30,32 @@ export default function TutorPendingList() {
   return (
     <Box sx={{ bgcolor: "#E7F0F4", borderRadius: 4, p: 3 }}>
       <Box sx={{ maxWidth: 1100, mx: "auto" }}>
-        <Typography
-          variant="h6"
-          sx={{ fontWeight: 700, mb: 3, color: "#002554" }}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mb: 3,
+            gap: 2,
+          }}
         >
-          Danh sách chờ duyệt
-        </Typography>
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: 700, color: "#002554", flex: 1 }}
+          >
+            Danh sách chờ duyệt
+          </Typography>
+
+          {onBack && (
+            <Button
+              variant="secondary"
+              width={100}
+              height={36}
+              onClick={onBack}
+            >
+              Quay lại
+            </Button>
+          )}
+        </Box>
 
         <Paper
           elevation={0}
@@ -56,7 +67,6 @@ export default function TutorPendingList() {
             bgcolor: "#FFFFFF",
           }}
         >
-          {/* Header */}
           <Box
             sx={{
               bgcolor: "#FFFFFF",
@@ -70,7 +80,6 @@ export default function TutorPendingList() {
             </Typography>
           </Box>
 
-          {/* Bảng */}
           <Box sx={{ px: 3, py: 1, overflowX: "auto" }}>
             <Table size="small" sx={{ minWidth: 720 }}>
               <TableHead>
@@ -125,7 +134,6 @@ export default function TutorPendingList() {
             </Table>
           </Box>
 
-          {/* Pagination */}
           <Box
             sx={{
               px: 3,

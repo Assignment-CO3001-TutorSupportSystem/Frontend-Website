@@ -8,15 +8,16 @@ import Login from "../pages/Login";
 import HomePage from "../pages/HomePage";
 import TutorPage from "../pages/TutorPage/TutorPage";
 import StudentList from "../pages/TutorPage/StudentList.jsx";
-import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
-import TutorList from "../pages/Admin/TutorList.jsx";
+// import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
+import TutorManagement from "../pages/DPVPages/TutorManagement.jsx";
 import Management from "../pages/DPVPages/Management.jsx";
 import StudentManagement from "../pages/DPVPages/StudentManagement.jsx";
 import SessionManagement from "../pages/DPVPages/SessionManagement.jsx";
 import RegisterNewPage from "../pages/Student/RigisterNewPage.jsx";
 import AccProfile from "../pages/AccountSetting/AccProfile.jsx";
 import AccSetting from "../pages/AccountSetting/AccSetting.jsx";
-import TutorDetail from "../pages/Admin/TutorDetail.jsx";
+import TutorDetail from "../pages/DPVPages/TutorDetail.jsx";
+import TutorPendingList from "../pages/DPVPages/TutorPendingList.jsx";
 
 const NotFound = () => <h2>404 - Không tìm thấy trang</h2>;
 
@@ -55,10 +56,12 @@ const router = createBrowserRouter([
           { path: "/tutorPage", element: <TutorPage /> },
           { path: "/studentList", element: <StudentList /> },
           { path: "/management", element: <Management /> },
-          { path: "/tutorManagement", element: <TutorList /> },
           { path: "/studentManagement", element: <StudentManagement /> },
           { path: "/SessionManagement", element: <SessionManagement /> },
           { path: "/AccSetting", element: <AccSetting /> },
+          { path: "/tutorManagement", element: <TutorManagement /> },
+          { path: "/tutorDetail/:sessionId", element: <TutorDetail /> },
+          { path: "/tutorPendingList", element: <TutorPendingList /> },
 
 
           // .... thêm routes cho các trang mới
