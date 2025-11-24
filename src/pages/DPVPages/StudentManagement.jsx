@@ -153,13 +153,13 @@ const StudentManagement = () => {
             component={Paper}
             sx={{
               boxShadow: "none",
-              border: "2px solid #b9e6f7",
+              border: "none",
               borderRadius: 1,
             }}
           >
             <Table
               size="small"
-              sx={{ "& td, & th": { borderBottom: "1px dotted #7fcfe6" } }}
+              sx={{ "& td, & th": { borderBottom: "1px dotted #dbdbdbff" } }}
             >
               <TableHead>
                 <TableRow>

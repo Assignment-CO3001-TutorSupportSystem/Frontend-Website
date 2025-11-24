@@ -35,8 +35,8 @@ const STUDENT_SPECIFIC = [
 // 3. Item riêng của ADMIN
 const ADMIN_SPECIFIC = [
   //   { text: "Quản lý User", icon: <PeopleIcon />, route: "/admin/users" },
-  { text: "Quản lý buổi tư vấn", icon: <AssignmentIcon /> },
-  { text: "Quản lý tutor/ sinh viên", icon: <EventNoteIcon /> },
+  { text: "Quản lý buổi tư vấn", icon: <AssignmentIcon /> , route: "/SessionManagement"},
+  { text: "Quản lý tutor/ sinh viên", icon: <EventNoteIcon />, route: "/management" },
   { text: "Lịch", icon: <CalendarMonthIcon /> },
   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
@@ -47,9 +47,15 @@ const OTHER_SPECIFIC = [
   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
 
+// const COORDINATOR_SPECIFIC = [
+//   { text: "Quản lý", icon: <AssignmentIcon />, route: "/management" },
+//   { text: "Lịch", icon: <CalendarMonthIcon />, route: "/calendar" },
+//   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
+// ];
 export const MENUS = {
   admin: [...COMMON_ITEMS, ...ADMIN_SPECIFIC],
   tutor: [...COMMON_ITEMS, ...TUTOR_SPECIFIC],
   student: [...COMMON_ITEMS, ...STUDENT_SPECIFIC],
   other: [...COMMON_ITEMS, ...OTHER_SPECIFIC],
+  // coordinator: [...COMMON_ITEMS, ...COORDINATOR_SPECIFIC],
 };

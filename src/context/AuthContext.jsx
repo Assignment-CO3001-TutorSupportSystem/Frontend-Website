@@ -34,6 +34,13 @@ async function mockLoginAPI(email, password) {
       id: "2313342",
       name: "Minh Thu",
     },
+    // {
+    //   email: "dpv@gmail.com",
+    //   password: "123",
+    //   role: "coordinator",
+    //   id: "D00001",
+    //   name: "Điều phối viên",
+    // },
   ];
 
   const foundUser = USERS.find((u) => u.email === email);
@@ -99,6 +106,7 @@ export const AuthProvider = ({ children }) => {
   const isStaff = () => hasRole("staff");
   const isTutor = () => hasRole("tutor");
   const isStudent = () => hasRole("student");
+  // const isCoordinator = () => hasRole("coordinator");
 
   return (
     <AuthContext.Provider
@@ -110,6 +118,8 @@ export const AuthProvider = ({ children }) => {
         isAdmin,
         isStaff,
         isTutor,
+        // isCoordinator,
+        isStudent,
         loading,
       }}
     >

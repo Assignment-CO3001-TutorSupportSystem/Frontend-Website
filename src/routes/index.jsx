@@ -9,6 +9,7 @@ import HomePage from "../pages/HomePage";
 import TutorPage from "../pages/TutorPage/TutorPage";
 import StudentList from "../pages/TutorPage/StudentList.jsx";
 import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
+import TutorList from "../pages/Admin/TutorList.jsx";
 import Management from "../pages/DPVPages/Management.jsx";
 import StudentManagement from "../pages/DPVPages/StudentManagement.jsx";
 import SessionManagement from "../pages/DPVPages/SessionManagement.jsx";
@@ -53,9 +54,12 @@ const router = createBrowserRouter([
           { path: "/home", element: <HomePage /> },
           { path: "/tutorPage", element: <TutorPage /> },
           { path: "/studentList", element: <StudentList /> },
+          { path: "/management", element: <Management /> },
+          { path: "/tutorManagement", element: <TutorList /> },
           { path: "/studentManagement", element: <StudentManagement /> },
           { path: "/SessionManagement", element: <SessionManagement /> },
           { path: "/AccSetting", element: <AccSetting /> },
+
 
           // .... thêm routes cho các trang mới
         ],
