@@ -17,6 +17,7 @@ import RegisterNewPage from "../pages/Student/RigisterNewPage.jsx";
 import AccProfile from "../pages/AccountSetting/AccProfile.jsx";
 import AccSetting from "../pages/AccountSetting/AccSetting.jsx";
 import TutorDetail from "../pages/Admin/TutorDetail.jsx";
+import ViewSessions from "../pages/Student/ViewSessions";
 
 const NotFound = () => <h2>404 - Không tìm thấy trang</h2>;
 
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
           { path: "/studentManagement", element: <StudentManagement /> },
           { path: "/SessionManagement", element: <SessionManagement /> },
           { path: "/AccSetting", element: <AccSetting /> },
-
+          { path: "/sessions", element: <ViewSessions /> },
 
           // .... thêm routes cho các trang mới
         ],
