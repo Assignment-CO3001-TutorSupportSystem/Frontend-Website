@@ -20,14 +20,66 @@ import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Pagination from "../../components/Pagination.jsx";
-import {STUDENTS} from "../../data/studentData.js";
+import STUDENT from "../../data/studentData.js";
 // Example/mock data for the table
+const sampleStudents = [
+  {
+    id: "2311234",
+    name: "Tran Pick Mink",
+    email: "nv.a@example.com",
+    tutor: "Tutor 1",
+    department: "Khoa hoc va Ky thuat May tinh",
+  },
+  {
+    id: "2311235",
+    name: "Trần Thị B",
+    email: "tt.b@example.com",
+    tutor: "Tutor 2",
+    department: "Xay dung",
+  },
+  {
+    id: "2311236",
+    name: "Lê Văn C",
+    email: "lv.c@example.com",
+    tutor: "Tutor 1",
+    department: "Co khi",
+  },
+  {
+    id: "2311237",
+    name: "Nguyen Thi Kieu Mink",
+    email: "pt.d@example.com",
+    tutor: "Tutor 3",
+    department: "Dien - dien tu",
+  },
+  {
+    id: "2311238",
+    name: "Loan Nguyễn",
+    email: "loan@example.com",
+    tutor: "Tutor 2",
+    department: "Kỹ thuật Hóa học",
+  },
+  {
+    id: "2311239",
+    name: "Minh",
+    email: "minh@example.com",
+    tutor: "Tutor 1",
+    department: "Khoa học và Kỹ thuật Máy tính",
+  },
+  {
+    id: "2311240",
+    name: "Hồ Thị Minh Thu",
+    email: "thu@example.com",
+    tutor: "Tutor 3",
+    department: "Địa chất",
+  },
+];
+
 const StudentManagement = () => {
   const [page, setPage] = useState(0);
   const pageSize = 5; // items per page
-  const totalPages = Math.max(1, Math.ceil(STUDENTS.length / pageSize));
+  const totalPages = Math.max(1, Math.ceil(sampleStudents.length / pageSize));
 
-  const pagedStudents = STUDENTS.slice(
+  const pagedStudents = sampleStudents.slice(
     page * pageSize,
     (page + 1) * pageSize
   );
