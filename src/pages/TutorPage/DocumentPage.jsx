@@ -1,185 +1,279 @@
 import React, { useState } from "react";
-import Layout from "../../components/Layout";
-import SidebarContent from "../../components/SidebarContent";
-import Searchbar from "../../components/Searchbar";
-import Button from "../../components/Button";
-import PaginationControls from "../../components/PaginationControls";
-import FilterPanel from "../../components/FilterPanel";
+import {
+  Box,
+  Paper,
+  Typography,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  InputAdornment,
+  Collapse,
+  MenuItem,
+  TextField,
+} from "@mui/material";
+
+import SearchIcon from "@mui/icons-material/Search";
+import FilterListIcon from "@mui/icons-material/FilterList";
+
+import Button from "../../components/Button.jsx";
+import Searchbar from "../../components/Searchbar.jsx";
 import { useNavigate } from "react-router-dom";
+import { DOCUMENTS } from "../../data/DocumentData.js";
+import { DOCUMENT_FIELDS } from "../../data/DocumentData.js";
+const ITEMS_PER_PAGE = 9;
 
-export default function DocumentListPage() {
+export default function DocumentPage() {
   const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
 
-  const [showFilters, setShowFilters] = useState(false);
+  // FILTER
+  const [showFilter, setShowFilter] = useState(false);
+  const [fieldFilter, setFieldFilter] = useState("");
 
-  const [filters, setFilters] = useState({
-    search: "",
-    field1: "",
-    field2: "",
+  const toggleFilter = () => setShowFilter((prev) => !prev);
+
+  // Lọc dữ liệu
+  const filtered = DOCUMENTS.filter((doc) => {
+    const matchSearch = doc.title.toLowerCase().includes(search.toLowerCase());
+    const matchField = fieldFilter ? doc.field === fieldFilter : true;
+    return matchSearch && matchField;
   });
 
-  const toggleFilters = () => setShowFilters(!showFilters);
+  // Pagination
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  const start = (page - 1) * ITEMS_PER_PAGE;
+  const paginated = filtered.slice(start, start + ITEMS_PER_PAGE);
 
-  // ⭐ Hardcode document data
-  const documents = [
-    {
-      id: 1,
-      title: "Computer Networking: A Top-Down Approach (8th Edition)",
-      author: "James F. Kurose & Keith W. Ross",
-      field: "Networking",
-    },
-    {
-      id: 2,
-      title: "Data and Computer Communications (10th Edition)",
-      author: "William Stallings",
-      field: "Networking",
-    },
-    {
-      id: 3,
-      title: "Networking All-in-One For Dummies",
-      author: "Doug Lowe",
-      field: "Networking",
-    },
-    {
-      id: 4,
-      title: "Database System Concepts (7th Edition)",
-      author: "Avi Silberschatz",
-      field: "Database",
-    },
-    {
-      id: 5,
-      title: "Fundamentals of Database Systems (7th Edition)",
-      author: "Ramez Elmasri",
-      field: "Database",
-    },
-    {
-      id: 6,
-      title: "Learning SQL (3rd Edition)",
-      author: "Alan Beaulieu",
-      field: "Database",
-    },
-    {
-      id: 7,
-      title: "Automate the Boring Stuff with Python",
-      author: "Al Sweigart",
-      field: "Python",
-    },
-    {
-      id: 8,
-      title: "Think Python",
-      author: "Allen B. Downey",
-      field: "Python",
-    },
-    {
-      id: 9,
-      title: "Operating System Concepts",
-      author: "Abraham Silberschatz",
-      field: "Operating Systems",
-    },
-  ];
-
-  // ⭐ Apply filters
-  const filteredDocuments = documents.filter((doc) => {
-    const searchMatch = doc.title
-      .toLowerCase()
-      .includes(filters.search.toLowerCase());
-    const fieldMatch1 = filters.field1 ? doc.field === filters.field1 : true;
-    const fieldMatch2 = filters.field2 ? doc.field === filters.field2 : true;
-    return searchMatch && fieldMatch1 && fieldMatch2;
-  });
-
-  // ⭐ Pagination logic
-  const itemsPerPage = 5; // số lượng item mỗi trang
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(filteredDocuments.length / itemsPerPage);
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedDocuments = filteredDocuments.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  const handlePrevious = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
-  const handleNext = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
+  const handleNext = () => setPage((p) => Math.min(totalPages, p + 1));
+  const handlePrev = () => setPage((p) => Math.max(1, p - 1));
 
   return (
-    <Layout sidebar={<SidebarContent />}>
-      <div className="p-8">
-        <h1 className="text-3xl font-bold mb-6">Quản lý tài liệu</h1>
+    <Box sx={{ bgcolor: "#e7f0f4", p: 3, borderRadius: 3 }}>
+      <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
+        Quản lý tài liệu
+      </Typography>
 
-        {/* Filter + Search */}
-        <div className="flex items-center gap-4 mb-6">
-          <Button onClick={toggleFilters}>
-            <i className="fa fa-filter"></i> Lọc
-          </Button>
-
-          <div className="flex-1">
+      {/* Khung tổng */}
+      <Box
+        sx={{
+          bgcolor: "#dfecef",
+          p: 1,
+          borderRadius: 3,
+          mb: 3,
+        }}
+      >
+        {/* SEARCH + FILTER */}
+        <Box sx={{ display: "flex", gap: 2, alignItems: "center", mb: 2 }}>
+          <Box sx={{ flex: 1 }}>
             <Searchbar
-              placeholder="Tìm kiếm"
-              value={filters.search}
-              onChange={(e) =>
-                setFilters({ ...filters, search: e.target.value })
-              }
+              placeholder="Tìm kiếm tài liệu..."
+              value={search}
+              onChange={(e) => {
+                if (e?.target) setSearch(e.target.value);
+                else setSearch(e);
+                setPage(1);
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon fontSize="small" />
+                  </InputAdornment>
+                ),
+                sx: { borderRadius: 999, bgcolor: "white", px: 1 },
+              }}
             />
-          </div>
+          </Box>
 
-          <Button>
-            <i className="fa fa-search"></i>
-          </Button>
-        </div>
+          {/* NÚT FILTER */}
+          {
+            <Button
+              variant="contained"
+              onClick={toggleFilter}
+              startIcon={
+                <FilterListIcon
+                  sx={{
+                    fontSize: 20,
+                    stroke: "white",
+                    strokeWidth: 0.5,
+                  }}
+                />
+              }
+              sx={{
+                backgroundColor: "#002554",
+                textTransform: "none",
+                fontSize: 16,
+                fontWeight: 500,
+                paddingX: 3,
+                paddingY: 1.2,
+                borderRadius: "10px",
+                boxShadow: "0px 3px 6px rgba(0,0,0,0.2)",
+                "&:hover": {
+                  backgroundColor: "#085f61",
+                  boxShadow: "0px 4px 10px rgba(0,0,0,0.25)",
+                },
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              Lọc
+            </Button>
+          }
+        </Box>
 
-        {/* Filter Panel */}
-        {showFilters && (
-          <FilterPanel
-            filters={filters}
-            setFilters={setFilters}
-            onApply={() => {}}
-          />
-        )}
+        {/* FILTER PANEL (COLLAPSE) */}
+        <Collapse in={showFilter}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: 1,
+              mb: 1,
+              bgcolor: "#eef5f8",
+              borderRadius: 3,
+            }}
+          >
+            <Typography sx={{ fontWeight: 600, mb: 1 }}>
+              Lọc theo lĩnh vực
+            </Typography>
 
-        {/* Table */}
-        <div className="bg-white shadow-md rounded-xl overflow-hidden w-full max-w-4xl">
-          <table className="w-full text-left">
-            <thead className="bg-gray-100 border-b">
-              <tr>
-                <th className="py-3 px-4 font-semibold">Tên tài liệu</th>
-                <th className="py-3 px-4 font-semibold">Tác giả</th>
-                <th className="py-3 px-4 font-semibold">Lĩnh vực</th>
-              </tr>
-            </thead>
+            <TextField
+              select
+              fullWidth
+              label="Lọc theo lĩnh vực"
+              value={fieldFilter}
+              onChange={(e) => {
+                setFieldFilter(e.target.value);
+                setPage(1);
+              }}
+              size="small"
+              slotProps={{
+                select: {
+                  MenuProps: {
+                    PaperProps: {
+                      sx: {
+                        maxHeight: 200,
+                        overflowY: "auto",
+                      },
+                    },
+                  },
+                },
+              }}
+            >
+              <MenuItem value="">Tất cả</MenuItem>
 
-            <tbody>
-              {paginatedDocuments.map((doc) => (
-                <tr
-                  key={doc.id}
-                  className="border-b hover:bg-blue-50 transition cursor-pointer"
-                  onClick={() => navigate(`/documents/${doc.id}`)}
-                >
-                  <td className="py-3 px-4">{doc.title}</td>
-                  <td className="py-3 px-4">{doc.author}</td>
-                  <td className="py-3 px-4">{doc.field}</td>
-                </tr>
+              {DOCUMENT_FIELDS.map((field) => (
+                <MenuItem key={field} value={field}>
+                  {field}
+                </MenuItem>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </TextField>
+          </Paper>
+        </Collapse>
 
-        {/* Pagination */}
-        <div className="mt-4 flex justify-center">
-          <PaginationControls
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-            disablePrevious={currentPage === 1}
-            disableNext={currentPage === totalPages}
-          />
-        </div>
-      </div>
-    </Layout>
+        {/* TABLE */}
+        <Paper
+          elevation={0}
+          sx={{ borderRadius: 3, overflow: "hidden", bgcolor: "#f5f8fb" }}
+        >
+          <Box sx={{ bgcolor: "#002554", color: "white", px: 3, py: 1.5 }}>
+            <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
+              Danh sách tài liệu
+            </Typography>
+          </Box>
+
+          <Box sx={{ px: 3, py: 1 }}>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    sx={{
+                      fontWeight: 600,
+                      width: "55%",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Tên tài liệu
+                  </TableCell>
+
+                  <TableCell
+                    sx={{
+                      fontWeight: 600,
+                      width: "25%",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Tác giả
+                  </TableCell>
+
+                  <TableCell
+                    sx={{
+                      fontWeight: 600,
+                      width: "20%",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Lĩnh vực
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {paginated.map((doc) => (
+                  <TableRow
+                    key={doc.id}
+                    hover
+                    onClick={() => navigate(`/documents/${doc.id}`)}
+                  >
+                    <TableCell sx={{ width: "55%" }}>{doc.title}</TableCell>
+                    <TableCell sx={{ width: "25%" }}>{doc.author}</TableCell>
+                    <TableCell sx={{ width: "20%" }}>{doc.field}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
+
+          {/* PAGINATION */}
+          <Box
+            sx={{
+              px: 3,
+              py: 1.5,
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body2" sx={{ color: "#607189" }}>
+              Trang {page}/{totalPages}
+            </Typography>
+
+            <Box sx={{ display: "flex", gap: 1 }}>
+              <Button
+                variant="secondary"
+                width={100}
+                height={36}
+                disabled={page === 1}
+                onClick={handlePrev}
+              >
+                Previous
+              </Button>
+
+              <Button
+                variant="secondary"
+                width={100}
+                height={36}
+                disabled={page === totalPages}
+                onClick={handleNext}
+              >
+                Next
+              </Button>
+            </Box>
+          </Box>
+        </Paper>
+      </Box>
+    </Box>
   );
 }
