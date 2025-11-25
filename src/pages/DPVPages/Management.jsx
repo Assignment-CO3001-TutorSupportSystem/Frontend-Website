@@ -16,8 +16,8 @@ const Management = () => {
 
             <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Stack direction="column" alignItems="center" spacing={4}>
-                    <CustomButton sx={{ width: '15rem', height: '5rem', borderRadius: '15px', fontSize: '22px' }}>Quản lý Tutor</CustomButton>
-                    <CustomButton sx={{ width: '15rem', height: '5rem', borderRadius: '15px', fontSize: '22px' }}>Quản lý Sinh viên</CustomButton>
+                    <CustomButton onClick={() => navigate('/tutorManagement')} sx={{ width: '15rem', height: '5rem', borderRadius: '15px', fontSize: '22px' }}>Quản lý Tutor</CustomButton>
+                    <CustomButton onClick={() => navigate('/studentManagement')} sx={{ width: '15rem', height: '5rem', borderRadius: '15px', fontSize: '22px' }}>Quản lý Sinh viên</CustomButton>
                 </Stack>
             </Box>
         </Box>

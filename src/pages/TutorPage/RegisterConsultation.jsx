@@ -1,16 +1,19 @@
-// src/pages/TutorPage/RegisterConsultationContent.jsx
+// src/pages/TutorPage/RegisterConsultation.jsx
 import React, { useState } from "react";
 import { Box, Paper, Typography, Grid } from "@mui/material";
 import dayjs from "dayjs";
 
-// 💡 CHỈNH LẠI PATH CHO ĐÚNG VỚI PROJECT CỦA BẠN
 import Button from "../../components/Button.jsx";
 import Textfill from "../../components/Textfill.jsx";
 import Calendar from "../../components/Calendar.jsx";
 
+import { useNavigate } from "react-router-dom";
+import { useSessions } from "../../context/SessionContext.jsx";
+
+// Format ngày hiển thị trong ô input
 const formatDate = (date) => {
   if (!date) return "";
-  return dayjs(date).format("DD/MM/YYYY"); // dùng dayjs format
+  return dayjs(date).format("DD/MM/YYYY");
 };
 
 const RegisterConsultation = () => {
@@ -24,6 +27,10 @@ const RegisterConsultation = () => {
   });
 
   const [calendarOpen, setCalendarOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const { addSession } = useSessions();
+  const navigate = useNavigate();
 
   const handleFieldChange = (field) => (e) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
@@ -36,7 +43,43 @@ const RegisterConsultation = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submit form: ", form);
+
+    // 1️⃣ Validate đơn giản
+    if (
+      !form.title.trim() ||
+      !form.location.trim() ||
+      !form.timeSlot.trim() ||
+      !form.duration.trim() ||
+      !form.quantity
+    ) {
+      alert("Vui lòng nhập đầy đủ thông tin buổi tư vấn.");
+      return;
+    }
+
+    setSubmitting(true);
+
+    // 2️⃣ Tạo session mới (demo: cố định tutor Trần Thị B - T002)
+    const newSession = {
+      id: `S_NEW_${Date.now()}`, // id tạm thời
+      tutorId: "T002",
+      tutorName: "Trần Thị B",
+      topic: form.title,
+      subject: "Vật lý đại cương",
+      status: "Còn nhận",
+      time: `${form.timeSlot} ${formatDate(form.date)}`,
+      location: form.location,
+      maxStudents: Number(form.quantity),
+      registered: 0,
+    };
+
+    // 3️⃣ Thêm vào context (sẽ hiện trên màn hình tutor)
+    addSession(newSession);
+
+    // 4️⃣ Thông báo + chuyển về list buổi tư vấn của tutor
+    alert("Đăng ký buổi tư vấn thành công!");
+    navigate("/tutor/T002/sessions");
+
+    setSubmitting(false);
   };
 
   return (
@@ -47,6 +90,7 @@ const RegisterConsultation = () => {
         p: 4,
       }}
     >
+      {/* Header: tiêu đề + pill "Tutor" */}
       <Box
         sx={{
           display: "flex",
@@ -82,6 +126,7 @@ const RegisterConsultation = () => {
         </Box>
       </Box>
 
+      {/* CARD FORM */}
       <Paper
         elevation={0}
         sx={{
@@ -97,11 +142,11 @@ const RegisterConsultation = () => {
         <Box sx={{ maxWidth: 900, mx: "auto" }}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
-              <Typography sx={{ mb: 0.8 }}>Tên buổi tư vấn</Typography>
+              <Typography sx={{ mb: 0.8 }}>Chủ đề buổi tư vấn</Typography>
               <Textfill
                 value={form.title}
                 onChange={handleFieldChange("title")}
-                placeholder="Nhập tên buổi tư vấn"
+                placeholder="Nhập chủ đề"
               />
             </Grid>
 
@@ -110,7 +155,7 @@ const RegisterConsultation = () => {
               <Textfill
                 value={form.timeSlot}
                 onChange={handleFieldChange("timeSlot")}
-                placeholder="Ví dụ: 7:00"
+                placeholder="Ví dụ: 07:00"
               />
             </Grid>
 
@@ -135,7 +180,10 @@ const RegisterConsultation = () => {
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Ngày mở</Typography>
 
-              <Box onClick={() => setCalendarOpen((o) => !o)} sx={{ cursor: "pointer" }}>
+              <Box
+                onClick={() => setCalendarOpen((o) => !o)}
+                sx={{ cursor: "pointer" }}
+              >
                 <Textfill value={formatDate(form.date)} readOnly />
               </Box>
 
@@ -163,19 +211,22 @@ const RegisterConsultation = () => {
             </Grid>
           </Grid>
 
+          {/* Nút submit */}
           <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
             <Button
               type="submit"
               width={140}
               height={45}
+              disabled={submitting}
               style={{
                 borderRadius: 999,
                 backgroundColor: "#006571",
                 color: "#ffffff",
                 fontWeight: 600,
+                opacity: submitting ? 0.7 : 1,
               }}
             >
-              Đăng ký
+              {submitting ? "Đang lưu..." : "Đăng ký"}
             </Button>
           </Box>
         </Box>
