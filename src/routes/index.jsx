@@ -63,6 +63,7 @@ const router = createBrowserRouter([
           { path: "/tutorDetail/:sessionId", element: <TutorDetail /> },
           { path: "/tutorPendingList", element: <TutorPendingList /> },
 
+          { path: "/sessions", element: <ViewSessions /> },
 
           // .... thêm routes cho các trang mới
         ],
