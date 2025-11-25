@@ -72,7 +72,7 @@ const router = createBrowserRouter([
           { path: "/documents/:id", element: <DocumentDetail /> },
           { path: "/register", element: <RegisterNewPage /> },
           { path: "/registered", element: <RegisterNewPage /> },
-          { path: "/accProfile", element: <AccProfile /> },
+          { path: "/settings", element: <AccProfile /> },
           { path: "/accSetting", element: <AccSetting /> },
           // .... thêm routes cho các trang mới
         ],

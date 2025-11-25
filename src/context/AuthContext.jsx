@@ -34,6 +34,13 @@ async function mockLoginAPI(email, password) {
       id: "2313342",
       name: "Minh Thu",
     },
+    {
+      email: "student@gmail.com",
+      password: "123",
+      role: "student",
+      name: "Kiều Tấn Anh Minh",
+      id: "2312065",
+    },
     // {
     //   email: "dpv@gmail.com",
     //   password: "123",
