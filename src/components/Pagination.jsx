@@ -9,7 +9,7 @@ export default function CustomPagination({
   onPageChange,
 }) {
   const handleChange = (event, value) => {
-    onPageChange(value);   // 👈 gọi về component cha
+    onPageChange(value); // 👈 gọi về component cha
   };
 
   return (

@@ -7,6 +7,7 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "running",
+    quantity: 3,
   },
   {
     group: "MT02",
@@ -16,6 +17,7 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "running",
+    quantity: 4,
   },
   {
     group: "MT03",
@@ -25,6 +27,7 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "running",
+    quantity: 5,
   },
   {
     group: "MT04",
@@ -34,6 +37,7 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "enroll",
+    quantity: 2,
   },
   {
     group: "MT05",
@@ -43,6 +47,7 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "enroll",
+    quantity: 1,
   },
   {
     group: "MT06",
@@ -52,6 +57,7 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "cancel",
+    quantity: 3,
   },
   {
     group: "MT07",
@@ -61,6 +67,7 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "cancel",
+    quantity: 2,
   },
   {
     group: "MT08",
@@ -70,6 +77,7 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "cancel",
+    quantity: 4,
   },
   {
     group: "MT09",
@@ -79,6 +87,7 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "cancel",
+    quantity: 3,
   },
   {
     group: "MT10",
@@ -88,5 +97,6 @@ export const MOCK_SESSION_DATA = [
     time: "9:00 AM",
     room: "Online",
     state: "cancel",
+    quantity: 5,
   },
 ];
