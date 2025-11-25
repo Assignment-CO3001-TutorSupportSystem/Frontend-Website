@@ -16,7 +16,8 @@ import SessionManagement from "../pages/DPVPages/SessionManagement.jsx";
 import RegisterNewPage from "../pages/Student/RigisterNewPage.jsx";
 import AccProfile from "../pages/AccountSetting/AccProfile.jsx";
 import AccSetting from "../pages/AccountSetting/AccSetting.jsx";
-import TutorDetail from "../pages/Admin/TutorDetail.jsx";
+import TutorDetail from "../pages/DPVPages/TutorDetail.jsx";
+import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
 import ViewSessions from "../pages/Student/ViewSessions";
 import { ViewDocuments, DocumentDetail } from "../pages/Student/ViewDocuments";
 import TutorPendingList from "../pages/DPVPages/TutorPendingList.jsx";
@@ -64,12 +65,13 @@ const router = createBrowserRouter([
           { path: "/tutorManagement", element: <TutorManagement /> },
           { path: "/tutorDetail/:sessionId", element: <TutorDetail /> },
           { path: "/tutorPendingList", element: <TutorPendingList /> },
+          { path: "/registerTutor", element: <RegisterConsultation /> },
 
           { path: "/sessions", element: <ViewSessions /> },
           { path: "/documents", element: <ViewDocuments /> },
           { path: "/documents/:id", element: <DocumentDetail /> },
           { path: "/register", element: <RegisterNewPage /> },
-          { path: "/registered", element: <RegisterNewPage /> },
+
           // .... thêm routes cho các trang mới
         ],
       },
