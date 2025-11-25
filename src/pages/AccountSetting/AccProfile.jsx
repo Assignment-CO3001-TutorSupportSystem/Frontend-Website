@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Paper, Typography, Grid, Avatar } from "@mui/material";
 import Button from "../../components/Button.jsx";
 import Textfill from "../../components/Textfill.jsx";
-
+import { useNavigate } from "react-router-dom";
 const AccountProfile = () => {
   const [user, setUser] = useState({
     name: "Anh Minh",
@@ -11,12 +11,15 @@ const AccountProfile = () => {
     avatar: "", // you can replace with an image URL
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (field) => (e) =>
     setUser((prev) => ({ ...prev, [field]: e.target.value }));
 
   const handleViewDetails = () => {
     // replace with navigation or modal logic
     console.log("View details for", user);
+    navigate("/accSetting");
   };
   return (
     <Box

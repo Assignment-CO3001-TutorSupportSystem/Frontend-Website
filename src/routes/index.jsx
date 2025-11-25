@@ -55,7 +55,8 @@ const router = createBrowserRouter([
           { path: "/studentList", element: <StudentList /> },
           { path: "/studentManagement", element: <StudentManagement /> },
           { path: "/SessionManagement", element: <SessionManagement /> },
-
+          { path: "/accProfile", element: <AccProfile /> },
+          { path: "/accSetting", element: <AccSetting /> },
           // .... thêm routes cho các trang mới
         ],
       },
