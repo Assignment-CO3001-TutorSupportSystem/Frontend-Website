@@ -161,30 +161,66 @@ const AccountSetting = () => {
 
               {/* fields block: limit width so inputs appear centered in content area */}
                             <Box sx={{ maxWidth: 720, mx: "auto" }}>
-                <Grid container spacing={3} direction="column">
-                  {fields.map((f) => (
-                    <Grid container item spacing={2} alignItems="center" key={f.field}>
-                      <Grid item xs={12} md={4} width={160}>
-                        <Typography
-                          sx={{
-                            fontWeight: 800,
-                            fontSize: 18,
-                            width: "100%",
-                            textAlign: { xs: "left"},
-                            pr: { md: 2 },
-                          }}
-                        >
-                          {f.label}
-                        </Typography>
-                      </Grid>
+                <Grid container spacing={3}>
+                  {Array.from({ length: Math.ceil(fields.length / 2) }).map((_, rowIdx) => {
+                    const left = fields[rowIdx * 2];
+                    const right = fields[rowIdx * 2 + 1];
+                    return (
+                      <Grid container item spacing={2} alignItems="center" key={rowIdx}>
+                        {/* left column */}
+                        <Grid item xs={12} md={6}>
+                          <Grid container alignItems="center" spacing={2}>
+                            <Grid item xs={12} md={4}>
+                              <Typography
+                                sx={{
+                                  fontWeight: 800,
+                                  fontSize: 18,
+                                  width: "100%",
+                                  textAlign: { xs: "left" },
+                                  pr: { md: 2 },
+                                }}
+                              >
+                                {left.label}
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={12} md={8}>
+                              <Box sx={{ width: "100%" }}>
+                                <Textfill value={form[left.field] ?? ""} onChange={handleFieldChange(left.field)} fullWidth />
+                              </Box>
+                            </Grid>
+                          </Grid>
+                        </Grid>
 
-                      <Grid item xs={12} md={8}>
-                        <Box sx={{ width: "100%" }}>
-                          <Textfill value={form[f.field]} onChange={handleFieldChange(f.field)} fullWidth />
-                        </Box>
+                        {/* right column (may be undefined for odd count) */}
+                        {right ? (
+                          <Grid item xs={12} md={6}>
+                            <Grid container alignItems="center" spacing={2}>
+                              <Grid item xs={12} md={4}>
+                                <Typography
+                                  sx={{
+                                    fontWeight: 800,
+                                    fontSize: 18,
+                                    width: "100%",
+                                    textAlign: { xs: "left" },
+                                    pr: { md: 2 },
+                                  }}
+                                >
+                                  {right.label}
+                                </Typography>
+                              </Grid>
+                              <Grid item xs={12} md={8}>
+                                <Box sx={{ width: "100%" }}>
+                                  <Textfill value={form[right.field] ?? ""} onChange={handleFieldChange(right.field)} fullWidth />
+                                </Box>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        ) : (
+                          <Grid item xs={12} md={6} />
+                        )}
                       </Grid>
-                    </Grid>
-                  ))}
+                    );
+                  })}
                 </Grid>
               </Box>
             </Grid>
