@@ -1,13 +1,8 @@
 // TutorStudentManagementPage.jsx
-<<<<<<< HEAD
 import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import FixedButton from "../../components/Button.jsx"; // đường dẫn tùy cấu trúc project của bạn
-=======
-import React from 'react';
-import { Box, Typography, Stack } from '@mui/material';
-import FixedButton from '../../components/Button.jsx'; // đường dẫn tùy cấu trúc project của bạn
->>>>>>> feature/huyen
+
 
 export default function TutorStudentManagementPage({
   onManageTutor,

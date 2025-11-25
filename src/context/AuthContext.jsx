@@ -7,24 +7,40 @@ const AuthContext = createContext(null);
 async function mockLoginAPI(email, password) {
   const USERS = [
     {
-      email: "admin@gmail.com",
+      email: "kieuminh@gmail.com",
       password: "123",
       role: "admin",
-      name: "Quản Trị Viên",
+      id: "A00001",
+      name: "Kiều Minh",
     },
     {
-      email: "staff@gmail.com",
+      email: "other@gmail.com",
       password: "123",
-      role: "staff",
+      role: "other",
+      id: "S00001",
       name: "Nhân Viên",
     },
-    { email: "tutor@gmail.com", password: "123", role: "tutor", name: "Tutor" },
     {
-      email: "student@gmail.com",
+      email: "tutor@gmail.com",
+      password: "123",
+      role: "tutor",
+      id: "1813342",
+      name: "Tutor",
+    },
+    {
+      email: "minhthu@gmail.com",
       password: "123",
       role: "student",
-      name: "Student",
+      id: "2313342",
+      name: "Minh Thu",
     },
+    // {
+    //   email: "dpv@gmail.com",
+    //   password: "123",
+    //   role: "coordinator",
+    //   id: "D00001",
+    //   name: "Điều phối viên",
+    // },
   ];
 
   const foundUser = USERS.find((u) => u.email === email);
@@ -90,6 +106,7 @@ export const AuthProvider = ({ children }) => {
   const isStaff = () => hasRole("staff");
   const isTutor = () => hasRole("tutor");
   const isStudent = () => hasRole("student");
+  // const isCoordinator = () => hasRole("coordinator");
 
   return (
     <AuthContext.Provider
@@ -101,6 +118,8 @@ export const AuthProvider = ({ children }) => {
         isAdmin,
         isStaff,
         isTutor,
+        // isCoordinator,
+        isStudent,
         loading,
       }}
     >

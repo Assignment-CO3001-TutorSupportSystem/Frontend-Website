@@ -1,9 +1,11 @@
 import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import CustomButton from "../../components/Button.jsx";
 
 
 const Management = () => {
+    const navigate = useNavigate();
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <Box sx={{ p: 3 }}>

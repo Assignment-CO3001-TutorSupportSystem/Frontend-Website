@@ -8,7 +8,8 @@ import Login from "../pages/Login";
 import HomePage from "../pages/HomePage";
 import TutorPage from "../pages/TutorPage/TutorPage";
 import StudentList from "../pages/TutorPage/StudentList.jsx";
-import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
+// import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
+import TutorManagement from "../pages/DPVPages/TutorManagement.jsx";
 import Management from "../pages/DPVPages/Management.jsx";
 import StudentManagement from "../pages/DPVPages/StudentManagement.jsx";
 import SessionManagement from "../pages/DPVPages/SessionManagement.jsx";
@@ -16,6 +17,9 @@ import RegisterNewPage from "../pages/Student/RigisterNewPage.jsx";
 import AccProfile from "../pages/AccountSetting/AccProfile.jsx";
 import AccSetting from "../pages/AccountSetting/AccSetting.jsx";
 import TutorDetail from "../pages/Admin/TutorDetail.jsx";
+import ViewSessions from "../pages/Student/ViewSessions";
+import { ViewDocuments, DocumentDetail } from "../pages/Student/ViewDocuments";
+import TutorPendingList from "../pages/DPVPages/TutorPendingList.jsx";
 
 const NotFound = () => <h2>404 - Không tìm thấy trang</h2>;
 
@@ -53,8 +57,19 @@ const router = createBrowserRouter([
           { path: "/home", element: <HomePage /> },
           { path: "/tutorPage", element: <TutorPage /> },
           { path: "/studentList", element: <StudentList /> },
+          { path: "/management", element: <Management /> },
           { path: "/studentManagement", element: <StudentManagement /> },
           { path: "/SessionManagement", element: <SessionManagement /> },
+          { path: "/AccSetting", element: <AccSetting /> },
+          { path: "/tutorManagement", element: <TutorManagement /> },
+          { path: "/tutorDetail/:sessionId", element: <TutorDetail /> },
+          { path: "/tutorPendingList", element: <TutorPendingList /> },
+
+          { path: "/sessions", element: <ViewSessions /> },
+          { path: "/documents", element: <ViewDocuments /> },
+          { path: "/documents/:id", element: <DocumentDetail /> },
+          { path: "/register", element: <RegisterNewPage /> },
+          { path: "/registered", element: <RegisterNewPage /> },
           { path: "/accProfile", element: <AccProfile /> },
           { path: "/accSetting", element: <AccSetting /> },
           // .... thêm routes cho các trang mới
