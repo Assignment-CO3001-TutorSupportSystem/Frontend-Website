@@ -20,7 +20,7 @@ import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Pagination from "../../components/Pagination.jsx";
-import STUDENT from "../../data/studentData.js";
+import { STUDENTS } from "../../data/studentData.js";
 // Example/mock data for the table
 const sampleStudents = [
   {

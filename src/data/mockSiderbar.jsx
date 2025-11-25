@@ -15,7 +15,11 @@ const COMMON_ITEMS = [
 
 // 2. Item riêng của TUTOR
 const TUTOR_SPECIFIC = [
-  { text: "Đăng ký buổi tư vấn", icon: <AssignmentIcon />, route: "/register" },
+  {
+    text: "Đăng ký buổi tư vấn",
+    icon: <AssignmentIcon />,
+    route: "/registerTutor",
+  },
   { text: "Buổi tư vấn của tôi", icon: <EventNoteIcon />, route: "/sessions" },
   { text: "Lịch", icon: <CalendarMonthIcon />, route: "/calendar" },
   { text: "Tài liệu", icon: <LibraryBooksIcon />, route: "/documents" },
@@ -35,8 +39,16 @@ const STUDENT_SPECIFIC = [
 // 3. Item riêng của ADMIN
 const ADMIN_SPECIFIC = [
   //   { text: "Quản lý User", icon: <PeopleIcon />, route: "/admin/users" },
-  { text: "Quản lý buổi tư vấn", icon: <AssignmentIcon /> , route: "/SessionManagement"},
-  { text: "Quản lý tutor/ sinh viên", icon: <EventNoteIcon />, route: "/management" },
+  {
+    text: "Quản lý buổi tư vấn",
+    icon: <AssignmentIcon />,
+    route: "/SessionManagement",
+  },
+  {
+    text: "Quản lý tutor/ sinh viên",
+    icon: <EventNoteIcon />,
+    route: "/management",
+  },
   { text: "Lịch", icon: <CalendarMonthIcon /> },
   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
