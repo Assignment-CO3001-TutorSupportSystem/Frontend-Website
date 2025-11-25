@@ -196,9 +196,12 @@ const TutorSessionContent = ({ sessions = MOCK_SESSIONS }) => {
             {/* <Box sx={{ display: "flex", gap: 1 }}>
                 <Pagination/>
             </Box> */}
+<<<<<<< HEAD
             <Box sx={{ display: "flex", gap: 1 }}>
               <Pagination />
             </Box>
+=======
+>>>>>>> feature/loan
 
             {/* Hoặc nếu Pagination.jsx của bạn là dạng số trang: */}
             <Pagination
