@@ -18,7 +18,7 @@ import AccProfile from "../pages/AccountSetting/AccProfile.jsx";
 import AccSetting from "../pages/AccountSetting/AccSetting.jsx";
 import TutorDetail from "../pages/Admin/TutorDetail.jsx";
 import ViewSessions from "../pages/Student/ViewSessions";
-
+import { ViewDocuments, DocumentDetail } from "../pages/Student/ViewDocuments";
 const NotFound = () => <h2>404 - Không tìm thấy trang</h2>;
 
 const router = createBrowserRouter([
@@ -61,6 +61,8 @@ const router = createBrowserRouter([
           { path: "/SessionManagement", element: <SessionManagement /> },
           { path: "/AccSetting", element: <AccSetting /> },
           { path: "/sessions", element: <ViewSessions /> },
+          { path: "/documents", element: <ViewDocuments /> },
+          { path: "/documents/:id", element: <DocumentDetail /> },
 
           // .... thêm routes cho các trang mới
         ],
