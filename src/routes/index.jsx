@@ -61,12 +61,13 @@ const router = createBrowserRouter([
           { path: "/SessionManagement", element: <SessionManagement /> },
           { path: "/AccSetting", element: <AccSetting /> },
           { path: "/sessions", element: <ViewSessions /> },
-
+          { path: "/register", element: <RegisterNewPage /> },
+          { path: "/registered", element: <RegisterNewPage /> },
           // .... thêm routes cho các trang mới
         ],
       },
     ],
-  },
+  },    
 
   // --- Catch all (404) ---
   {
