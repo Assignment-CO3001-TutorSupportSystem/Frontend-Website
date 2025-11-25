@@ -63,7 +63,8 @@ const router = createBrowserRouter([
           { path: "/sessions", element: <ViewSessions /> },
           { path: "/documents", element: <ViewDocuments /> },
           { path: "/documents/:id", element: <DocumentDetail /> },
-
+          { path: "/register", element: <RegisterNewPage /> },
+          { path: "/registered", element: <RegisterNewPage /> },
           // .... thêm routes cho các trang mới
         ],
       },
