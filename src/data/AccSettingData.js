@@ -5,6 +5,8 @@ export const USERS = [
       role: "admin",
       id: "A00001",
       name: "Kiều Minh",
+      phone: "0909123456",
+      status: "Đang hoạt động",
     },
     {
       email: "other@gmail.com",
@@ -12,6 +14,8 @@ export const USERS = [
       role: "other",
       id: "S00001",
       name: "Nhân Viên",
+      phone: "0909988776",
+      status: "Tạm ngưng hoạt động",
     },
     {
       email: "tutor@gmail.com",
@@ -19,6 +23,9 @@ export const USERS = [
       role: "tutor",
       id: "1813342",
       name: "Tutor",
+      phone: "0912345678",
+      department: "Quản lí công nghiệp",
+      status: "Đang hoạt động",
     },
     {
       email: "minhthu@gmail.com",
@@ -26,9 +33,10 @@ export const USERS = [
       role: "student",
       id: "2313342",
       name: "Minh Thu",
+      phone: "0987654321",
+      department: "Kĩ thuật máy tính",
+      status: "Đang hoạt động",
     },
-    {email: "teacher@gmail.com", password: "123", 
-      role: "teacher", name: "Teacher", status: "Đang hoạt động" },
     { 
       email: "tutor@gmail.com",
       password: "123", role: "tutor", name: "Tutor", 
