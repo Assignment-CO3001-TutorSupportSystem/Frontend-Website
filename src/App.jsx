@@ -52,6 +52,7 @@ import React from "react";
 import { RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastProvider } from "./context/ToastContext";
+import { SessionProvider } from "./context/SessionContext";
 import router from "./routes"; // Nó sẽ tự động tìm file index.js trong thư mục routes
 
 const App = () => {
@@ -59,7 +60,9 @@ const App = () => {
     // 1. Bọc AuthProvider ở ngoài cùng để toàn bộ ứng dụng truy cập được user state
     <AuthProvider>
       <ToastProvider>
+        <SessionProvider>
         <RouterProvider router={router} />
+        </SessionProvider>
       </ToastProvider>
     </AuthProvider>
   );

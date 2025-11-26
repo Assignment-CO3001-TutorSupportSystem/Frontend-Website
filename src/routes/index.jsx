@@ -6,7 +6,6 @@ import ProtectedRoute from "../components/ProtectedRoute";
 // Import Pages
 import Login from "../pages/Login";
 import HomePage from "../pages/HomePage";
-import TutorPage from "../pages/TutorPage/TutorPage";
 import StudentList from "../pages/TutorPage/StudentList.jsx";
 // import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
 import TutorManagement from "../pages/DPVPages/TutorManagement.jsx";
@@ -21,7 +20,9 @@ import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
 import ViewSessions from "../pages/Student/ViewSessions";
 import { ViewDocuments, DocumentDetail } from "../pages/Student/ViewDocuments";
 import TutorPendingList from "../pages/DPVPages/TutorPendingList.jsx";
-
+import TutorSessionContent from "../pages/TutorPage/TutorSessionContent.jsx";
+import TutorSessionPage from "../pages/TutorPage/TutorSessionPages.jsx";
+import TutorSchedule from "../pages/TutorPage/TutorSchedule.jsx";
 const NotFound = () => <h2>404 - Không tìm thấy trang</h2>;
 
 const router = createBrowserRouter([
@@ -56,7 +57,6 @@ const router = createBrowserRouter([
         children: [
           // Các trang con dùng chung Layout
           { path: "/home", element: <HomePage /> },
-          { path: "/tutorPage", element: <TutorPage /> },
           { path: "/studentList", element: <StudentList /> },
           { path: "/management", element: <Management /> },
           { path: "/studentManagement", element: <StudentManagement /> },
@@ -66,14 +66,18 @@ const router = createBrowserRouter([
           { path: "/tutorDetail/:sessionId", element: <TutorDetail /> },
           { path: "/tutorPendingList", element: <TutorPendingList /> },
           { path: "/registerTutor", element: <RegisterConsultation /> },
-
+          { path: "/tutor/:tutorId/sessions", element: <TutorSessionPage /> },
+          {
+            path: "/tutor/:tutorId/sessions/content",
+            element: <TutorSessionContent />,
+          },
           { path: "/sessions", element: <ViewSessions /> },
           { path: "/documents", element: <ViewDocuments /> },
           { path: "/documents/:id", element: <DocumentDetail /> },
           { path: "/register", element: <RegisterNewPage /> },
-          { path: "/registered", element: <RegisterNewPage /> },
           { path: "/settings", element: <AccProfile /> },
           { path: "/accSetting", element: <AccSetting /> },
+          { path: "/tutorSchedule", element: <TutorSchedule /> },
           // .... thêm routes cho các trang mới
         ],
       },
