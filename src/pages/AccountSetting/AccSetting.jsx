@@ -49,7 +49,7 @@ const AccountSetting = () => {
     setCalendarOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const updateInfo = (e) => {
     e.preventDefault();
 
     // Basic validation
@@ -122,7 +122,7 @@ const AccountSetting = () => {
           mx: "auto",
         }}
         component="form"
-        onSubmit={handleSubmit}
+        onSubmit={updateInfo}
       >
         <Box sx={{ maxWidth: 1100, mx: "auto", position: "relative" }}>
           {/* layout: small left gap (sidebar area) | main centered column (button + fields) | right profile card */}
@@ -243,7 +243,7 @@ const AccountSetting = () => {
               type="submit"
               width={200}
               height={45}
-              onClick={handleSubmit}
+              onClick={updateInfo}
               style={{
                 borderRadius: 999,
                 backgroundColor: "#006571",
