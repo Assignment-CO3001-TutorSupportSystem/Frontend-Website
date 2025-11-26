@@ -7,6 +7,7 @@ export const STUDENTS = [
     tutor: "Loan Nguyễn",
     email: "2310001@student.hcmut.edu.vn",
     department: "Khoa Khoa học & Kỹ thuật Máy tính",
+    status: "active",
   },
   {
     id: "2310002",
@@ -14,6 +15,7 @@ export const STUDENTS = [
     tutor: "Trần Thị B",
     email: "2310002@student.hcmut.edu.vn",
     department: "Khoa Điện - Điện tử",
+    status: "active",
   },
   {
     id: "2310003",
@@ -21,6 +23,7 @@ export const STUDENTS = [
     tutor: "Lê Hoàng",
     email: "2310003@student.hcmut.edu.vn",
     department: "Khoa Cơ khí",
+    status: "active",
   },
   {
     id: "2310004",
@@ -28,6 +31,7 @@ export const STUDENTS = [
     tutor: "Phạm Ngọc",
     email: "2310004@student.hcmut.edu.vn",
     department: "Khoa Xây dựng",
+    status: "active",
   },
   {
     id: "2310005",
@@ -35,6 +39,7 @@ export const STUDENTS = [
     tutor: "Vũ Thảo",
     email: "2310005@student.hcmut.edu.vn",
     department: "Khoa Kỹ thuật Hóa học",
+    status: "active",
   },
   {
     id: "2310006",
@@ -42,6 +47,7 @@ export const STUDENTS = [
     tutor: "Loan Nguyễn",
     email: "2310006@student.hcmut.edu.vn",
     department: "Khoa Môi trường & Tài nguyên",
+    status: "active",
   },
   {
     id: "2310007",
@@ -49,6 +55,7 @@ export const STUDENTS = [
     tutor: "Trần Thị B",
     email: "2310007@student.hcmut.edu.vn",
     department: "Khoa Công nghệ Thông tin",
+    status: "active",
   },
   {
     id: "2310008",
@@ -56,6 +63,7 @@ export const STUDENTS = [
     tutor: "Lê Hoàng",
     email: "2310008@student.hcmut.edu.vn",
     department: "Khoa Khoa học Ứng dụng",
+    status: "active",
   },
   {
     id: "2310009",
@@ -63,6 +71,7 @@ export const STUDENTS = [
     tutor: "Phạm Ngọc",
     email: "2310009@student.hcmut.edu.vn",
     department: "Khoa Cơ khí Động lực",
+    status: "active",
   },
   {
     id: "2310010",
@@ -70,6 +79,7 @@ export const STUDENTS = [
     tutor: "Vũ Thảo",
     email: "2310010@student.hcmut.edu.vn",
     department: "Khoa Kỹ thuật Địa chất & Dầu khí",
+    status: "active",
   },
   {
     id: "2310011",
@@ -77,6 +87,7 @@ export const STUDENTS = [
     tutor: "Loan Nguyễn",
     email: "2310011@student.hcmut.edu.vn",
     department: "Khoa Quản lý Công nghiệp",
+    status: "active",
   },
   {
     id: "2310012",
@@ -84,6 +95,7 @@ export const STUDENTS = [
     tutor: "Trần Thị B",
     email: "2310012@student.hcmut.edu.vn",
     department: "Khoa Kiến trúc",
+    status: "active",
   },
   {
     id: "2310013",
@@ -91,6 +103,7 @@ export const STUDENTS = [
     tutor: "Lê Hoàng",
     email: "2310013@student.hcmut.edu.vn",
     department: "Khoa Kỹ thuật Vật liệu",
+    status: "active",
   },
   {
     id: "2310014",
@@ -98,6 +111,7 @@ export const STUDENTS = [
     tutor: "Phạm Ngọc",
     email: "2310014@student.hcmut.edu.vn",
     department: "Khoa Khoa học & Kỹ thuật Máy tính",
+    status: "active",
   },
   {
     id: "2310015",
@@ -105,6 +119,7 @@ export const STUDENTS = [
     tutor: "Vũ Thảo",
     email: "2310015@student.hcmut.edu.vn",
     department: "Khoa Điện - Điện tử",
+    status: "active",
   },
   {
     id: "2310016",
@@ -112,6 +127,7 @@ export const STUDENTS = [
     tutor: "Loan Nguyễn",
     email: "2310016@student.hcmut.edu.vn",
     department: "Khoa Cơ khí",
+    status: "active",
   },
   {
     id: "2310017",
@@ -119,6 +135,7 @@ export const STUDENTS = [
     tutor: "Trần Thị B",
     email: "2310017@student.hcmut.edu.vn",
     department: "Khoa Xây dựng",
+    status: "active",
   },
   {
     id: "2310018",
@@ -126,6 +143,7 @@ export const STUDENTS = [
     tutor: "Lê Hoàng",
     email: "2310018@student.hcmut.edu.vn",
     department: "Khoa Công nghệ Thông tin",
+    status: "active",
   },
   {
     id: "2310019",
@@ -133,6 +151,7 @@ export const STUDENTS = [
     tutor: "Phạm Ngọc",
     email: "2310019@student.hcmut.edu.vn",
     department: "Khoa Kỹ thuật Hóa học",
+    status: "active",
   },
   {
     id: "2310020",
@@ -140,5 +159,6 @@ export const STUDENTS = [
     tutor: "Vũ Thảo",
     email: "2310020@student.hcmut.edu.vn",
     department: "Khoa Môi trường & Tài nguyên",
+    status: "inactive",
   },
 ];

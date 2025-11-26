@@ -20,8 +20,8 @@ const TUTOR_SPECIFIC = [
     icon: <AssignmentIcon />,
     route: "/registerTutor",
   },
-  { text: "Buổi tư vấn của tôi", icon: <EventNoteIcon />, route: "/sessions" },
-  { text: "Lịch", icon: <CalendarMonthIcon />, route: "/calendar" },
+  { text: "Buổi tư vấn của tôi", icon: <EventNoteIcon />, route: "/tutor/T002/sessions" },
+  { text: "Lịch", icon: <CalendarMonthIcon />, route: "/tutorSchedule" },
   { text: "Tài liệu", icon: <LibraryBooksIcon />, route: "/documents" },
   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
   // ... các item khác

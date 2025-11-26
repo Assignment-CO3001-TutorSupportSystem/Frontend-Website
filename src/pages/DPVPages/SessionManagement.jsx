@@ -34,24 +34,41 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
+import { MOCK_SESSION_DATA as SESSIONS } from "../../data/mockSessionData.js";
+import sessionStudents from "../../data/sessionStudents.js";
 
 const SessionManagement = () => {
 
-    const sampleSessions = [
-        { id: 's1', time: '07:00 15/10/25', tutor: 'Kiều Minh', place: 'H6-111', qty: 3 },
-        { id: 's2', time: '10:00 15/10/25', tutor: 'Trần Píck Minh', place: 'H2-810', qty: 4 },
-        { id: 's3', time: '15:00 15/10/25', tutor: 'Hồ Thị Minh Thu', place: 'H1-703', qty: 1 },
-        { id: 's4', time: '15:30 15/10/25', tutor: 'Frieren', place: 'Online', qty: 2 },
-        { id: 's5', time: '15:30 15/10/25', tutor: 'Frieren', place: 'Online', qty: 2 },
-        { id: 's6', time: '15:30 15/10/25', tutor: 'Frieren', place: 'Online', qty: 2 },
-        { id: 's7', time: '15:30 15/10/25', tutor: 'Frieren', place: 'Online', qty: 2 },
-    ];
+    // const sampleSessions = [
+    //     { id: 's1', time: '07:00 15/10/25', tutor: 'Kiều Minh', place: 'H6-111', qty: 3 },
+    //     { id: 's2', time: '10:00 15/10/25', tutor: 'Trần Píck Minh', place: 'H2-810', qty: 4 },
+    //     { id: 's3', time: '15:00 15/10/25', tutor: 'Hồ Thị Minh Thu', place: 'H1-703', qty: 1 },
+    //     { id: 's4', time: '15:30 15/10/25', tutor: 'Frieren', place: 'Online', qty: 2 },
+    //     { id: 's5', time: '15:30 15/10/25', tutor: 'Frieren', place: 'Online', qty: 2 },
+    //     { id: 's6', time: '15:30 15/10/25', tutor: 'Frieren', place: 'Online', qty: 2 },
+    //     { id: 's7', time: '15:30 15/10/25', tutor: 'Frieren', place: 'Online', qty: 2 },
+    // ];
 
-    const [selected, setSelected] = useState(sampleSessions.map(s => s.id));
-    const [page, setPage] = useState(0);
+    // normalize incoming mock data to the shape this component expects
+    const normalizedSessions = SESSIONS.map((s, idx) => ({
+        id: s.group ?? `s${idx + 1}`,
+        time: [s.date, s.time].filter(Boolean).join(' '),
+        tutor: s.teacher ?? s.tutor ?? '',
+        place: s.room ?? s.place ?? '',
+        qty: s.qty ?? (s.students ? s.students.length : 0),
+        // keep original fields available too
+        ...s,
+    }));
+
+    // keep sessions in state so edits/deletes update the UI immediately
+    const [sessions, setSessions] = useState(normalizedSessions);
+    const [selected, setSelected] = useState(sessions.map(s => s.id));
+    // use 1-based page index to match Pagination component
+    const [page, setPage] = useState(1);
     const pageSize = 5;
-    const totalPages = Math.max(1, Math.ceil(sampleSessions.length / pageSize));
-    const paged = sampleSessions.slice(page * pageSize, (page + 1) * pageSize);
+    const totalPages = Math.max(1, Math.ceil(sessions.length / pageSize));
+    const start = (page - 1) * pageSize;
+    const paged = sessions.slice(start, start + pageSize);
 
     const [menuAnchorEl, setMenuAnchorEl] = useState(null);
     const [menuRowId, setMenuRowId] = useState(null);
@@ -62,24 +79,12 @@ const SessionManagement = () => {
     // Edit dialog state
     const [editDialogOpen, setEditDialogOpen] = useState(false);
     const [editSession, setEditSession] = useState(null);
-    const [editForm, setEditForm] = useState({ location: '', from: '', to: '', confirm: true });
+    const [editForm, setEditForm] = useState({ building: '', room: '', from: '', to: '', confirm: true });
 
-    // sample students per session (demo data)
-    const sessionStudents = {
-        s1: [
-            { id: 'u1', name: 'Kiều Minh', dept: 'MT' },
-            { id: 'u2', name: 'Minh', dept: 'MT' },
-            { id: 'u3', name: 'Hồ Thị Minh Thu', dept: 'MT' },
-            { id: 'u4', name: 'Nguyễn Tiểu Anh', dept: 'MT' },
-        ],
-        s2: [
-            { id: 'u5', name: 'Student A', dept: 'KT' },
-            { id: 'u6', name: 'Student B', dept: 'KT' },
-        ],
-    };
+    // sessionStudents is imported from ../../data/sessionStudents.js
 
     const handleOpenDialog = (id) => {
-        const s = sampleSessions.find(x => x.id === id) || null;
+        const s = sessions.find(x => x.id === id) || null;
         setDialogSession(s);
         setDialogOpen(true);
     };
@@ -104,12 +109,49 @@ const SessionManagement = () => {
     };
 
     const handleOpenEditDialog = (id) => {
-        const s = sampleSessions.find(x => x.id === id) || null;
+        const s = sessions.find(x => x.id === id) || null;
+        // parse existing time into from/to if possible
+        let from = '';
+        let to = '';
+        if (s && s.time) {
+            const t = String(s.time);
+            if (t.includes(' - ')) {
+                const parts = t.split(' - ');
+                from = parts[0].trim();
+                to = parts[1] ? parts[1].trim() : '';
+            } else {
+                // no range; put full time into "from" so user sees current time
+                from = t;
+                to = '';
+            }
+        }
+
+        // parse place into building and room (e.g. "H6-111" -> building: H6, room: 111)
+        let building = '';
+        let room = '';
+        if (s && s.place) {
+            const p = String(s.place).trim();
+            if (p.toLowerCase() === 'online') {
+                building = 'Online';
+                room = '';
+            } else if (p.includes('-')) {
+                const parts = p.split('-').map(x => x.trim());
+                building = parts[0] || '';
+                room = parts[1] || '';
+            } else {
+                // fallback: try split by space
+                const parts = p.split(/\s+/);
+                building = parts[0] || p;
+                room = parts[1] || '';
+            }
+        }
+
         setEditSession(s);
         setEditForm({
-            location: s ? s.place : '',
-            from: '',
-            to: '',
+            building,
+            room,
+            from,
+            to,
             confirm: true,
         });
         setEditDialogOpen(true);
@@ -125,8 +167,26 @@ const SessionManagement = () => {
     };
 
     const handleSubmitEdit = () => {
-        console.log('Submit edit', editSession?.id, editForm);
-        // TODO: call API to save changes
+        if (!editSession) return handleCloseEditDialog();
+
+        const place = editForm.building
+            ? (editForm.building === 'Online' ? 'Online' : `${editForm.building}${editForm.room ? `-${editForm.room}` : ''}`)
+            : editSession.place;
+
+        const updated = {
+            ...editSession,
+            place,
+            time: (editForm.from || editForm.to) ? [editForm.from, editForm.to].filter(Boolean).join(' - ') : editSession.time,
+        };
+
+        setSessions(prev => prev.map(s => s.id === updated.id ? updated : s));
+        setEditSession(updated);
+        // if the dialog showing students is open for this session, refresh it
+        if (dialogOpen && dialogSession?.id === updated.id) setDialogSession(updated);
+
+        // ensure selected contains this id
+        setSelected(prev => prev.includes(updated.id) ? prev : [...prev, updated.id]);
+
         handleCloseEditDialog();
     };
 
@@ -136,7 +196,7 @@ const SessionManagement = () => {
     const [deleteConfirm, setDeleteConfirm] = useState(false);
 
     const handleOpenDelete = (id) => {
-        const s = sampleSessions.find(x => x.id === id) || null;
+        const s = sessions.find(x => x.id === id) || null;
         setDeleteSession(s);
         setDeleteConfirm(false);
         setDeleteDialogOpen(true);
@@ -149,13 +209,16 @@ const SessionManagement = () => {
     };
 
     const handleConfirmDelete = () => {
-        console.log('Confirmed delete', deleteSession?.id);
-        // TODO: call API to delete session and refresh list
+        if (!deleteSession) return handleCloseDelete();
+        // mark session as canceled instead of removing it
+        setSessions(prev => prev.map(s => s.id === deleteSession.id ? { ...s, state: 'cancel' } : s));
+        // remove from selection if present
+        setSelected(prev => prev.filter(id => id !== deleteSession.id));
         handleCloseDelete();
     };
 
     const handleSelectAll = (e) => {
-        if (e.target.checked) setSelected(sampleSessions.map(s => s.id));
+        if (e.target.checked) setSelected(sessions.map(s => s.id));
         else setSelected([]);
     };
 
@@ -167,11 +230,11 @@ const SessionManagement = () => {
                     Quản lý buổi tư vấn
                 </Typography>
 
-                <Box sx={{ ml: 'auto' }}>
+                {/* <Box sx={{ ml: 'auto' }}>
                     <CustomButton sx={{ width: '5rem', height: '2.5rem', borderRadius: '11px', fontSize: '12px' }} icon={<AddIcon />}>
                         Thêm
                     </CustomButton>
-                </Box>
+                </Box> */}
             </Box>
 
             {/* session table */}
@@ -181,12 +244,13 @@ const SessionManagement = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell padding="checkbox">
-                                    <Checkbox size="small" checked={selected.length === sampleSessions.length} onChange={handleSelectAll} />
+                                    <Checkbox size="small" checked={selected.length === sessions.length} onChange={handleSelectAll} />
                                 </TableCell>
                                 <TableCell sx={{ fontWeight: 700 }}>Thời gian</TableCell>
                                 <TableCell sx={{ fontWeight: 700 }}>Tutor</TableCell>
                                 <TableCell sx={{ fontWeight: 700 }}>Thời điểm</TableCell>
                                 <TableCell sx={{ fontWeight: 700 }}>Số lượng</TableCell>
+                                <TableCell sx={{ fontWeight: 700 }}>Trạng thái</TableCell>
                                 <TableCell sx={{ fontWeight: 700 }} align="center"></TableCell>
                             </TableRow>
                         </TableHead>
@@ -201,6 +265,7 @@ const SessionManagement = () => {
                                     <TableCell>{r.tutor}</TableCell>
                                     <TableCell>{r.place}</TableCell>
                                     <TableCell>{r.qty}</TableCell>
+                                    <TableCell>{r.state}    </TableCell>
                                     <TableCell align="center">
                                         <IconButton size="small" onClick={(e) => handleOpenMenu(e, r.id)} aria-controls={menuRowId === r.id ? 'row-menu' : undefined} aria-haspopup="true">
                                             <MoreVertIcon fontSize="small" />
@@ -223,14 +288,25 @@ const SessionManagement = () => {
                         </TableBody>
                     </Table>
 
-                    <Box sx={{ px: 2, py: 1 }}>
-                        <Pagination
-                            onPrevious={() => setPage(p => Math.max(0, p - 1))}
-                            onNext={() => setPage(p => Math.min(totalPages - 1, p + 1))}
-                            disablePrevious={page === 0}
-                            disableNext={page >= totalPages - 1}
-                        />
-                    </Box>
+                    <Box
+                                  sx={{
+                                    px: 3,
+                                    py: 1.5,
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <Typography variant="body2" sx={{ color: "#607189" }}>
+                                    Trang {page}/{totalPages}
+                                  </Typography>
+                    
+                                  <Pagination
+                                    currentPage={page}
+                                    totalPages={totalPages}
+                                    onPageChange={(newPage) => setPage(newPage)}
+                                  />
+                                </Box>
                 </TableContainer>
             </Box>
 
@@ -284,21 +360,42 @@ const SessionManagement = () => {
                 </DialogTitle>
                 <DialogContent>
                     <Box sx={{ mt: 1 }}>
-                        <FormControl fullWidth size="small" sx={{ mb: 2 }}>
-                            <InputLabel id="location-label">Địa điểm</InputLabel>
-                            <Select
-                                labelId="location-label"
-                                value={editForm.location}
-                                label="Địa điểm"
-                                onChange={(e) => handleEditChange('location', e.target.value)}
-                                displayEmpty
-                            >
-                                <MenuItem value="">Chọn địa điểm</MenuItem>
-                                <MenuItem value="H6-111">H6 - 111</MenuItem>
-                                <MenuItem value="H2-810">H2 - 810</MenuItem>
-                                <MenuItem value="Online">Online</MenuItem>
-                            </Select>
-                        </FormControl>
+                        <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
+                            <FormControl fullWidth size="small">
+                                <InputLabel id="building-label">Tòa</InputLabel>
+                                <Select
+                                    labelId="building-label"
+                                    value={editForm.building}
+                                    label="Tòa"
+                                    onChange={(e) => handleEditChange('building', e.target.value)}
+                                    displayEmpty
+                                >
+                                    <MenuItem value="">Chọn tòa</MenuItem>
+                                    <MenuItem value="H1">H1</MenuItem>
+                                    <MenuItem value="H2">H2</MenuItem>
+                                    <MenuItem value="H6">H6</MenuItem>
+                                    <MenuItem value="Online">Online</MenuItem>
+                                </Select>
+                            </FormControl>
+
+                            <FormControl fullWidth size="small">
+                                <InputLabel id="room-label" shrink>Phòng</InputLabel>
+                                <Select
+                                    labelId="room-label"
+                                    value={editForm.room}
+                                    label="Phòng"
+                                    onChange={(e) => handleEditChange('room', e.target.value)}
+                                    displayEmpty
+                                    disabled={editForm.building === 'Online'}
+                                >
+                                    <MenuItem value="">Chọn phòng</MenuItem>
+                                    <MenuItem value="111">111</MenuItem>
+                                    <MenuItem value="703">703</MenuItem>
+                                    <MenuItem value="810">810</MenuItem>
+                                    <MenuItem value="610">610</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
 
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
                             <Box sx={{ minWidth: 70 }}>Khung giờ</Box>

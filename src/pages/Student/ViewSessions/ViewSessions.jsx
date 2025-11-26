@@ -19,7 +19,7 @@ function ViewSessions() {
         variant="h5"
         sx={{ fontWeight: 700, mb: 3, color: "#002554" }}
       >
-        Quản lý tài liệu
+        Xem buổi tư vấn của tôi
       </Typography>
       <Box
         sx={{ display: "flex", gap: 4, p: 4, justifyContent: "space-around" }}
