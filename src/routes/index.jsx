@@ -71,7 +71,9 @@ const router = createBrowserRouter([
           { path: "/documents", element: <ViewDocuments /> },
           { path: "/documents/:id", element: <DocumentDetail /> },
           { path: "/register", element: <RegisterNewPage /> },
-
+          { path: "/registered", element: <RegisterNewPage /> },
+          { path: "/settings", element: <AccProfile /> },
+          { path: "/accSetting", element: <AccSetting /> },
           // .... thêm routes cho các trang mới
         ],
       },

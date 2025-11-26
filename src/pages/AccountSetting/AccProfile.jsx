@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import { Box, Paper, Typography, Grid, Avatar } from "@mui/material";
 import Button from "../../components/Button.jsx";
 import Textfill from "../../components/Textfill.jsx";
-
+import { useNavigate } from "react-router-dom";
 const AccountProfile = () => {
-  const [user, setUser] = useState({
-    name: "Anh Minh",
-    role: "Điều phối viên",
-    username: "Anh Minh",
-    avatar: "", // you can replace with an image URL
-  });
+  // const [user, setUser] = useState({
+  //   name: "Anh Minh",
+  //   role: "Điều phối viên",
+  //   username: "Anh Minh",
+  //   avatar: "", // you can replace with an image URL
+  // });
+  const storedUserStr = localStorage.getItem("user");
+  const storeInfo = storedUserStr ? JSON.parse(storedUserStr) : null;
+  const [user, setUser] = useState({...storeInfo});
+
+  const navigate = useNavigate();
 
   const handleChange = (field) => (e) =>
     setUser((prev) => ({ ...prev, [field]: e.target.value }));
@@ -17,6 +22,7 @@ const AccountProfile = () => {
   const handleViewDetails = () => {
     // replace with navigation or modal logic
     console.log("View details for", user);
+    navigate("/accSetting");
   };
   return (
     <Box
@@ -95,14 +101,14 @@ const AccountProfile = () => {
 
               {/* Stacked Username label + input + button under the profile card */}
               <Box sx={{ mt: 6, display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
-                <Typography sx={{ fontWeight: 800, fontSize: 20 }}>Username</Typography>
+                {/* <Typography sx={{ fontWeight: 800, fontSize: 20 }}>Username</Typography>
 
                 <Textfill
                   value={user.username}
                   onChange={handleChange("username")}
                   fullWidth
                   disabled
-                />
+                /> */}
 
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                   <Button
