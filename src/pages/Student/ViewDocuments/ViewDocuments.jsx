@@ -12,7 +12,7 @@ import { MOCK_DOCUMENT_DATA } from "../../../data/mockDocumentData";
 
 function ViewDocuments() {
   const [data, setData] = useState(MOCK_DOCUMENT_DATA);
-  const [showFilter, setShowFilter] = useState(true);
+  const [showFilter, setShowFilter] = useState(false);
   const [field, setField] = useState("");
   const [subject, setSubject] = useState("");
 
