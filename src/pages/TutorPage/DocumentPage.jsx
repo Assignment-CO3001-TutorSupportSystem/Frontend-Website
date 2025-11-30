@@ -19,44 +19,65 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 
 import Button from "../../components/Button.jsx";
 import Searchbar from "../../components/Searchbar.jsx";
+
 import { useNavigate } from "react-router-dom";
-import { DOCUMENTS } from "../../data/DocumentData.js";
-import { DOCUMENT_FIELDS } from "../../data/DocumentData.js";
+import { DOCUMENTS, DOCUMENT_FIELDS } from "../../data/DocumentData.js";
+
+import { filterDocuments, paginate } from "../../utils/documentUtils.js";
+
 const ITEMS_PER_PAGE = 9;
 
 export default function DocumentPage() {
   const navigate = useNavigate();
+
+  // State ô tìm kiếm
   const [search, setSearch] = useState("");
+
+  // Trang hiện tại
   const [page, setPage] = useState(1);
 
-  // FILTER
+  // State mở / đóng filter panel
   const [showFilter, setShowFilter] = useState(false);
+
+  // Giá trị lọc theo lĩnh vực
   const [fieldFilter, setFieldFilter] = useState("");
 
+  /**
+   * Toggle panel filter
+   * -> Mở / đóng khu vực bộ lọc
+   */
   const toggleFilter = () => setShowFilter((prev) => !prev);
 
-  // Lọc dữ liệu
-  const filtered = DOCUMENTS.filter((doc) => {
-    const matchSearch = doc.title.toLowerCase().includes(search.toLowerCase());
-    const matchField = fieldFilter ? doc.field === fieldFilter : true;
-    return matchSearch && matchField;
-  });
+  /**
+   * Lọc tài liệu dựa trên: search text + field
+   * -> Tách riêng để code gọn, dễ bảo trì
+   */
+  const filtered = filterDocuments(DOCUMENTS, search, fieldFilter);
 
-  // Pagination
-  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
-  const start = (page - 1) * ITEMS_PER_PAGE;
-  const paginated = filtered.slice(start, start + ITEMS_PER_PAGE);
+  /**
+   * Xử lý phân trang
+   * -> Trả về dữ liệu trang hiện tại + tổng số trang
+   */
+  const { paginated, totalPages } = paginate(filtered, page, ITEMS_PER_PAGE);
 
+  /**
+   * Chuyển sang trang kế tiếp
+   */
   const handleNext = () => setPage((p) => Math.min(totalPages, p + 1));
+
+  /**
+   * Quay về trang trước
+   */
   const handlePrev = () => setPage((p) => Math.max(1, p - 1));
 
   return (
     <Box sx={{ bgcolor: "#e7f0f4", p: 3, borderRadius: 3 }}>
+      {/* Tiêu đề trang */}
       <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
         Quản lý tài liệu
       </Typography>
 
-      {/* Khung tổng */}
+      {/* Khung nội dung */}
       <Box
         sx={{
           bgcolor: "#dfecef",
@@ -65,16 +86,16 @@ export default function DocumentPage() {
           mb: 3,
         }}
       >
-        {/* SEARCH + FILTER */}
+        {/* SEARCH + NÚT FILTER */}
         <Box sx={{ display: "flex", gap: 2, alignItems: "center", mb: 2 }}>
+          {/* Ô search */}
           <Box sx={{ flex: 1 }}>
             <Searchbar
               placeholder="Tìm kiếm tài liệu..."
               value={search}
               onChange={(e) => {
-                if (e?.target) setSearch(e.target.value);
-                else setSearch(e);
-                setPage(1);
+                setSearch(e?.target ? e.target.value : e);
+                setPage(1); // Reset về page 1 khi search
               }}
               InputProps={{
                 startAdornment: (
@@ -87,44 +108,39 @@ export default function DocumentPage() {
             />
           </Box>
 
-          {/* NÚT FILTER */}
-          {
-            <Button
-              variant="contained"
-              onClick={toggleFilter}
-              startIcon={
-                <FilterListIcon
-                  sx={{
-                    fontSize: 20,
-                    stroke: "white",
-                    strokeWidth: 0.5,
-                  }}
-                />
-              }
-              sx={{
-                backgroundColor: "#002554",
-                textTransform: "none",
-                fontSize: 16,
-                fontWeight: 500,
-                paddingX: 3,
-                paddingY: 1.2,
-                borderRadius: "10px",
-                boxShadow: "0px 3px 6px rgba(0,0,0,0.2)",
-                "&:hover": {
-                  backgroundColor: "#085f61",
-                  boxShadow: "0px 4px 10px rgba(0,0,0,0.25)",
-                },
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-              }}
-            >
-              Lọc
-            </Button>
-          }
+          {/* Nút mở filter */}
+          <Button
+            variant="contained"
+            onClick={toggleFilter}
+            startIcon={
+              <FilterListIcon
+                sx={{
+                  fontSize: 20,
+                  stroke: "white",
+                  strokeWidth: 0.5,
+                }}
+              />
+            }
+            sx={{
+              backgroundColor: "#002554",
+              textTransform: "none",
+              fontSize: 16,
+              fontWeight: 500,
+              paddingX: 3,
+              paddingY: 1.2,
+              borderRadius: "10px",
+              boxShadow: "0px 3px 6px rgba(0,0,0,0.2)",
+              "&:hover": {
+                backgroundColor: "#085f61",
+                boxShadow: "0px 4px 10px rgba(0,0,0,0.25)",
+              },
+            }}
+          >
+            Lọc
+          </Button>
         </Box>
 
-        {/* FILTER PANEL (COLLAPSE) */}
+        {/* PANEL FILTER */}
         <Collapse in={showFilter}>
           <Paper
             elevation={0}
@@ -146,21 +162,9 @@ export default function DocumentPage() {
               value={fieldFilter}
               onChange={(e) => {
                 setFieldFilter(e.target.value);
-                setPage(1);
+                setPage(1); // Reset page khi đổi filter
               }}
               size="small"
-              slotProps={{
-                select: {
-                  MenuProps: {
-                    PaperProps: {
-                      sx: {
-                        maxHeight: 200,
-                        overflowY: "auto",
-                      },
-                    },
-                  },
-                },
-              }}
             >
               <MenuItem value="">Tất cả</MenuItem>
 
@@ -173,48 +177,30 @@ export default function DocumentPage() {
           </Paper>
         </Collapse>
 
-        {/* TABLE */}
+        {/* BẢNG TÀI LIỆU */}
         <Paper
           elevation={0}
           sx={{ borderRadius: 3, overflow: "hidden", bgcolor: "#f5f8fb" }}
         >
+          {/* HEADER bảng */}
           <Box sx={{ bgcolor: "#002554", color: "white", px: 3, py: 1.5 }}>
             <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
               Danh sách tài liệu
             </Typography>
           </Box>
 
+          {/* DỮ LIỆU */}
           <Box sx={{ px: 3, py: 1 }}>
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell
-                    sx={{
-                      fontWeight: 600,
-                      width: "55%",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
+                  <TableCell sx={{ fontWeight: 600, width: "55%" }}>
                     Tên tài liệu
                   </TableCell>
-
-                  <TableCell
-                    sx={{
-                      fontWeight: 600,
-                      width: "25%",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
+                  <TableCell sx={{ fontWeight: 600, width: "25%" }}>
                     Tác giả
                   </TableCell>
-
-                  <TableCell
-                    sx={{
-                      fontWeight: 600,
-                      width: "20%",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
+                  <TableCell sx={{ fontWeight: 600, width: "20%" }}>
                     Lĩnh vực
                   </TableCell>
                 </TableRow>
@@ -227,9 +213,9 @@ export default function DocumentPage() {
                     hover
                     onClick={() => navigate(`/documents/${doc.id}`)}
                   >
-                    <TableCell sx={{ width: "55%" }}>{doc.title}</TableCell>
-                    <TableCell sx={{ width: "25%" }}>{doc.author}</TableCell>
-                    <TableCell sx={{ width: "20%" }}>{doc.field}</TableCell>
+                    <TableCell>{doc.title}</TableCell>
+                    <TableCell>{doc.author}</TableCell>
+                    <TableCell>{doc.field}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

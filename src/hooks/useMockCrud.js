@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useToast } from "../context/ToastContext"; //
 
-const useMockCrud = (initialData, storageKey) => {
+export const useMockCrud = (initialData, storageKey) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
@@ -78,5 +78,3 @@ const useMockCrud = (initialData, storageKey) => {
 
   return { data, loading, addItem, deleteItem, updateItem, resetData };
 };
-
-export default useMockCrud;

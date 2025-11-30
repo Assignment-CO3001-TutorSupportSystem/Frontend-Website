@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useToast } from "../context/ToastContext";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import {
   Box,
   Paper,
@@ -10,55 +7,25 @@ import {
   Button,
   Container,
   Stack,
-  Alert,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+import { useLoginForm } from "../hooks/useLoginForm";
+
 const LoginPage = () => {
-  const { login } = useAuth();
-  const { showToast } = useToast();
-  const navigate = useNavigate();
-
-  // Tạo State để lưu input
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  // Thêm state hiện/ẩn mật khẩu cho UX tốt hơn
-  const [showPassword, setShowPassword] = useState(false);
-
-  // Validate email cơ bản
-  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-  // Hàm xử lý Đăng nhập
-  const handleLogin = async () => {
-    if (!email || !password) {
-      showToast("Vui lòng nhập đầy đủ thông tin!", "warning");
-      return;
-    }
-
-    if (!isValidEmail(email)) {
-      showToast("Email không hợp lệ!", "warning");
-      return;
-    }
-
-    const res = await login(email, password);
-
-    if (!res.success) {
-      showToast(res.message, "error");
-      return;
-    }
-
-    showToast("Đăng nhập thành công! Chào mừng bạn trở lại.", "success");
-    navigate("/home");
-  };
-
-  // Xử lý khi nhấn Enter
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleLogin();
-    }
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    showPassword,
+    setShowPassword,
+    handleLogin,
+    handleKeyDown,
+  } = useLoginForm();
 
   return (
     <Container
@@ -85,7 +52,6 @@ const LoginPage = () => {
           borderRadius: 4,
           mr: "5%",
           overflow: "hidden",
-          backgroundImage: "rgba(255, 255, 255, 0.95)",
           bgcolor: "rgba(255, 255, 255, 0.3)",
           backdropFilter: "blur(10px)",
           WebkitBackdropFilter: "blur(10px)",
@@ -94,14 +60,11 @@ const LoginPage = () => {
           height: "80vh",
         }}
       >
-        {/* Right Side: Login Form */}
         <Box
           sx={{
             ml: "7%",
             width: "86%",
             p: "1%",
-            borderRadius: { xs: 4, md: "32px 0 0 32px" },
-            zIndex: 10,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -110,17 +73,18 @@ const LoginPage = () => {
           <Typography variant="h4" fontWeight="bold" color="#001F3F" mb={1}>
             Login
           </Typography>
+
           <Typography variant="body2" color="text.secondary" mb={4}>
             Please enter your login details to login
           </Typography>
 
           <Stack spacing={3}>
+            {/* Input Email */}
             <TextField
               fullWidth
               placeholder="Email"
               type="email"
               variant="outlined"
-              // Gắn state vào
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -129,42 +93,47 @@ const LoginPage = () => {
                   borderRadius: 4,
                   bgcolor: "rgba(255, 255, 255, 0.3)",
                   backdropFilter: "blur(10px)",
-                  WebkitBackdropFilter: "blur(10px)",
                   border: "1px solid rgba(255, 255, 255, 0.5)",
-                  "& fieldset": {
-                    border: "none",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "white",
+                  "& fieldset": { border: "none" },
                 },
               }}
             />
+
+            {/* Input Password */}
             <TextField
               fullWidth
               placeholder="Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               variant="outlined"
-              // Gắn state vào
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={handleKeyDown}
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              }}
               sx={{
                 "& .MuiOutlinedInput-root": {
                   borderRadius: 4,
                   bgcolor: "rgba(255, 255, 255, 0.3)",
                   backdropFilter: "blur(10px)",
-                  WebkitBackdropFilter: "blur(10px)",
                   border: "1px solid rgba(255, 255, 255, 0.5)",
-                  "& fieldset": {
-                    border: "none",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "white",
+                  "& fieldset": { border: "none" },
                 },
               }}
             />
+
+            {/* Login Button */}
             <Button
               variant="contained"
               size="large"
@@ -177,13 +146,6 @@ const LoginPage = () => {
                 py: 1.5,
                 textTransform: "none",
                 fontSize: "1.1rem",
-                boxShadow: "0 4px 12px rgba(13, 71, 161, 0.4)",
-                "&:hover": {
-                  bgcolor: "#1a487cff",
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 6px 16px rgba(13, 71, 161, 0.5)",
-                },
-                transition: "all 0.3s ease",
               }}
             >
               Login

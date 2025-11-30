@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom"; // 1. Import Outlet
 import { Box, CssBaseline, Drawer } from "@mui/material";
-import Header from "../components/Header.jsx";
-import SidebarContent from "../components/SidebarContent.jsx";
 import Footer from "../components/Footer.jsx";
 import HeaderBeforeLogin from "../components/HeaderBeforeLogin.jsx";
 

@@ -1,96 +1,27 @@
 // src/pages/TutorPage/RegisterConsultation.jsx
-import React, { useState } from "react";
+import React from "react";
 import { Box, Paper, Typography, Grid } from "@mui/material";
-import dayjs from "dayjs";
+import Textfill from "../../components/Textfill";
+import Calendar from "../../components/Calendar";
+import Button from "../../components/Button";
+import { formatDate } from "../../utils/date";
 
-import Button from "../../components/Button.jsx";
-import Textfill from "../../components/Textfill.jsx";
-import Calendar from "../../components/Calendar.jsx";
-
-import { useNavigate } from "react-router-dom";
-import { useSessions } from "../../context/SessionContext.jsx";
-
-// Format ngày hiển thị trong ô input
-const formatDate = (date) => {
-  if (!date) return "";
-  return dayjs(date).format("DD/MM/YYYY");
-};
+import { useRegisterConsultation } from "../../hooks/useRegisterConsultation";
 
 const RegisterConsultation = () => {
-  const [form, setForm] = useState({
-    title: "",
-    location: "",
-    date: dayjs(),
-    timeSlot: "",
-    duration: "",
-    quantity: "",
-  });
-
-  const [calendarOpen, setCalendarOpen] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-
-  const { addSession } = useSessions();
-  const navigate = useNavigate();
-
-  const handleFieldChange = (field) => (e) => {
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
-  };
-
-  const handleDateChange = (newDate) => {
-    setForm((prev) => ({ ...prev, date: newDate }));
-    setCalendarOpen(false);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // 1️⃣ Validate đơn giản
-    if (
-      !form.title.trim() ||
-      !form.location.trim() ||
-      !form.timeSlot.trim() ||
-      !form.duration.trim() ||
-      !form.quantity
-    ) {
-      alert("Vui lòng nhập đầy đủ thông tin buổi tư vấn.");
-      return;
-    }
-
-    setSubmitting(true);
-
-    // 2️⃣ Tạo session mới (demo: cố định tutor Trần Thị B - T002)
-    const newSession = {
-      id: `S_NEW_${Date.now()}`, // id tạm thời
-      tutorId: "T002",
-      tutorName: "Trần Thị B",
-      topic: form.title,
-      subject: "Vật lý đại cương",
-      status: "Còn nhận",
-      time: `${form.timeSlot} ${formatDate(form.date)}`,
-      location: form.location,
-      maxStudents: Number(form.quantity),
-      registered: 0,
-    };
-
-    // 3️⃣ Thêm vào context (sẽ hiện trên màn hình tutor)
-    addSession(newSession);
-
-    // 4️⃣ Thông báo + chuyển về list buổi tư vấn của tutor
-    alert("Đăng ký buổi tư vấn thành công!");
-    navigate("/tutor/T002/sessions");
-
-    setSubmitting(false);
-  };
+  const {
+    form,
+    submitting,
+    calendarOpen,
+    setCalendarOpen,
+    handleFieldChange,
+    handleDateChange,
+    handleSubmit,
+  } = useRegisterConsultation();
 
   return (
-    <Box
-      sx={{
-        bgcolor: "#e7f0f4",
-        borderRadius: 4,
-        p: 4,
-      }}
-    >
-      {/* Header: tiêu đề + pill "Tutor" */}
+    <Box sx={{ bgcolor: "#e7f0f4", borderRadius: 4, p: 4 }}>
+      {/* Header */}
       <Box
         sx={{
           display: "flex",
@@ -118,15 +49,13 @@ const RegisterConsultation = () => {
             py: 0.7,
             borderRadius: 999,
             fontWeight: 600,
-            ml: 2,
-            whiteSpace: "nowrap",
           }}
         >
           Tutor
         </Box>
       </Box>
 
-      {/* CARD FORM */}
+      {/* Card Form */}
       <Paper
         elevation={0}
         sx={{
@@ -141,6 +70,7 @@ const RegisterConsultation = () => {
       >
         <Box sx={{ maxWidth: 900, mx: "auto" }}>
           <Grid container spacing={3}>
+            {/* Chủ đề */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Chủ đề buổi tư vấn</Typography>
               <Textfill
@@ -150,6 +80,7 @@ const RegisterConsultation = () => {
               />
             </Grid>
 
+            {/* Khung giờ */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Khung giờ</Typography>
               <Textfill
@@ -159,6 +90,7 @@ const RegisterConsultation = () => {
               />
             </Grid>
 
+            {/* Thời lượng */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Thời gian diễn ra</Typography>
               <Textfill
@@ -168,6 +100,7 @@ const RegisterConsultation = () => {
               />
             </Grid>
 
+            {/* Địa điểm */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Địa điểm</Typography>
               <Textfill
@@ -177,6 +110,7 @@ const RegisterConsultation = () => {
               />
             </Grid>
 
+            {/* Ngày mở */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Ngày mở</Typography>
 
@@ -188,30 +122,25 @@ const RegisterConsultation = () => {
               </Box>
 
               {calendarOpen && (
-                <Box
-                  sx={{
-                    mt: 2,
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
+                <Box sx={{ mt: 2, display: "flex", justifyContent: "center" }}>
                   <Calendar value={form.date} onChange={handleDateChange} />
                 </Box>
               )}
             </Grid>
 
+            {/* Số lượng */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Số lượng</Typography>
               <Textfill
                 value={form.quantity}
-                onChange={handleFieldChange("quantity")}
                 type="number"
+                onChange={handleFieldChange("quantity")}
                 placeholder="Ví dụ: 40"
               />
             </Grid>
           </Grid>
 
-          {/* Nút submit */}
+          {/* Nút Submit */}
           <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
             <Button
               type="submit"

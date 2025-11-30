@@ -7,7 +7,6 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import Login from "../pages/Login";
 import HomePage from "../pages/HomePage";
 import StudentList from "../pages/TutorPage/StudentList.jsx";
-// import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
 import TutorManagement from "../pages/DPVPages/TutorManagement.jsx";
 import Management from "../pages/DPVPages/Management.jsx";
 import StudentManagement from "../pages/DPVPages/StudentManagement.jsx";
@@ -23,6 +22,9 @@ import TutorPendingList from "../pages/DPVPages/TutorPendingList.jsx";
 import TutorSessionContent from "../pages/TutorPage/TutorSessionContent.jsx";
 import TutorSessionPage from "../pages/TutorPage/TutorSessionPages.jsx";
 import TutorSchedule from "../pages/TutorPage/TutorSchedule.jsx";
+
+import DocumentDetailPage from "../pages/TutorPage/DocumentDetail.jsx";
+import DocumentPage from "../pages/TutorPage/DocumentPage.jsx";
 const NotFound = () => <h2>404 - Không tìm thấy trang</h2>;
 
 const router = createBrowserRouter([
@@ -73,6 +75,10 @@ const router = createBrowserRouter([
           },
           { path: "/sessions", element: <ViewSessions /> },
           { path: "/documents", element: <ViewDocuments /> },
+
+          { path: "/documentPageDetal", element: <DocumentDetailPage /> },
+          { path: "/documentPage", element: <DocumentPage /> },
+
           { path: "/documents/:id", element: <DocumentDetail /> },
           { path: "/register", element: <RegisterNewPage /> },
           { path: "/settings", element: <AccProfile /> },

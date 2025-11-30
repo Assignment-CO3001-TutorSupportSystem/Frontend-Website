@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 import { Box, Paper, Typography, Grid, Avatar } from "@mui/material";
 import Button from "../../components/Button.jsx";
-import Textfill from "../../components/Textfill.jsx";
 import { useNavigate } from "react-router-dom";
+
 const AccountProfile = () => {
-  // const [user, setUser] = useState({
-  //   name: "Anh Minh",
-  //   role: "Điều phối viên",
-  //   username: "Anh Minh",
-  //   avatar: "", // you can replace with an image URL
-  // });
   const storedUserStr = localStorage.getItem("user");
   const storeInfo = storedUserStr ? JSON.parse(storedUserStr) : null;
-  const [user, setUser] = useState({...storeInfo});
+  const [user, setUser] = useState({ ...storeInfo });
 
   const navigate = useNavigate();
 
@@ -20,10 +14,9 @@ const AccountProfile = () => {
     setUser((prev) => ({ ...prev, [field]: e.target.value }));
 
   const handleViewDetails = () => {
-    // replace with navigation or modal logic
-    console.log("View details for", user);
     navigate("/accSetting");
   };
+
   return (
     <Box
       sx={{
@@ -63,7 +56,12 @@ const AccountProfile = () => {
         }}
       >
         <Box sx={{ maxWidth: 1100, mx: "auto" }}>
-          <Grid container spacing={4} justifyContent="center" alignItems="center">
+          <Grid
+            container
+            spacing={4}
+            justifyContent="center"
+            alignItems="center"
+          >
             {/* left spacing to simulate sidebar area */}
             <Grid item xs={0} md={3} />
 
@@ -95,21 +93,22 @@ const AccountProfile = () => {
                   <Typography sx={{ fontSize: 20, fontWeight: 700 }}>
                     {user.name}
                   </Typography>
-                  <Typography sx={{ opacity: 0.8, mt: 1 }}>{user.role}</Typography>
+                  <Typography sx={{ opacity: 0.8, mt: 1 }}>
+                    {user.role}
+                  </Typography>
                 </Box>
               </Box>
 
               {/* Stacked Username label + input + button under the profile card */}
-              <Box sx={{ mt: 6, display: "flex", flexDirection: "column", gap: 2, alignItems: "center" }}>
-                {/* <Typography sx={{ fontWeight: 800, fontSize: 20 }}>Username</Typography>
-
-                <Textfill
-                  value={user.username}
-                  onChange={handleChange("username")}
-                  fullWidth
-                  disabled
-                /> */}
-
+              <Box
+                sx={{
+                  mt: 6,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 2,
+                  alignItems: "center",
+                }}
+              >
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
                   <Button
                     onClick={handleViewDetails}
@@ -132,7 +131,7 @@ const AccountProfile = () => {
             <Grid item xs={0} md={3} />
           </Grid>
         </Box>
-        </Paper>
+      </Paper>
     </Box>
   );
 };

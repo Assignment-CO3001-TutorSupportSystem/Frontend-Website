@@ -98,9 +98,9 @@ export const AuthProvider = ({ children }) => {
 
   // 6. Hàm Logout
   const logout = () => {
-    setUser(null); // Xóa state
-    localStorage.removeItem("user"); // Xóa khỏi storage
-    localStorage.removeItem("user_info"); // Xóa user_info nếu có
+    setUser(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("user_info");
   };
 
   // ===== Role Helpers =====

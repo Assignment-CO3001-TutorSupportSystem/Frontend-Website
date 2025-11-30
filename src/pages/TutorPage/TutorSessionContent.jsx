@@ -1,5 +1,4 @@
-// src/pages/.../TutorSessionContent.jsx
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Paper,
@@ -24,76 +23,35 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import Button from "../../components/Button.jsx";
 import Pagination from "../../components/Pagination.jsx";
 import Searchbar from "../../components/Searchbar.jsx";
-import { useSessions } from "../../context/SessionContext.jsx";
+
+import { useTutorSession } from "../../hooks/useTutorSession";
 
 const ITEMS_PER_PAGE = 7;
 
 const TutorSessionContent = ({ tutorId, tutorName }) => {
-  const { sessions } = useSessions(); // 👉 lấy data từ context
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-
-  // FILTER POPUP
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [statusFilter, setStatusFilter] = useState(""); // "Còn nhận" | "Full" | ""
-  const [locationFilter, setLocationFilter] = useState("");
-
-  // 1️⃣ Lọc theo tutor
-  let data = sessions;
-
-  if (tutorId) {
-    data = data.filter((s) => s.tutorId === tutorId);
-  } else if (tutorName) {
-    data = data.filter((s) => s.tutorName === tutorName);
-  }
-
-  // 2️⃣ Lọc theo filter popup
-  if (statusFilter) {
-    data = data.filter((s) => s.status === statusFilter);
-  }
-  if (locationFilter.trim()) {
-    const locLower = locationFilter.toLowerCase();
-    data = data.filter((s) => s.location.toLowerCase().includes(locLower));
-  }
-
-  // 3️⃣ Lọc theo ô search (chủ đề / địa điểm / thời gian)
-  const searchLower = search.toLowerCase();
-  const filtered = data.filter(
-    (s) =>
-      s.topic.toLowerCase().includes(searchLower) ||
-      s.location.toLowerCase().includes(searchLower) ||
-      s.time.toLowerCase().includes(searchLower)
-  );
-
-  // 4️⃣ Phân trang
-  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
-  const start = (page - 1) * ITEMS_PER_PAGE;
-  const paginated = filtered.slice(start, start + ITEMS_PER_PAGE);
-
-  const handleSearchChange = (eOrValue) => {
-    const value = eOrValue?.target?.value ?? eOrValue ?? "";
-    setSearch(value);
-    setPage(1);
-  };
-
-  const clearFilter = () => {
-    setStatusFilter("");
-    setLocationFilter("");
-  };
+  // 👉 Hook xử lý logic lọc + tìm kiếm + phân trang
+  const {
+    search,
+    page,
+    setPage,
+    filterOpen,
+    setFilterOpen,
+    statusFilter,
+    setStatusFilter,
+    locationFilter,
+    setLocationFilter,
+    handleSearchChange,
+    clearFilter,
+    totalPages,
+    paginated,
+  } = useTutorSession(tutorId, tutorName, ITEMS_PER_PAGE);
 
   return (
     <Box sx={{ bgcolor: "#e7f0f4", borderRadius: 4, p: 3 }}>
-      {/* card lớn: search + bảng */}
+      {/* card lớn chứa search + bảng */}
       <Box sx={{ bgcolor: "#dfecef", borderRadius: 4, p: 3 }}>
-        {/* Hàng search + filter */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 2,
-            mb: 2.5,
-          }}
-        >
+        {/* 🔍 Hàng search + filter */}
+        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2.5 }}>
           <Box sx={{ flex: 1 }}>
             <Searchbar
               placeholder="Tìm buổi tư vấn..."
@@ -105,11 +63,7 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
                     <SearchIcon fontSize="small" />
                   </InputAdornment>
                 ),
-                sx: {
-                  borderRadius: 999,
-                  bgcolor: "white",
-                  px: 1,
-                },
+                sx: { borderRadius: 999, bgcolor: "white", px: 1 },
               }}
             />
           </Box>
@@ -120,7 +74,7 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
           </Button>
         </Box>
 
-        {/* card chứa bảng */}
+        {/* 📄 Bảng danh sách session */}
         <Paper
           elevation={0}
           sx={{
@@ -131,22 +85,15 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
             bgcolor: "#f5f8fb",
           }}
         >
-          {/* header bảng */}
-          <Box
-            sx={{
-              bgcolor: "#002554",
-              color: "white",
-              px: 3,
-              py: 1.5,
-            }}
-          >
+          {/* Header bảng */}
+          <Box sx={{ bgcolor: "#002554", color: "white", px: 3, py: 1.5 }}>
             <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
               Danh sách các buổi tư vấn
               {tutorName ? ` của ${tutorName}` : ""}
             </Typography>
           </Box>
 
-          {/* bảng */}
+          {/* Bảng */}
           <Box sx={{ px: 3, py: 1 }}>
             <Table size="small">
               <TableHead>
@@ -158,6 +105,7 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
                   <TableCell sx={{ fontWeight: 600 }}>Số lượng</TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
                 {paginated.map((row) => (
                   <TableRow key={row.id} hover>
@@ -182,14 +130,13 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
             </Table>
           </Box>
 
-          {/* Pagination */}
+          {/* 🔢 Pagination */}
           <Box
             sx={{
               px: 3,
               py: 1,
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "center",
             }}
           >
             <Typography variant="body2" sx={{ color: "#607189" }}>
@@ -205,10 +152,17 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
         </Paper>
       </Box>
 
-      {/* POPUP FILTER */}
-      <Dialog open={filterOpen} onClose={() => setFilterOpen(false)} maxWidth="xs" fullWidth>
+      {/* 🧰 Popup Filter */}
+      <Dialog
+        open={filterOpen}
+        onClose={() => setFilterOpen(false)}
+        maxWidth="xs"
+        fullWidth
+      >
         <DialogTitle>Lọc buổi tư vấn</DialogTitle>
+
         <DialogContent dividers>
+          {/* Trạng thái */}
           <TextField
             select
             fullWidth
@@ -222,6 +176,7 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
             <MenuItem value="Full">Full</MenuItem>
           </TextField>
 
+          {/* Địa điểm */}
           <TextField
             fullWidth
             label="Địa điểm (chứa...)"
@@ -229,6 +184,7 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
             onChange={(e) => setLocationFilter(e.target.value)}
           />
         </DialogContent>
+
         <DialogActions>
           <Button variant="secondary" onClick={clearFilter}>
             Xóa lọc

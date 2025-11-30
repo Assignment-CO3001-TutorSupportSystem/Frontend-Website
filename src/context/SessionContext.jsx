@@ -1,6 +1,6 @@
 // src/context/SessionContext.jsx
 import React, { createContext, useContext, useState } from "react";
-import { TUTOR_SESSIONS } from "../data/tutorData.js"; // đường dẫn chỉnh theo cấu trúc của bạn
+import { TUTOR_SESSIONS } from "../data/tutorData.js";
 
 const SessionContext = createContext(null);
 

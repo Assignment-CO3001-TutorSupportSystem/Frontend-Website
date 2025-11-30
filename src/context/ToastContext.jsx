@@ -23,7 +23,6 @@ export const ToastProvider = ({ children }) => {
 
   // Hàm đóng thông báo
   const handleClose = (event, reason) => {
-    // Nếu người dùng click ra ngoài (clickaway) thì không đóng, bắt buộc phải hết giờ hoặc bấm nút x
     if (reason === "clickaway") {
       return;
     }
@@ -37,15 +36,14 @@ export const ToastProvider = ({ children }) => {
       {/* --- PHẦN GIAO DIỆN THÔNG BÁO --- */}
       <Snackbar
         open={open}
-        autoHideDuration={3000} // Tự động tắt sau 3 giây
+        autoHideDuration={3000}
         onClose={handleClose}
-        // Vị trí xuất hiện: Góc trên bên phải
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
           onClose={handleClose}
           severity={severity}
-          variant="filled" // Kiểu hiển thị đậm màu (dễ nhìn hơn)
+          variant="filled"
           sx={{ width: "100%", boxShadow: 3 }}
         >
           {message}
