@@ -8,7 +8,7 @@ import Button from "../../components/Button.jsx";
 import Textfill from "../../components/Textfill.jsx";
 import Calendar from "../../components/Calendar.jsx";
 import { useToast } from "../../context/ToastContext.jsx";
-
+import { useAuth } from "../../context/AuthContext.jsx";
 const formatDate = (date) => {
   if (!date) return "";
   return dayjs(date).format("DD/MM/YYYY");
@@ -18,15 +18,39 @@ let storedUserStr = localStorage.getItem("user");
 const storeInfo = storedUserStr ? JSON.parse(storedUserStr) : null;
 
 // safe lookup (USERS might be undefined or not contain the email)
-let userInfo = Array.isArray(USERS) && storeInfo?.email
-  ? USERS.find((u) => u.email === storeInfo.email)
-  : undefined;
-if (localStorage.getItem("user_info") !== null) {
-  userInfo = JSON.parse(localStorage.getItem("user_info"));
-}
+
 const AccountSetting = () => {
   const { showToast } = useToast();
-  const [form, setForm] = useState({...userInfo});
+  const { user } = useAuth();
+
+  // form is initialized empty and populated from current auth / localStorage
+  const [form, setForm] = useState({});
+  // helper to derive userInfo (priority: saved "user_info" > Auth user + USERS lookup)
+  const resolveUserInfo = () => {
+    const saved = localStorage.getItem("user_info");
+    if (saved) return JSON.parse(saved);
+    // fallback to auth user and USERS data
+    if (user && Array.isArray(USERS)) {
+      const found = USERS.find((u) => u.email === user.email);
+      if (found) return found;
+      // if auth user exists but not in USERS, use auth basic fields
+      return { email: user.email, name: user.name, role: user.role };
+    }
+    return {};
+  };
+
+  // update form when auth user changes or when localStorage "user_info" changes
+  React.useEffect(() => {
+    setForm(resolveUserInfo());
+    const onStorage = (e) => {
+      if (e.key === "user_info") {
+        setForm(resolveUserInfo());
+      }
+    };
+
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, [user]);
   const fields = [
     { label: "Họ và tên", field: "name" },
     { label: "ID", field: "id" },
@@ -35,8 +59,11 @@ const AccountSetting = () => {
     { label: "Số điện thoại", field: "phone" },
     { label: "Trạng thái", field: "status" },
   ];
-  if (form.role === "student" || form.role === "teacher") {
+  if (form.role === "student" || form.role === "tutor") {
     fields.push({ label: "Khoa", field: "department" });
+  }
+  else if (form.role === "other" || form.role === "admin") {
+    fields.remove
   }
   const [calendarOpen, setCalendarOpen] = useState(false);
 
@@ -49,7 +76,7 @@ const AccountSetting = () => {
     setCalendarOpen(false);
   };
 
-  const handleSubmit = (e) => {
+  const updateInfo = (e) => {
     e.preventDefault();
 
     // Basic validation
@@ -61,6 +88,10 @@ const AccountSetting = () => {
     try {
       // Update localStorage user (persistence for this demo app)
       const updatedUser = { ...form };
+      let userInfo = localStorage.getItem("user");
+      if (localStorage.getItem("user_info") !== null) {
+        userInfo = JSON.parse(localStorage.getItem("user_info"));
+      }
       if (userInfo && JSON.stringify(updatedUser) === JSON.stringify(userInfo)) {
         showToast("Không có thay đổi để cập nhật.", "info");
         return;
@@ -122,7 +153,7 @@ const AccountSetting = () => {
           mx: "auto",
         }}
         component="form"
-        onSubmit={handleSubmit}
+        onSubmit={updateInfo}
       >
         <Box sx={{ maxWidth: 1100, mx: "auto", position: "relative" }}>
           {/* layout: small left gap (sidebar area) | main centered column (button + fields) | right profile card */}
@@ -243,7 +274,7 @@ const AccountSetting = () => {
               type="submit"
               width={200}
               height={45}
-              onClick={handleSubmit}
+              onClick={updateInfo}
               style={{
                 borderRadius: 999,
                 backgroundColor: "#006571",

@@ -100,6 +100,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null); // Xóa state
     localStorage.removeItem("user"); // Xóa khỏi storage
+    localStorage.removeItem("user_info"); // Xóa user_info nếu có
   };
 
   // ===== Role Helpers =====
