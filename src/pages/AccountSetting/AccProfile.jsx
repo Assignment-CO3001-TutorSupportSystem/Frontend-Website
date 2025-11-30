@@ -1,21 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Paper, Typography, Grid, Avatar } from "@mui/material";
 import Button from "../../components/Button.jsx";
-import { useNavigate } from "react-router-dom";
+import { useAccountProfile } from "../../hooks/useAccountProfile.js";
 
 const AccountProfile = () => {
-  const storedUserStr = localStorage.getItem("user");
-  const storeInfo = storedUserStr ? JSON.parse(storedUserStr) : null;
-  const [user, setUser] = useState({ ...storeInfo });
-
-  const navigate = useNavigate();
-
-  const handleChange = (field) => (e) =>
-    setUser((prev) => ({ ...prev, [field]: e.target.value }));
-
-  const handleViewDetails = () => {
-    navigate("/accSetting");
-  };
+  // Lay du lieu va cac ham xu ly tu Hook
+  const { user, handleViewDetails } = useAccountProfile();
 
   return (
     <Box
@@ -135,4 +125,5 @@ const AccountProfile = () => {
     </Box>
   );
 };
+
 export default AccountProfile;

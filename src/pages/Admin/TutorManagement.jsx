@@ -1,5 +1,5 @@
-// src/pages/Admin/TutorManagement.jsx
-import React, { useState } from "react";
+// src/pages/Admin/TutorManagement/TutorManagement.jsx
+import React from "react";
 import {
   Box,
   Paper,
@@ -14,41 +14,32 @@ import {
 } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button.jsx";
 import Searchbar from "../../components/Searchbar.jsx";
 import Pagination from "../../components/Pagination.jsx";
-import {
-  TUTOR_SESSIONS,
-} from "../../data/tutorData.js";
+import { useTutorManagement } from "../../hooks/useTutorManagement.js";
 
-const ITEMS_PER_PAGE = 7;
-
+/**
+ * UI trang Quản lý Tutor
+ * - Chỉ render giao diện
+ * - Logic lấy từ hook useTutorManagement()
+ */
 export default function TutorManagement() {
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const navigate = useNavigate();
+  const {
+    data,
+    search,
+    page,
+    totalPages,
+    setPage,
+    handleSearchChange,
+    navigateToPending,
+    navigateToDetail,
+  } = useTutorManagement();
 
-  const handleSearchChange = (e) => {
-    const value = e.target.value ?? "";
-    setSearch(value);
-    setPage(1);
-  };
-
-  const searchLower = search.toLowerCase();
-
-  // Lọc theo Họ tên + Chủ đề
-  const filtered = TUTOR_SESSIONS.filter(
-    (s) =>
-      s.tutorName.toLowerCase().includes(searchLower) ||
-      s.topic.toLowerCase().includes(searchLower)
-  );
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
-  const start = (page - 1) * ITEMS_PER_PAGE;
-  const data = filtered.slice(start, start + ITEMS_PER_PAGE);
-
+  /**
+   * UI helper: render chip trạng thái
+   */
   const renderStatusChip = (status) => {
     const isFull = status === "Full";
     return (
@@ -68,7 +59,7 @@ export default function TutorManagement() {
   return (
     <Box sx={{ bgcolor: "#E7F0F4", borderRadius: 4, p: 3 }}>
       <Box sx={{ maxWidth: 1200, mx: "auto" }}>
-        {/* Tiêu đề */}
+        {/* Header */}
         <Typography
           variant="h5"
           sx={{ fontWeight: 700, mb: 3, color: "#002554" }}
@@ -76,7 +67,7 @@ export default function TutorManagement() {
           Quản lý tutor
         </Typography>
 
-        {/* Thanh công cụ */}
+        {/* Toolbar */}
         <Box
           sx={{
             display: "flex",
@@ -90,6 +81,7 @@ export default function TutorManagement() {
             Xóa
           </Button>
 
+          {/* Ô tìm kiếm + nút danh sách chờ duyệt */}
           <Box sx={{ ml: "auto", display: "flex", gap: 2, flexWrap: "wrap" }}>
             <Box sx={{ minWidth: 260, maxWidth: 360 }}>
               <Searchbar
@@ -99,6 +91,7 @@ export default function TutorManagement() {
               />
             </Box>
 
+            {/* Nút điều hướng */}
             <Box
               sx={{
                 bgcolor: "#002554",
@@ -111,7 +104,7 @@ export default function TutorManagement() {
                 gap: 1,
                 cursor: "pointer",
               }}
-              onClick={() => navigate("/tutorPendingList")}
+              onClick={navigateToPending} // ⬅ Hook xử lý
             >
               <DescriptionOutlinedIcon fontSize="small" />
               <Typography sx={{ fontWeight: 600, fontSize: 14 }}>
@@ -121,7 +114,7 @@ export default function TutorManagement() {
           </Box>
         </Box>
 
-        {/* Card bảng */}
+        {/* Table container */}
         <Paper
           elevation={0}
           sx={{
@@ -132,7 +125,7 @@ export default function TutorManagement() {
             bgcolor: "#F5F8FB",
           }}
         >
-          {/* Header tối */}
+          {/* Header bảng */}
           <Box sx={{ bgcolor: "#002554", color: "white", px: 3, py: 1.5 }}>
             <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
               Các buổi tư vấn của tutor
@@ -153,6 +146,7 @@ export default function TutorManagement() {
                   </TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
                 {data.map((s) => (
                   <TableRow key={s.id}>
@@ -160,16 +154,19 @@ export default function TutorManagement() {
                     <TableCell>{s.topic}</TableCell>
                     <TableCell>{s.subject}</TableCell>
                     <TableCell>{renderStatusChip(s.status)}</TableCell>
+
+                    {/* Nút xem chi tiết */}
                     <TableCell align="center">
                       <IconButton
                         size="small"
-                        onClick={() => navigate(`/tutorDetail/${s.id}`)}
+                        onClick={() => navigateToDetail(s.id)}
                       >
                         <VisibilityOutlinedIcon fontSize="small" />
                       </IconButton>
                     </TableCell>
                   </TableRow>
                 ))}
+
                 {data.length === 0 && (
                   <TableRow>
                     <TableCell colSpan={5} align="center">
@@ -181,7 +178,7 @@ export default function TutorManagement() {
             </Table>
           </Box>
 
-          {/* Pagination */}
+          {/* Phân trang */}
           <Box
             sx={{
               px: 3,
@@ -198,7 +195,7 @@ export default function TutorManagement() {
             <Pagination
               currentPage={page}
               totalPages={totalPages}
-              onPageChange={(newPage) => setPage(newPage)}
+              onPageChange={setPage}
             />
           </Box>
         </Paper>

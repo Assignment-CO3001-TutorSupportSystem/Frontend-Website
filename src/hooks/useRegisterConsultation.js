@@ -5,7 +5,6 @@ import { formatDate } from "../utils/date";
 import { useSessions } from "../context/SessionContext";
 import { useNavigate } from "react-router-dom";
 
-// 📌 Hook tách biệt toàn bộ logic của form đăng ký tư vấn
 export const useRegisterConsultation = () => {
   // State lưu dữ liệu form
   const [form, setForm] = useState({
@@ -26,18 +25,18 @@ export const useRegisterConsultation = () => {
   const { addSession } = useSessions();
   const navigate = useNavigate();
 
-  // 📌 Hàm thay đổi field chung
+  // Hàm thay đổi field chung
   const handleFieldChange = (field) => (e) => {
     setForm((prev) => ({ ...prev, [field]: e.target.value }));
   };
 
-  // 📌 Hàm chọn ngày từ calendar
+  // Hàm chọn ngày từ calendar
   const handleDateChange = (newDate) => {
     setForm((prev) => ({ ...prev, date: newDate }));
     setCalendarOpen(false);
   };
 
-  // 📌 Hàm submit form
+  // Hàm submit form
   const handleSubmit = (e) => {
     e.preventDefault();
 

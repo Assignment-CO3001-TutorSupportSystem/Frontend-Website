@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Paper,
@@ -20,64 +20,34 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import Button from "../../components/Button.jsx";
 import Searchbar from "../../components/Searchbar.jsx";
 
-import { useNavigate } from "react-router-dom";
-import { DOCUMENTS, DOCUMENT_FIELDS } from "../../data/DocumentData.js";
-
-import { filterDocuments, paginate } from "../../utils/documentUtils.js";
-
-const ITEMS_PER_PAGE = 9;
+import { DOCUMENT_FIELDS } from "../../data/DocumentData.js";
+import { useDocumentPage } from "../../hooks/useDocumentPage.js";
 
 export default function DocumentPage() {
-  const navigate = useNavigate();
-
-  // State ô tìm kiếm
-  const [search, setSearch] = useState("");
-
-  // Trang hiện tại
-  const [page, setPage] = useState(1);
-
-  // State mở / đóng filter panel
-  const [showFilter, setShowFilter] = useState(false);
-
-  // Giá trị lọc theo lĩnh vực
-  const [fieldFilter, setFieldFilter] = useState("");
-
-  /**
-   * Toggle panel filter
-   * -> Mở / đóng khu vực bộ lọc
-   */
-  const toggleFilter = () => setShowFilter((prev) => !prev);
-
-  /**
-   * Lọc tài liệu dựa trên: search text + field
-   * -> Tách riêng để code gọn, dễ bảo trì
-   */
-  const filtered = filterDocuments(DOCUMENTS, search, fieldFilter);
-
-  /**
-   * Xử lý phân trang
-   * -> Trả về dữ liệu trang hiện tại + tổng số trang
-   */
-  const { paginated, totalPages } = paginate(filtered, page, ITEMS_PER_PAGE);
-
-  /**
-   * Chuyển sang trang kế tiếp
-   */
-  const handleNext = () => setPage((p) => Math.min(totalPages, p + 1));
-
-  /**
-   * Quay về trang trước
-   */
-  const handlePrev = () => setPage((p) => Math.max(1, p - 1));
+  // Lay du lieu va cac ham xu ly tu Hook
+  const {
+    search,
+    page,
+    totalPages,
+    showFilter,
+    fieldFilter,
+    paginated,
+    toggleFilter,
+    handleSearchChange,
+    handleFieldChange,
+    handleNext,
+    handlePrev,
+    handleRowClick,
+  } = useDocumentPage();
 
   return (
     <Box sx={{ bgcolor: "#e7f0f4", p: 3, borderRadius: 3 }}>
-      {/* Tiêu đề trang */}
+      {/* Tieu de trang */}
       <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
         Quản lý tài liệu
       </Typography>
 
-      {/* Khung nội dung */}
+      {/* Khung noi dung chinh */}
       <Box
         sx={{
           bgcolor: "#dfecef",
@@ -86,17 +56,14 @@ export default function DocumentPage() {
           mb: 3,
         }}
       >
-        {/* SEARCH + NÚT FILTER */}
+        {/* Khu vuc Tim kiem va Nut Loc */}
         <Box sx={{ display: "flex", gap: 2, alignItems: "center", mb: 2 }}>
-          {/* Ô search */}
+          {/* O tim kiem */}
           <Box sx={{ flex: 1 }}>
             <Searchbar
               placeholder="Tìm kiếm tài liệu..."
               value={search}
-              onChange={(e) => {
-                setSearch(e?.target ? e.target.value : e);
-                setPage(1); // Reset về page 1 khi search
-              }}
+              onChange={handleSearchChange}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -108,7 +75,7 @@ export default function DocumentPage() {
             />
           </Box>
 
-          {/* Nút mở filter */}
+          {/* Nut mo/dong bo loc */}
           <Button
             variant="contained"
             onClick={toggleFilter}
@@ -140,7 +107,7 @@ export default function DocumentPage() {
           </Button>
         </Box>
 
-        {/* PANEL FILTER */}
+        {/* Panel chua cac tuy chon loc */}
         <Collapse in={showFilter}>
           <Paper
             elevation={0}
@@ -158,12 +125,8 @@ export default function DocumentPage() {
             <TextField
               select
               fullWidth
-              label="Lọc theo lĩnh vực"
               value={fieldFilter}
-              onChange={(e) => {
-                setFieldFilter(e.target.value);
-                setPage(1); // Reset page khi đổi filter
-              }}
+              onChange={handleFieldChange}
               size="small"
             >
               <MenuItem value="">Tất cả</MenuItem>
@@ -177,19 +140,19 @@ export default function DocumentPage() {
           </Paper>
         </Collapse>
 
-        {/* BẢNG TÀI LIỆU */}
+        {/* Bang danh sach tai lieu */}
         <Paper
           elevation={0}
           sx={{ borderRadius: 3, overflow: "hidden", bgcolor: "#f5f8fb" }}
         >
-          {/* HEADER bảng */}
+          {/* Header cua bang */}
           <Box sx={{ bgcolor: "#002554", color: "white", px: 3, py: 1.5 }}>
             <Typography sx={{ fontWeight: 600, fontSize: 15 }}>
               Danh sách tài liệu
             </Typography>
           </Box>
 
-          {/* DỮ LIỆU */}
+          {/* Noi dung bang */}
           <Box sx={{ px: 3, py: 1 }}>
             <Table size="small">
               <TableHead>
@@ -211,7 +174,7 @@ export default function DocumentPage() {
                   <TableRow
                     key={doc.id}
                     hover
-                    onClick={() => navigate(`/documents/${doc.id}`)}
+                    onClick={() => handleRowClick(doc.id)}
                   >
                     <TableCell>{doc.title}</TableCell>
                     <TableCell>{doc.author}</TableCell>
@@ -222,7 +185,7 @@ export default function DocumentPage() {
             </Table>
           </Box>
 
-          {/* PAGINATION */}
+          {/* Footer phan trang */}
           <Box
             sx={{
               px: 3,

@@ -1,5 +1,4 @@
-// src/pages/Admin/TutorPendingList.jsx
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Paper,
@@ -15,21 +14,17 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 import Button from "../../components/Button.jsx";
 import Pagination from "../../components/Pagination.jsx";
-import {
-  TUTOR_PENDING_REQUESTS as REQUESTS,
-} from "../../data/tutorPendingData.js";   // ✅ BẬT LẠI IMPORT
-const ITEMS_PER_PAGE = 7;
+import { useTutorPendingList } from "../../hooks/useTutorPendingList";
 
 export default function TutorPendingList({ onBack }) {
-  const [page, setPage] = useState(1);
-
-  const totalPages = Math.max(1, Math.ceil(REQUESTS.length / ITEMS_PER_PAGE));
-  const start = (page - 1) * ITEMS_PER_PAGE;
-  const data = REQUESTS.slice(start, start + ITEMS_PER_PAGE);
+  // Lấy dữ liệu và các hàm xử lý từ Hook
+  const { page, totalPages, pagedRequests, handlePageChange } =
+    useTutorPendingList();
 
   return (
     <Box sx={{ bgcolor: "#E7F0F4", borderRadius: 4, p: 3 }}>
       <Box sx={{ maxWidth: 1100, mx: "auto" }}>
+        {/* Header + nút quay lại */}
         <Box
           sx={{
             display: "flex",
@@ -45,6 +40,7 @@ export default function TutorPendingList({ onBack }) {
             Danh sách chờ duyệt
           </Typography>
 
+          {/* Hiển thị nút quay lại nếu có prop onBack */}
           {onBack && (
             <Button
               variant="secondary"
@@ -57,6 +53,7 @@ export default function TutorPendingList({ onBack }) {
           )}
         </Box>
 
+        {/* Khung bảng danh sách */}
         <Paper
           elevation={0}
           sx={{
@@ -67,6 +64,7 @@ export default function TutorPendingList({ onBack }) {
             bgcolor: "#FFFFFF",
           }}
         >
+          {/* Header của phần bảng */}
           <Box
             sx={{
               bgcolor: "#FFFFFF",
@@ -80,6 +78,7 @@ export default function TutorPendingList({ onBack }) {
             </Typography>
           </Box>
 
+          {/* Bảng danh sách */}
           <Box sx={{ px: 3, py: 1, overflowX: "auto" }}>
             <Table size="small" sx={{ minWidth: 720 }}>
               <TableHead>
@@ -100,22 +99,30 @@ export default function TutorPendingList({ onBack }) {
                   </TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
-                {data.map((r, index) => (
+                {/* Render dữ liệu đã được phân trang từ Hook */}
+                {pagedRequests.map((r, index) => (
                   <TableRow key={index}>
                     <TableCell>{r.time}</TableCell>
                     <TableCell>{r.name}</TableCell>
                     <TableCell>{r.subject}</TableCell>
+
+                    {/* Nút xem chi tiết */}
                     <TableCell align="center">
                       <IconButton size="small">
                         <VisibilityOutlinedIcon fontSize="small" />
                       </IconButton>
                     </TableCell>
+
+                    {/* Nút duyệt */}
                     <TableCell align="center">
                       <Button variant="success" width={100} height={36}>
                         Duyệt
                       </Button>
                     </TableCell>
+
+                    {/* Nút từ chối */}
                     <TableCell align="center">
                       <Button variant="danger" width={100} height={36}>
                         Từ chối
@@ -123,7 +130,9 @@ export default function TutorPendingList({ onBack }) {
                     </TableCell>
                   </TableRow>
                 ))}
-                {data.length === 0 && (
+
+                {/* Hiển thị thông báo khi không có dữ liệu */}
+                {pagedRequests.length === 0 && (
                   <TableRow>
                     <TableCell colSpan={6} align="center">
                       Không có yêu cầu nào.
@@ -134,6 +143,7 @@ export default function TutorPendingList({ onBack }) {
             </Table>
           </Box>
 
+          {/* Footer phân trang */}
           <Box
             sx={{
               px: 3,
@@ -150,7 +160,7 @@ export default function TutorPendingList({ onBack }) {
             <Pagination
               currentPage={page}
               totalPages={totalPages}
-              onPageChange={(newPage) => setPage(newPage)}
+              onPageChange={handlePageChange}
             />
           </Box>
         </Paper>

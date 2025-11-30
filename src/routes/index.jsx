@@ -7,18 +7,18 @@ import ProtectedRoute from "../components/ProtectedRoute";
 import Login from "../pages/Login";
 import HomePage from "../pages/HomePage";
 import StudentList from "../pages/TutorPage/StudentList.jsx";
-import TutorManagement from "../pages/DPVPages/TutorManagement.jsx";
-import Management from "../pages/DPVPages/Management.jsx";
-import StudentManagement from "../pages/DPVPages/StudentManagement.jsx";
-import SessionManagement from "../pages/DPVPages/SessionManagement.jsx";
+import TutorManagement from "../pages/Admin/TutorManagement.jsx";
+import Management from "../pages/Admin/Management.jsx";
+import StudentManagement from "../pages/Admin/StudentManagement.jsx";
+import SessionManagement from "../pages/Admin/SessionManagement.jsx";
 import RegisterNewPage from "../pages/Student/RigisterNewPage.jsx";
 import AccProfile from "../pages/AccountSetting/AccProfile.jsx";
 import AccSetting from "../pages/AccountSetting/AccSetting.jsx";
-import TutorDetail from "../pages/DPVPages/TutorDetail.jsx";
+import TutorDetail from "../pages/Admin/TutorDetail.jsx";
 import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
 import ViewSessions from "../pages/Student/ViewSessions";
 import { ViewDocuments, DocumentDetail } from "../pages/Student/ViewDocuments";
-import TutorPendingList from "../pages/DPVPages/TutorPendingList.jsx";
+import TutorPendingList from "../pages/Admin/TutorPendingList.jsx";
 import TutorSessionContent from "../pages/TutorPage/TutorSessionContent.jsx";
 import TutorSessionPage from "../pages/TutorPage/TutorSessionPages.jsx";
 import TutorSchedule from "../pages/TutorPage/TutorSchedule.jsx";
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
           { path: "/sessions", element: <ViewSessions /> },
           { path: "/documents", element: <ViewDocuments /> },
 
-          { path: "/documentPageDetal", element: <DocumentDetailPage /> },
+          { path: "/documentPageDetail", element: <DocumentDetailPage /> },
           { path: "/documentPage", element: <DocumentPage /> },
 
           { path: "/documents/:id", element: <DocumentDetail /> },

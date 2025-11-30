@@ -20,9 +20,13 @@ const TUTOR_SPECIFIC = [
     icon: <AssignmentIcon />,
     route: "/registerTutor",
   },
-  { text: "Buổi tư vấn của tôi", icon: <EventNoteIcon />, route: "/tutor/T002/sessions" },
+  {
+    text: "Buổi tư vấn của tôi",
+    icon: <EventNoteIcon />,
+    route: "/tutor/T002/sessions",
+  },
   { text: "Lịch", icon: <CalendarMonthIcon />, route: "/tutorSchedule" },
-  { text: "Tài liệu", icon: <LibraryBooksIcon />, route: "/documents" },
+  { text: "Tài liệu", icon: <LibraryBooksIcon />, route: "/documentPage" },
   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
   // ... các item khác
 ];
@@ -31,8 +35,8 @@ const STUDENT_SPECIFIC = [
   // ... các item
   { text: "Đăng ký buổi tư vấn", icon: <AssignmentIcon />, route: "/register" },
   { text: "Buổi tư vấn của tôi", icon: <EventNoteIcon />, route: "/sessions" },
-  { text: "Lịch", icon: <CalendarMonthIcon />, route: "/calendar" },
-  { text: "Tài liệu", icon: <LibraryBooksIcon />, route: "/documents" },
+  { text: "Lịch", icon: <CalendarMonthIcon />, route: "/tutorSchedule" },
+  { text: "Tài liệu", icon: <LibraryBooksIcon />, route: "/documentPage" },
   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
 
@@ -49,7 +53,6 @@ const ADMIN_SPECIFIC = [
     icon: <EventNoteIcon />,
     route: "/management",
   },
-  { text: "Lịch", icon: <CalendarMonthIcon /> },
   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
 
