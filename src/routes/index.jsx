@@ -6,7 +6,7 @@ import ProtectedRoute from "../components/ProtectedRoute";
 // Import Pages
 import Login from "../pages/Login";
 import HomePage from "../pages/HomePage";
-import StudentList from "../pages/TutorPage/StudentList.jsx";
+import StudentList from "../pages/Tutor/StudentList.jsx";
 import TutorManagement from "../pages/Admin/TutorManagement.jsx";
 import Management from "../pages/Admin/Management.jsx";
 import StudentManagement from "../pages/Admin/StudentManagement.jsx";
@@ -15,17 +15,17 @@ import RegisterNewPage from "../pages/Student/RigisterNewPage.jsx";
 import AccProfile from "../pages/AccountSetting/AccProfile.jsx";
 import AccSetting from "../pages/AccountSetting/AccSetting.jsx";
 import TutorDetail from "../pages/Admin/TutorDetail.jsx";
-import RegisterConsultation from "../pages/TutorPage/RegisterConsultation.jsx";
+import RegisterConsultation from "../pages/Tutor/RegisterConsultation.jsx";
 import ViewSessions from "../pages/Student/ViewSessions";
 import { ViewDocuments, DocumentDetail } from "../pages/Student/ViewDocuments";
 import TutorPendingList from "../pages/Admin/TutorPendingList.jsx";
-import TutorSessionContent from "../pages/TutorPage/TutorSessionContent.jsx";
-import TutorSessionPage from "../pages/TutorPage/TutorSessionPages.jsx";
-import TutorSchedule from "../pages/TutorPage/TutorSchedule.jsx";
+import TutorSessionContent from "../pages/Tutor/TutorSessionContent.jsx";
+import TutorSessionPage from "../pages/Tutor/TutorSessionPages.jsx";
+import TutorSchedule from "../pages/Tutor/TutorSchedule.jsx";
 
-import DocumentDetailPage from "../pages/TutorPage/DocumentDetail.jsx";
+import DocumentDetailPage from "../pages/Tutor/DocumentDetail.jsx";
 import Dashboard from "../pages/Other/DashboardPage.jsx";
-import DocumentPage from "../pages/TutorPage/DocumentPage.jsx";
+import DocumentPage from "../pages/Tutor/DocumentPage.jsx";
 const NotFound = () => <h2>404 - Không tìm thấy trang</h2>;
 
 const router = createBrowserRouter([

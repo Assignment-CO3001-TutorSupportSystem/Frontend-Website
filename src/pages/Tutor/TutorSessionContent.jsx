@@ -24,7 +24,7 @@ import Button from "../../components/Button.jsx";
 import Pagination from "../../components/Pagination.jsx";
 import Searchbar from "../../components/Searchbar.jsx";
 
-import { useTutorSession } from "../../hooks/useTutorSession";
+import { useTutorSession } from "../../hooks/useTutorSession.js";
 
 const ITEMS_PER_PAGE = 7;
 
