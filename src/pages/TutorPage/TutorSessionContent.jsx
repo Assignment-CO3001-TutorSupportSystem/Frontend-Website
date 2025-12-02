@@ -49,7 +49,7 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
   return (
     <Box sx={{ bgcolor: "#e7f0f4", borderRadius: 4, p: 3 }}>
       {/* card lớn chứa search + bảng */}
-      <Box sx={{ bgcolor: "#dfecef", borderRadius: 4, p: 3 }}>
+      <Box sx={{ bgcolor: "#e7f0f4", borderRadius: 4, p: 3 }}>
         {/* 🔍 Hàng search + filter */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2.5 }}>
           <Box sx={{ flex: 1 }}>
@@ -68,9 +68,19 @@ const TutorSessionContent = ({ tutorId, tutorName }) => {
             />
           </Box>
 
-          <Button onClick={() => setFilterOpen(true)}>
-            <FilterListIcon style={{ marginRight: 4 }} />
-            Filter
+          <Button width={80} height={40} onClick={() => setFilterOpen(true)}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.8,
+                width: "100%",
+                justifyContent: "center",
+              }}
+            >
+              <FilterListIcon sx={{ fontSize: 20 }} />
+              <span>Lọc</span>
+            </Box>
           </Button>
         </Box>
 

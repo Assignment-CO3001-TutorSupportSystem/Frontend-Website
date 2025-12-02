@@ -73,7 +73,7 @@ export const useRegisterConsultation = () => {
 
     // 4) Điều hướng về trang danh sách
     alert("Đăng ký buổi tư vấn thành công!");
-    navigate("/tutor/T002/sessions");
+    // navigate("/tutor/T002/sessions");
 
     setSubmitting(false);
   };

@@ -58,7 +58,7 @@ const ADMIN_SPECIFIC = [
 
 const OTHER_SPECIFIC = [
   // ... các item
-  { text: "Thống kê báo cáo", icon: <AnalyticsIcon /> },
+  { text: "Thống kê báo cáo", icon: <AnalyticsIcon />, route: "/dashboard" },
   { text: "Cài đặt", icon: <SettingsIcon />, route: "/settings" },
 ];
 

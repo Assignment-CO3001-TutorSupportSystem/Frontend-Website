@@ -6,7 +6,6 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 
 /**
@@ -81,9 +80,6 @@ const Header = ({ onMenuClick }) => {
         </IconButton>
         <IconButton color="inherit">
           <ChatBubbleOutlineIcon />
-        </IconButton>
-        <IconButton color="inherit">
-          <PersonOutlineIcon />
         </IconButton>
         <IconButton color="inherit" onClick={handleLogout}>
           <ExitToAppIcon />

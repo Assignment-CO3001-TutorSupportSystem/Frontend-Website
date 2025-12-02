@@ -14,12 +14,26 @@ function Layout() {
   const handleSidebarToggle = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        width: "100vw",
+      }}
+    >
       <CssBaseline />
 
       <Header onMenuClick={handleSidebarToggle} />
 
-      <Box sx={{ display: "flex", flexGrow: 1, marginTop: headerHeight }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexGrow: 1,
+          marginTop: headerHeight,
+          width: "100%",
+        }}
+      >
         {/* SIDEBAR */}
         <Drawer
           variant="persistent"
@@ -49,6 +63,7 @@ function Layout() {
             backgroundColor: "#f5f9fa",
             overflow: "auto",
             minHeight: `calc(100vh - ${headerHeight})`,
+            minWidth: "70%",
 
             // Logic đẩy nội dung (Push content)
             transition: (theme) =>
@@ -68,7 +83,7 @@ function Layout() {
           }}
         >
           {/* VÙNG NỘI DUNG THAY ĐỔI */}
-          <Box sx={{ flexGrow: 1, p: 3 }}>
+          <Box sx={{ flexGrow: 1, p: 3, width: "100%" }}>
             <Outlet context={{ isSidebarOpen }} />
           </Box>
 

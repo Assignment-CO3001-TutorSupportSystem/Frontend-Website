@@ -24,6 +24,7 @@ import TutorSessionPage from "../pages/TutorPage/TutorSessionPages.jsx";
 import TutorSchedule from "../pages/TutorPage/TutorSchedule.jsx";
 
 import DocumentDetailPage from "../pages/TutorPage/DocumentDetail.jsx";
+import Dashboard from "../pages/Other/DashboardPage.jsx";
 import DocumentPage from "../pages/TutorPage/DocumentPage.jsx";
 const NotFound = () => <h2>404 - Không tìm thấy trang</h2>;
 
@@ -84,6 +85,7 @@ const router = createBrowserRouter([
           { path: "/settings", element: <AccProfile /> },
           { path: "/accSetting", element: <AccSetting /> },
           { path: "/tutorSchedule", element: <TutorSchedule /> },
+          { path: "/dashboard", element: <Dashboard /> },
           // .... thêm routes cho các trang mới
         ],
       },

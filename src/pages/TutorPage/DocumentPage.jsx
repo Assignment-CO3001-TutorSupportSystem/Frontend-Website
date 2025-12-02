@@ -43,14 +43,14 @@ export default function DocumentPage() {
   return (
     <Box sx={{ bgcolor: "#e7f0f4", p: 3, borderRadius: 3 }}>
       {/* Tieu de trang */}
-      <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
+      {/* <Typography variant="h4" sx={{ fontWeight: 700, mb: 1 }}>
         Quản lý tài liệu
-      </Typography>
+      </Typography> */}
 
       {/* Khung noi dung chinh */}
       <Box
         sx={{
-          bgcolor: "#dfecef",
+          bgcolor: "#e7f0f4",
           p: 1,
           borderRadius: 3,
           mb: 3,

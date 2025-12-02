@@ -40,19 +40,6 @@ const RegisterConsultation = () => {
         >
           Đăng ký mở buổi tư vấn
         </Typography>
-
-        <Box
-          sx={{
-            bgcolor: "#002554",
-            color: "white",
-            px: 3,
-            py: 0.7,
-            borderRadius: 999,
-            fontWeight: 600,
-          }}
-        >
-          Tutor
-        </Box>
       </Box>
 
       {/* Card Form */}
@@ -62,14 +49,15 @@ const RegisterConsultation = () => {
           borderRadius: 2,
           bgcolor: "#ffffff",
           p: 3,
-          maxWidth: 1100,
+          maxWidth: { xs: "100%", sm: 900, md: 1100 },
+          width: "100%",
           mx: "auto",
         }}
         component="form"
         onSubmit={handleSubmit}
       >
         <Box sx={{ maxWidth: 900, mx: "auto" }}>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} justifyContent="center">
             {/* Chủ đề */}
             <Grid item xs={12} md={4}>
               <Typography sx={{ mb: 0.8 }}>Chủ đề buổi tư vấn</Typography>
@@ -141,7 +129,7 @@ const RegisterConsultation = () => {
           </Grid>
 
           {/* Nút Submit */}
-          <Box sx={{ mt: 4, display: "flex", justifyContent: "flex-end" }}>
+          <Box sx={{ mt: 4, display: "flex", justifyContent: "center" }}>
             <Button
               type="submit"
               width={140}
